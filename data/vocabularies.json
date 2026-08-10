@@ -1,0 +1,23 @@
+[
+  {
+    "id": "1",
+    "korean": "사과",
+    "english": "Apple",
+    "category": "Food",
+    "image": "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=600"
+  },
+  {
+    "id": "2",
+    "korean": "물",
+    "english": "Water",
+    "category": "Food",
+    "image": "https://images.unsplash.com/photo-1548839140-29a749e1bc4e?w=600"
+  },
+  {
+    "id": "3",
+    "korean": "학교",
+    "english": "School",
+    "category": "Places",
+    "image": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600"
+  }
+]
