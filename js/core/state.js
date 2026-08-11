@@ -21,3 +21,12 @@ let vocabularies = [];
       'a':'ㅁ', 's':'ㄴ', 'd':'ㅇ', 'f':'ㄹ', 'g':'ㅎ', 'h':'ㅗ', 'j':'ㅓ', 'k':'ㅏ', 'l':'ㅣ',
       'z':'ㅋ', 'x':'ㅌ', 'c':'ㅍ', 'v':'ㅊ', 'b':'ㅠ', 'n':'ㅜ', 'm':'ㅡ'
     };
+
+
+    // Study session state
+    let imageStudySession = { active: false, total: 10, completed: 0, correct: 0, skipped: 0, category: 'ALL', mode: 'typing', review: false };
+    let textStudySession = { active: false, total: 10, completed: 0, correct: 0, skipped: 0, category: 'ALL', mode: 'typing', review: false };
+
+// Mistake review state
+let reviewMistakes = [];
+let reviewFilter = 'ALL';

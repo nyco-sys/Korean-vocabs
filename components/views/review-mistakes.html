@@ -1,0 +1,28 @@
+<section class="view" id="review-view">
+  <div class="review-header glass-panel">
+    <div>
+      <span class="eyebrow">REVIEW</span>
+      <h2>🧠 Mistake Review</h2>
+      <p>Words you have answered incorrectly are saved here. Get them right to remove them from your review list.</p>
+    </div>
+    <div class="review-controls">
+      <label for="mistake-filter">Show</label>
+      <select id="mistake-filter" onchange="loadMistakeReview()">
+        <option value="ALL">All Mistakes</option>
+        <option value="image">Image Vocabs</option>
+        <option value="text">Text Vocabs</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="review-summary" id="mistake-summary"></div>
+
+  <div class="review-actions glass-panel">
+    <button class="btn btn-submit" type="button" onclick="startImageMistakeReview()">🖼️ Practice Image Mistakes</button>
+    <button class="btn btn-secondary" type="button" onclick="startTextMistakeReview()">📝 Practice Text Mistakes</button>
+  </div>
+
+  <div class="mistake-list" id="mistake-list">
+    <div class="glass-panel review-empty">Loading mistakes...</div>
+  </div>
+</section>

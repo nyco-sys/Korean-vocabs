@@ -82,7 +82,7 @@
     }
 
     function requireAdmin(tab) {
-      const protectedTabs = ['add','text-add','manage'];
+      const protectedTabs = ['add','text-add','manage','review'];
       if (protectedTabs.includes(tab) && !adminAuthenticated) {
         openLoginModal();
         return false;
@@ -99,5 +99,12 @@
       if(tab==='study') document.getElementById('user-input')?.focus();
       if(tab==='text-study') document.getElementById('text-user-input')?.focus();
       if(tab==='manage') loadManageData();
+      if(tab==='review') loadMistakeReview();
     }
 
+
+
+// Refresh statistics when authentication changes.
+function refreshStatisticsAfterAuth() {
+  if (typeof handleStatisticsAuthChange === 'function') handleStatisticsAuthChange();
+}

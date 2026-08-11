@@ -18,13 +18,30 @@
     }
 
     async function filterTextVocab() {
-      await loadStudyTextBatch(document.getElementById('text-category-filter')?.value || 'ALL');
+      if (textStudySession.active) await startTextStudy();
     }
 
     async function triggerRandomTextMode() {
       const s=document.getElementById('text-category-filter'); if(s) s.value='ALL';
-      await loadStudyTextBatch('ALL');
+      if (textStudySession.active) await startTextStudy();
     }
+
+    async function startTextStudy() {
+      const category = document.getElementById('text-category-filter')?.value || 'ALL';
+      const mode = document.getElementById('text-quiz-mode')?.value || 'typing';
+      const total = getStudyQuestionCount('text-question-count');
+      const review = textStudySession.review === true;
+      resetStudySession('text', { total, category, mode });
+      textStudySession.review = review;
+      textQuizMode = mode;
+      showStudyScreen('text', 'quiz');
+      await loadStudyTextBatch(category);
+      if (!filteredTextVocab.length) { textStudySession.active = false; showStudyScreen('text', 'settings'); document.getElementById('text-empty-notice').style.display='block'; return; }
+      textStudySession.total = Math.min(total, filteredTextVocab.length);
+      updateStudyProgress('text');
+    }
+
+    function restartTextStudy() { startTextStudy(); }
 
     function updateTextQuizUI() {
       clearTextInput();
@@ -39,6 +56,7 @@
       wrapper.style.display = 'flex';
       empty.style.display = 'none';
       const current = filteredTextVocab[currentTextIndex];
+      updateStudyProgress('text');
       document.getElementById('text-card-cat').textContent = current.category;
       document.getElementById('text-card-prompt').textContent = current.english;
       updateTextQuizModeUI();
@@ -89,7 +107,7 @@
         clickedButton.classList.add('correct');
         setFeedback('text-feedback', 'Correct! 정답입니다! 🎉', true);
         playCorrectSound();
-        setTimeout(nextTextQuestion, 1000);
+        setTimeout(() => { if (!recordStudyAnswer('text', 'correct')) nextTextQuestion(); }, 1000);
       } else {
         clickedButton.classList.add('incorrect');
         buttons.forEach(btn => {
@@ -97,6 +115,7 @@
         });
         setFeedback('text-feedback', `Incorrect! Correct answer: ${current.korean} ❌`, false);
         playWrongSound();
+        recordVocabularyMistake('text', current);
         setTimeout(() => {
           buttons.forEach(btn => btn.disabled = false);
         }, 900);
@@ -114,12 +133,13 @@
         feedback.style.color = 'var(--success)';
         feedback.textContent = 'Correct! 정답입니다! 🎉';
         playCorrectSound();
-        setTimeout(nextTextQuestion, 1200);
+        setTimeout(() => { if (!recordStudyAnswer('text', 'correct')) nextTextQuestion(); }, 1200);
       } else {
         inputEl.className = 'answer-input incorrect';
         feedback.style.color = 'var(--danger)';
         feedback.textContent = 'Incorrect! Try again. ❌';
         playWrongSound();
+        recordVocabularyMistake('text', current);
         setTimeout(() => inputEl.className = 'answer-input', 600);
       }
     }
@@ -133,12 +153,12 @@
       document.getElementById('text-feedback').textContent = `Answer: ${current.korean}`;
     }
 
-    function skipTextQuestion() { nextTextQuestion(); }
+    function skipTextQuestion() { if (!recordStudyAnswer('text', 'skipped')) nextTextQuestion(); }
 
     async function nextTextQuestion() {
-      if (!filteredTextVocab.length) return;
+      if (!textStudySession.active || !filteredTextVocab.length) return;
       if (currentTextIndex >= filteredTextVocab.length - 1) {
-        await loadStudyTextBatch(document.getElementById('text-category-filter')?.value || 'ALL');
+        await loadStudyTextBatch(textStudySession.category);
         return;
       }
       currentTextIndex += 1;

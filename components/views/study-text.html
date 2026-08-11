@@ -1,38 +1,22 @@
 <section class="view" id="text-study-view">
-  <div class="dashboard-bar glass-panel" style="padding: 0.8rem 1.2rem">
-    <select id="text-category-filter" onchange="filterTextVocab()">
-      <option value="ALL">All Categories</option>
-    </select>
-    <select id="text-quiz-mode" onchange="setTextQuizMode(this.value)">
-      <option value="typing">⌨️ Typing</option>
-      <option value="multiple">🔘 Multiple Choice</option>
-    </select>
-    <button class="btn btn-secondary" onclick="triggerRandomTextMode()" style="flex: 0 0 auto">🔀 Randomize All</button>
+  <div class="study-settings glass-panel" id="text-study-settings">
+    <div class="study-settings-header"><span class="eyebrow">TEXT STUDY</span><h2>How do you want to study?</h2><p>Practice Korean words from their English meaning.</p></div>
+    <div class="study-settings-grid">
+      <div class="form-group"><label for="text-category-filter">Category</label><select id="text-category-filter"><option value="ALL">All Categories</option></select></div>
+      <div class="form-group"><label for="text-quiz-mode">Question Type</label><select id="text-quiz-mode"><option value="typing">⌨️ Type the Korean answer</option><option value="multiple">🔘 Multiple Choice</option></select></div>
+      <div class="form-group"><label for="text-question-count">Questions</label><select id="text-question-count"><option value="5">5 Questions</option><option value="10" selected>10 Questions</option><option value="20">20 Questions</option></select></div>
+    </div>
+    <button class="btn btn-submit study-start-btn" type="button" onclick="startTextStudy()">Start Study →</button>
   </div>
-  <div class="glass-panel quiz-card text-quiz-card" id="text-quiz-wrapper">
-    <div class="text-prompt-container">
-      <span class="category-tag" id="text-card-cat">Category</span>
-      <div class="text-prompt-label">English / Meaning</div>
-      <div class="text-prompt" id="text-card-prompt">To go</div>
-    </div>
-    <div class="answer-box">
-      <div id="text-typing-answer-area">
-        <div class="input-wrapper">
-          <input autocomplete="off" class="answer-input" id="text-user-input" placeholder="Type Korean..." type="text" />
-        </div>
-      </div>
-      <div class="multiple-choice-options" id="text-multiple-choice" style="display: none"></div>
-      <div class="feedback-message" id="text-feedback"></div>
-    </div>
-    <div class="action-row" id="text-typing-actions">
-      <button class="btn btn-submit" onclick="checkTextAnswer()">Check Answer</button>
-      <button class="btn btn-secondary" onclick="showTextAnswer()">Answer</button>
-      <button class="btn btn-secondary" onclick="skipTextQuestion()">Skip</button>
-    </div>
+
+  <div class="glass-panel quiz-card text-quiz-card" id="text-quiz-wrapper" style="display:none;">
+    <div class="study-progress-row"><span class="study-progress" id="text-study-progress">Question 1 / 10</span><button class="study-exit-btn" type="button" onclick="openStudySettings('text')">⚙️ Settings</button></div>
+    <div class="text-prompt-container"><span class="category-tag" id="text-card-cat">Category</span><div class="text-prompt-label">English / Meaning</div><div class="text-prompt" id="text-card-prompt">To go</div></div>
+    <div class="answer-box"><div id="text-typing-answer-area"><div class="input-wrapper"><input autocomplete="off" class="answer-input" id="text-user-input" placeholder="Type Korean..." type="text"/></div></div><div class="multiple-choice-options" id="text-multiple-choice" style="display:none;"></div><div class="feedback-message" id="text-feedback"></div></div>
+    <div class="action-row" id="text-typing-actions"><button class="btn btn-submit" onclick="checkTextAnswer()">Check Answer</button><button class="btn btn-secondary" onclick="showTextAnswer()">Answer</button><button class="btn btn-secondary" onclick="skipTextQuestion()">Skip</button></div>
     <div class="keyboard-container" id="text-study-keyboard"></div>
   </div>
-  <div class="glass-panel" id="text-empty-notice" style="display: none; text-align: center; padding: 3rem">
-    <h3>No text vocabulary items found!</h3>
-    <p style="color: var(--text-muted); margin-top: 8px">Add some text vocabulary or choose another category.</p>
-  </div>
+
+  <div class="glass-panel study-result" id="text-study-result" style="display:none;"><div class="result-icon">🎉</div><span class="eyebrow">SESSION COMPLETE</span><h2>Great work!</h2><p class="result-score" id="text-result-score">0%</p><p><strong id="text-result-correct">0</strong> correct out of <strong id="text-result-total">10</strong></p><div class="result-stats"><div><span>Correct</span><strong id="text-result-correct-card">0</strong></div><div><span>Skipped</span><strong id="text-result-skipped">0</strong></div><div><span>Type</span><strong id="text-result-mode">Typing</strong></div></div><p class="result-meta">Category: <strong id="text-result-category">All Categories</strong></p><div class="result-actions"><button class="btn btn-submit" onclick="restartTextStudy()">Study Again</button><button class="btn btn-secondary" onclick="openStudySettings('text')">Change Settings</button></div></div>
+  <div class="glass-panel" id="text-empty-notice" style="display:none; text-align:center; padding:3rem;"><h3>No text vocabulary items found!</h3><p style="color:var(--text-muted); margin-top:8px;">Add some text vocabulary or choose another category.</p></div>
 </section>

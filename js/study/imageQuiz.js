@@ -14,13 +14,14 @@
         playCorrectSound();
         
         setTimeout(() => {
-          nextQuestion();
+          if (!recordStudyAnswer('image', 'correct')) nextQuestion();
         }, 1200);
       } else {
         inputEl.className = "answer-input incorrect";
         feedback.style.color = "var(--danger)";
         feedback.textContent = "Incorrect! Try again. ❌";
         playWrongSound();
+        recordVocabularyMistake('image', current);
         
         setTimeout(() => {
           inputEl.className = "answer-input";
@@ -37,13 +38,13 @@
     }
 
     function skipQuestion() {
-      nextQuestion();
+      if (!recordStudyAnswer('image', 'skipped')) nextQuestion();
     }
 
     async function nextQuestion() {
-      if (!filteredVocab.length) return;
+      if (!imageStudySession.active || !filteredVocab.length) return;
       if (currentIndex >= filteredVocab.length - 1) {
-        await loadStudyImageBatch(document.getElementById('category-filter')?.value || 'ALL');
+        await loadStudyImageBatch(imageStudySession.category);
         return;
       }
       currentIndex += 1;

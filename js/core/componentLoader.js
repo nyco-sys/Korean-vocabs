@@ -6,7 +6,9 @@ const APP_COMPONENTS = {
     'components/views/add-image.html',
     'components/views/study-text.html',
     'components/views/add-text.html',
-    'components/views/manage.html'
+    'components/views/manage.html',
+    'components/views/review-mistakes.html',
+    'components/views/statistics.html'
   ],
   modals: [
     'components/modals/edit-vocab.html',

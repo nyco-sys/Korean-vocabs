@@ -1,37 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0f0c20" />
-    <meta name="description" content="Interactive Korean vocabulary practice with Hangul typing and multiple choice." />
-    <title>한글 Practice - Korean Speller</title>
-    <link rel="stylesheet" href="css/main.css" />
-    <script src="https://unpkg.com/hangul-js@0.2.6/hangul.min.js"></script>
-  </head>
-  <body>
-    <div id="app-header"></div>
-    <main id="main-content" class="container">
-      <div id="app-views"></div>
-      <div id="app-modals"></div>
-    </main>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f0c20">
+  <meta name="description" content="Interactive Korean vocabulary practice with Hangul typing and multiple choice.">
+  <title>한글 Practice - Korean Speller</title>
+  <link rel="stylesheet" href="css/main.css">
+  <script src="https://unpkg.com/hangul-js@0.2.6/hangul.min.js"></script>
+</head>
+<body>
+  <div id="app-header"></div>
+  <main id="main-content" class="container">
+    <div id="app-views"></div>
+    <div id="app-modals"></div>
+  </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/config/supabase.js"></script>
-    <script src="js/core/state.js"></script>
-    <script src="js/api/data.js"></script>
-    <script src="js/audio/feedbackSound.js"></script>
-    <script src="js/study/imageStudy.js"></script>
-    <script src="js/components/imageKeyboard.js"></script>
-    <script src="js/study/imageQuiz.js"></script>
-    <script src="js/components/addImageKeyboard.js"></script>
-    <script src="js/study/textStudy.js"></script>
-    <script src="js/admin/addTextVocab.js"></script>
-    <script src="js/admin/auth.js"></script>
-    <script src="js/admin/addImageVocab.js"></script>
-    <script src="js/admin/manage.js"></script>
-    <script src="js/utils/json.js"></script>
-    <script src="js/core/componentLoader.js"></script>
-    <script src="js/core/bootstrap.js"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config/supabase.js"></script>
+  <script src="js/core/state.js"></script>
+  <script src="js/api/data.js"></script>
+  <script src="js/api/mistakes.js"></script>
+  <script src="js/api/statistics.js"></script>
+  <script src="js/audio/feedbackSound.js"></script>
+  <script src="js/study/studySession.js"></script>
+  <script src="js/study/imageStudy.js"></script>
+  <script src="js/components/imageKeyboard.js"></script>
+  <script src="js/study/imageQuiz.js"></script>
+  <script src="js/components/addImageKeyboard.js"></script>
+  <script src="js/study/textStudy.js"></script>
+  <script src="js/admin/addTextVocab.js"></script>
+  <script src="js/admin/auth.js"></script>
+  <script src="js/admin/addImageVocab.js"></script>
+  <script src="js/admin/manage.js"></script>
+  <script src="js/admin/reviewMistakes.js"></script>
+  <script src="js/admin/statistics.js"></script>
+  <script src="js/utils/json.js"></script>
+  <script src="js/core/componentLoader.js"></script>
+  <script src="js/core/statisticsNav.js"></script>
+  <script src="js/core/mobileNavigation.js"></script>
+  <script src="js/core/bootstrap.js"></script>
+</body>
 </html>

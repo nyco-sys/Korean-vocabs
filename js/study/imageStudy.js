@@ -1,16 +1,22 @@
     async function loadStudyImageBatch(category='ALL') {
       try {
-        vocabularies = (await fetchRandomStudyBatch('vocabularies', category)).map(item => ({
-          id:item.id,korean:item.korean,english:item.english||'',category:item.category,image:item.image
-        }));
-        filteredVocab=shuffleArray(vocabularies); currentIndex=0; updateQuizUI();
+        if (imageStudySession.review) {
+          vocabularies = await fetchReviewMistakeBatch('image', 20);
+        } else {
+          vocabularies = (await fetchRandomStudyBatch('vocabularies', category)).map(item => ({
+            id:item.id,korean:item.korean,english:item.english||'',category:item.category,image:item.image
+          }));
+        }
+        filteredVocab=shuffleArray(vocabularies); currentIndex=0; if (imageStudySession.active) updateQuizUI();
         console.log(`Loaded ${vocabularies.length} image study items (server-side batch).`);
       } catch(e) { console.error('Image study batch failed:',e); updateQuizUI(); }
     }
 
     async function loadStudyTextBatch(category='ALL') {
       try {
-        textVocabularies=await fetchRandomStudyBatch('text_vocabs',category);
+        textVocabularies = textStudySession.review
+          ? await fetchReviewMistakeBatch('text', 20)
+          : await fetchRandomStudyBatch('text_vocabs', category);
         filteredTextVocab=shuffleArray(textVocabularies); currentTextIndex=0; updateTextQuizUI();
         console.log(`Loaded ${textVocabularies.length} text study items (server-side batch).`);
       } catch(e) { console.error('Text study batch failed:',e); updateTextQuizUI(); }
@@ -22,13 +28,38 @@
         const textCats = await fetchCategories('text_vocabs');
         if (imageCats.length) setCategoryOptions('category-filter', imageCats);
         if (textCats.length) setCategoryOptions('text-category-filter', textCats);
-        await loadStudyImageBatch('ALL');
-        await loadStudyTextBatch('ALL');
+        // Do not download a study batch until the learner starts a session.
+        showStudyScreen('image', 'settings');
+        showStudyScreen('text', 'settings');
       } catch (e) {
-        console.error('Scalable initial load failed:', e);
-        vocabularies=[]; textVocabularies=[]; filteredVocab=[]; filteredTextVocab=[];
-        updateQuizUI(); updateTextQuizUI();
+        console.error('Study setup load failed:', e);
       }
+    }
+
+    async function startImageStudy() {
+      const category = document.getElementById('category-filter')?.value || 'ALL';
+      const mode = document.getElementById('image-quiz-mode')?.value || 'typing';
+      const total = getStudyQuestionCount('image-question-count');
+      const review = imageStudySession.review === true;
+      resetStudySession('image', { total, category, mode });
+      imageStudySession.review = review;
+      imageQuizMode = mode;
+      showStudyScreen('image', 'quiz');
+      await loadStudyImageBatch(category);
+      if (!filteredVocab.length) { imageStudySession.active = false; showStudyScreen('image', 'settings'); document.getElementById('empty-notice').style.display='block'; return; }
+      imageStudySession.total = Math.min(total, filteredVocab.length);
+      updateStudyProgress('image');
+    }
+
+    function restartImageStudy() { startImageStudy(); }
+
+    async function filterVocab() {
+      if (imageStudySession.active) await startImageStudy();
+    }
+
+    async function triggerRandomMode() {
+      const s=document.getElementById('category-filter'); if(s) s.value='ALL';
+      if (imageStudySession.active) await startImageStudy();
     }
 
     function saveToLocalStorage() {
@@ -79,6 +110,7 @@
       emptyNotice.style.display = 'none';
 
       const current = filteredVocab[currentIndex];
+      updateStudyProgress('image');
       document.getElementById('card-cat').textContent = current.category;
       document.getElementById('card-img').src = current.image;
       updateImageQuizModeUI();
@@ -157,7 +189,7 @@
         clickedButton.classList.add('correct');
         setFeedback('feedback', 'Correct! 정답입니다! 🎉', true);
         playCorrectSound();
-        setTimeout(nextQuestion, 1000);
+        setTimeout(() => { if (!recordStudyAnswer('image', 'correct')) nextQuestion(); }, 1000);
       } else {
         clickedButton.classList.add('incorrect');
         buttons.forEach(btn => {
@@ -165,6 +197,7 @@
         });
         setFeedback('feedback', `Incorrect! Correct answer: ${current.korean} ❌`, false);
         playWrongSound();
+        recordVocabularyMistake('image', current);
         setTimeout(() => {
           buttons.forEach(btn => btn.disabled = false);
         }, 900);

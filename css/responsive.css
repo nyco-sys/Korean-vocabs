@@ -653,3 +653,36 @@ main.container,
 @media(max-width:700px){
   body.admin-authenticated .admin-only-nav,#login-nav-btn,#logout-nav-btn{width:100%;justify-content:center}
 }
+
+
+/* =========================================================
+   NAVIGATION OVERRIDE
+   Hamburger navigation is handled by components/navigation.css.
+   This comes last so older responsive rules do not force the
+   navigation grid to remain visible on small screens.
+   ========================================================= */
+
+@media (max-width: 800px) {
+  header {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: nowrap !important;
+  }
+
+  header .main-nav {
+    display: none !important;
+  }
+
+  header .main-nav.is-open {
+    display: flex !important;
+  }
+
+  header .mobile-menu-toggle {
+    display: flex !important;
+  }
+
+  header .brand {
+    justify-content: flex-start !important;
+  }
+}

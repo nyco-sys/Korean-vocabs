@@ -6,3 +6,11 @@
 @import url("pages/text-study.css");
 @import url("pages/quiz.css");
 @import url("responsive.css");
+
+@import url("pages/study-session.css");
+
+@import url("pages/review.css");
+
+@import url("pages/statistics.css");
+
+@import url("components/navigation.css");

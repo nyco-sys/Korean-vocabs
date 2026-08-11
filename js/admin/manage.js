@@ -1,7 +1,7 @@
     /* MANAGE VOCABULARIES */
     let manageType = 'image';
     let managePage = 1;
-    const MANAGE_PAGE_SIZE = 20;
+    const MANAGE_PAGE_SIZE = 5;
     let editingVocabId = null, editingVocabType = null, editInputJamoSequence = [];
 
     function setManageType(type) {

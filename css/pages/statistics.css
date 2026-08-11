@@ -1,0 +1,155 @@
+
+/* Study Statistics */
+
+.stats-period {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stats-period label {
+  font-size: 0.85rem;
+  color: var(--muted-text, #8f8ba6);
+}
+
+.stats-period select {
+  min-width: 150px;
+}
+
+.stats-notice {
+  text-align: center;
+  padding: 42px 24px;
+  margin-top: 20px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.stats-grid-small {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.stats-card {
+  padding: 22px;
+}
+
+.stats-card span {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--muted-text, #8f8ba6);
+}
+
+.stats-card strong {
+  display: block;
+  font-size: 2rem;
+  line-height: 1.1;
+  margin: 8px 0;
+}
+
+.stats-card small {
+  color: var(--muted-text, #8f8ba6);
+}
+
+.stats-two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.stats-section {
+  padding: 22px;
+  margin-top: 18px;
+}
+
+.stats-two-column .stats-section {
+  margin-top: 0;
+}
+
+.stats-section-header h3 {
+  margin: 4px 0 0;
+}
+
+.stats-list {
+  margin-top: 16px;
+}
+
+.stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(127, 127, 127, 0.15);
+}
+
+.stats-row:last-child {
+  border-bottom: 0;
+}
+
+.stats-row strong {
+  display: block;
+}
+
+.stats-row small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted-text, #8f8ba6);
+}
+
+.stats-score,
+.stats-count {
+  flex: 0 0 auto;
+  font-weight: 700;
+}
+
+.stats-score.good { color: var(--success, #4ade80); }
+.stats-score.medium { color: #fbbf24; }
+.stats-score.bad { color: var(--danger, #f87171); }
+
+.stats-muted {
+  color: var(--muted-text, #8f8ba6);
+  padding: 12px 0;
+}
+
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .stats-grid-small {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .stats-two-column {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .stats-period {
+    width: 100%;
+    margin-top: 12px;
+  }
+
+  .stats-period select {
+    flex: 1;
+  }
+
+  .stats-grid,
+  .stats-grid-small {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-card {
+    padding: 18px;
+  }
+
+  .stats-section {
+    padding: 18px;
+  }
+}

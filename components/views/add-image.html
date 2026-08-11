@@ -1,123 +1,71 @@
 <section class="view" id="add-view">
-  <div class="glass-panel">
-    <h2 style="margin-bottom: 1.5rem">Add New Vocabulary</h2>
-    <form id="vocab-form" onsubmit="addVocabulary(event)">
-      <div class="form-group">
-        <label>Category</label>
-        <input class="form-control" id="input-category" placeholder="e.g. Food, Animals" required="" type="text" />
-      </div>
-      <div class="form-group">
-        <label>Korean Word (Correct Answer)</label>
-        <input class="form-control" id="input-korean" placeholder="e.g. 사과" required="" type="text" />
-        <div class="keyboard-container add-korean-keyboard" id="add-korean-keyboard">
-          <div class="kb-row">
-            <button class="kb-key" data-normal="ㅂ" data-shift="ㅃ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="sub-char">ㅃ</span><span class="main-char">ㅂ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅈ" data-shift="ㅉ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="sub-char">ㅉ</span><span class="main-char">ㅈ</span>
-            </button>
-            <button class="kb-key" data-normal="ㄷ" data-shift="ㄸ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="sub-char">ㄸ</span><span class="main-char">ㄷ</span>
-            </button>
-            <button class="kb-key" data-normal="ㄱ" data-shift="ㄲ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="sub-char">ㄲ</span><span class="main-char">ㄱ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅅ" data-shift="ㅆ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="sub-char">ㅆ</span><span class="main-char">ㅅ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅛ" data-shift="ㅛ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅛ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅕ" data-shift="ㅕ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅕ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅑ" data-shift="ㅑ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅑ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅐ" data-shift="ㅒ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="sub-char">ㅒ</span><span class="main-char">ㅐ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅔ" data-shift="ㅖ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="sub-char">ㅖ</span><span class="main-char">ㅔ</span>
-            </button>
-          </div>
-          <div class="kb-row">
-            <button class="kb-key" data-normal="ㅁ" data-shift="ㅁ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅁ</span>
-            </button>
-            <button class="kb-key" data-normal="ㄴ" data-shift="ㄴ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㄴ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅇ" data-shift="ㅇ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅇ</span>
-            </button>
-            <button class="kb-key" data-normal="ㄹ" data-shift="ㄹ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㄹ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅎ" data-shift="ㅎ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅎ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅗ" data-shift="ㅗ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅗ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅓ" data-shift="ㅓ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅓ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅏ" data-shift="ㅏ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅏ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅣ" data-shift="ㅣ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅣ</span>
-            </button>
-          </div>
-          <div class="kb-row">
-            <button class="kb-key wide" id="add-shift-btn" onclick="toggleAddShift()" type="button">Shift ⇧</button>
-            <button class="kb-key" data-normal="ㅋ" data-shift="ㅋ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅋ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅌ" data-shift="ㅌ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅌ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅍ" data-shift="ㅍ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅍ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅊ" data-shift="ㅊ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅊ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅠ" data-shift="ㅠ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅠ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅜ" data-shift="ㅜ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅜ</span>
-            </button>
-            <button class="kb-key" data-normal="ㅡ" data-shift="ㅡ" onclick="pressAddKeyFromBtn(this)" type="button">
-              <span class="main-char">ㅡ</span>
-            </button>
-            <button class="kb-key wide" onclick="pressAddBackspace()" type="button">⌫</button>
-          </div>
-          <div class="kb-row">
-            <button class="kb-key space-key" onclick="pressAddKey(' ')" type="button">Space</button>
-            <button class="kb-key wide" onclick="clearAddKoreanInput()" type="button">Clear</button>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <label>English Name (Optional Reference)</label>
-        <input class="form-control" id="input-english" placeholder="e.g. Apple" type="text" />
-      </div>
-      <div class="form-group">
-        <label>Image URL</label>
-        <input class="form-control" id="input-image" placeholder="https://images.unsplash.com/..." required="" type="url" />
-      </div>
-      <button class="btn btn-submit" style="width: 100%; padding: 12px" type="submit">Save Item</button>
-    </form>
-    <div class="json-actions">
-      <button class="btn btn-secondary" onclick="exportJSON()">📥 Export JSON</button>
-      <label class="btn btn-secondary" style="cursor: pointer; text-align: center">
-        📤 Import JSON
-        <input accept=".json" id="import-file" onchange="importJSON(event)" style="display: none" type="file" />
-      </label>
-    </div>
-  </div>
+<div class="glass-panel">
+<h2 style="margin-bottom: 1.5rem;">Add New Vocabulary</h2>
+<form id="vocab-form" onsubmit="addVocabulary(event)">
+<div class="form-group">
+<label>Category</label>
+<input class="form-control" id="input-category" placeholder="e.g. Food, Animals" required="" type="text"/>
+</div>
+<div class="form-group">
+<label>Korean Word (Correct Answer)</label>
+<input class="form-control" id="input-korean" placeholder="e.g. 사과" required="" type="text"/>
+<div class="keyboard-container add-korean-keyboard" id="add-korean-keyboard">
+<div class="kb-row">
+<button class="kb-key" data-normal="ㅂ" data-shift="ㅃ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="sub-char">ㅃ</span><span class="main-char">ㅂ</span></button>
+<button class="kb-key" data-normal="ㅈ" data-shift="ㅉ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="sub-char">ㅉ</span><span class="main-char">ㅈ</span></button>
+<button class="kb-key" data-normal="ㄷ" data-shift="ㄸ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="sub-char">ㄸ</span><span class="main-char">ㄷ</span></button>
+<button class="kb-key" data-normal="ㄱ" data-shift="ㄲ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="sub-char">ㄲ</span><span class="main-char">ㄱ</span></button>
+<button class="kb-key" data-normal="ㅅ" data-shift="ㅆ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="sub-char">ㅆ</span><span class="main-char">ㅅ</span></button>
+<button class="kb-key" data-normal="ㅛ" data-shift="ㅛ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅛ</span></button>
+<button class="kb-key" data-normal="ㅕ" data-shift="ㅕ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅕ</span></button>
+<button class="kb-key" data-normal="ㅑ" data-shift="ㅑ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅑ</span></button>
+<button class="kb-key" data-normal="ㅐ" data-shift="ㅒ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="sub-char">ㅒ</span><span class="main-char">ㅐ</span></button>
+<button class="kb-key" data-normal="ㅔ" data-shift="ㅖ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="sub-char">ㅖ</span><span class="main-char">ㅔ</span></button>
+</div>
+<div class="kb-row">
+<button class="kb-key" data-normal="ㅁ" data-shift="ㅁ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅁ</span></button>
+<button class="kb-key" data-normal="ㄴ" data-shift="ㄴ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㄴ</span></button>
+<button class="kb-key" data-normal="ㅇ" data-shift="ㅇ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅇ</span></button>
+<button class="kb-key" data-normal="ㄹ" data-shift="ㄹ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㄹ</span></button>
+<button class="kb-key" data-normal="ㅎ" data-shift="ㅎ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅎ</span></button>
+<button class="kb-key" data-normal="ㅗ" data-shift="ㅗ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅗ</span></button>
+<button class="kb-key" data-normal="ㅓ" data-shift="ㅓ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅓ</span></button>
+<button class="kb-key" data-normal="ㅏ" data-shift="ㅏ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅏ</span></button>
+<button class="kb-key" data-normal="ㅣ" data-shift="ㅣ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅣ</span></button>
+</div>
+<div class="kb-row">
+<button class="kb-key wide" id="add-shift-btn" onclick="toggleAddShift()" type="button">Shift ⇧</button>
+<button class="kb-key" data-normal="ㅋ" data-shift="ㅋ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅋ</span></button>
+<button class="kb-key" data-normal="ㅌ" data-shift="ㅌ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅌ</span></button>
+<button class="kb-key" data-normal="ㅍ" data-shift="ㅍ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅍ</span></button>
+<button class="kb-key" data-normal="ㅊ" data-shift="ㅊ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅊ</span></button>
+<button class="kb-key" data-normal="ㅠ" data-shift="ㅠ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅠ</span></button>
+<button class="kb-key" data-normal="ㅜ" data-shift="ㅜ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅜ</span></button>
+<button class="kb-key" data-normal="ㅡ" data-shift="ㅡ" onclick="pressAddKeyFromBtn(this)" type="button"><span class="main-char">ㅡ</span></button>
+<button class="kb-key wide" onclick="pressAddBackspace()" type="button">⌫</button>
+</div>
+<div class="kb-row">
+<button class="kb-key space-key" onclick="pressAddKey(' ')" type="button">Space</button>
+<button class="kb-key wide" onclick="clearAddKoreanInput()" type="button">Clear</button>
+</div>
+</div>
+</div>
+<div class="form-group">
+<label>English Name (Optional Reference)</label>
+<input class="form-control" id="input-english" placeholder="e.g. Apple" type="text"/>
+</div>
+<div class="form-group">
+<label>Image URL</label>
+<input class="form-control" id="input-image" placeholder="https://images.unsplash.com/..." required="" type="url"/>
+</div>
+<button class="btn btn-submit" style="width: 100%; padding: 12px;" type="submit">Save Item</button>
+</form>
+<div class="json-actions">
+<button class="btn btn-secondary" onclick="exportJSON()">📥 Export JSON</button>
+<label class="btn btn-secondary" style="cursor: pointer; text-align: center;">
+            📤 Import JSON
+            <input accept=".json" id="import-file" onchange="importJSON(event)" style="display: none;" type="file"/>
+</label>
+</div>
+</div>
 </section>

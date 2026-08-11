@@ -1,0 +1,68 @@
+/* Mistake Review */
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: end;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.review-header h2 { margin: 5px 0 8px; }
+.review-header p { color: var(--text-muted); max-width: 650px; margin: 0; }
+.review-controls { min-width: 190px; }
+.review-controls label { display:block; margin-bottom:6px; }
+.review-controls select { width:100%; }
+.review-summary {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-bottom:16px;
+}
+.review-stat {
+  background: var(--surface, rgba(255,255,255,.72));
+  border:1px solid var(--border, #e5e7eb);
+  border-radius:16px;
+  padding:16px 18px;
+}
+.review-stat span { display:block; color:var(--text-muted); font-size:.82rem; }
+.review-stat strong { display:block; font-size:1.55rem; margin-top:4px; }
+.review-actions {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  padding:16px;
+  margin-bottom:16px;
+}
+.mistake-list { display:grid; gap:12px; }
+.mistake-card {
+  display:grid;
+  grid-template-columns:90px minmax(0,1fr) auto;
+  align-items:center;
+  gap:16px;
+  padding:14px;
+}
+.mistake-card-media { width:90px; height:70px; }
+.mistake-card-media img {
+  width:100%; height:100%; object-fit:cover; border-radius:10px; display:block;
+}
+.mistake-text-icon {
+  width:100%; height:100%; display:grid; place-items:center;
+  border-radius:10px; background:#f3f4f6; font-size:1.7rem; font-weight:800;
+}
+.mistake-card-content h3 { margin:7px 0 2px; }
+.mistake-card-content p { margin:0 0 5px; color:var(--text-muted); }
+.mistake-count { font-size:.8rem; color:var(--danger); font-weight:700; }
+.mistake-remove { min-width:42px; }
+.review-empty { text-align:center; padding:48px 20px; }
+.review-empty-icon { font-size:2.3rem; margin-bottom:8px; }
+.review-empty h3 { margin:0 0 6px; }
+.review-empty p { color:var(--text-muted); margin:0; }
+@media (max-width:700px) {
+  .review-header { flex-direction:column; align-items:stretch; }
+  .review-summary { grid-template-columns:1fr 1fr 1fr; }
+}
+@media (max-width:520px) {
+  .review-summary { grid-template-columns:1fr; }
+  .mistake-card { grid-template-columns:70px minmax(0,1fr) auto; gap:10px; }
+  .mistake-card-media { width:70px; height:58px; }
+}

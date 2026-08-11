@@ -1,0 +1,109 @@
+
+<section id="statistics-view" class="view">
+  <div class="page-header">
+    <div>
+      <span class="eyebrow">PROGRESS</span>
+      <h2>📊 Study Statistics</h2>
+      <p>See how you're progressing and which vocabulary needs more practice.</p>
+    </div>
+    <div class="stats-period">
+      <label for="statistics-period">Period</label>
+      <select id="statistics-period" onchange="loadStatistics()">
+        <option value="7">Last 7 days</option>
+        <option value="30" selected>Last 30 days</option>
+        <option value="90">Last 90 days</option>
+        <option value="365">Last year</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="statistics-login-notice" class="glass-panel stats-notice" style="display:none">
+    <div class="review-empty-icon">🔐</div>
+    <h3>Log in to view your statistics</h3>
+    <p>Your study activity is private to your account.</p>
+    <button class="btn btn-primary" type="button" onclick="openLoginModal()">Admin Login</button>
+  </div>
+
+  <div id="statistics-content">
+    <div id="statistics-loading" class="glass-panel stats-notice">Loading statistics...</div>
+
+    <div id="statistics-dashboard" style="display:none">
+      <div class="stats-grid">
+        <div class="stats-card glass-panel">
+          <span>Total Attempts</span>
+          <strong id="stat-total">0</strong>
+          <small>questions answered or skipped</small>
+        </div>
+        <div class="stats-card glass-panel">
+          <span>Correct</span>
+          <strong id="stat-correct">0</strong>
+          <small>correct answers</small>
+        </div>
+        <div class="stats-card glass-panel">
+          <span>Wrong</span>
+          <strong id="stat-wrong">0</strong>
+          <small>incorrect attempts</small>
+        </div>
+        <div class="stats-card glass-panel">
+          <span>Accuracy</span>
+          <strong id="stat-accuracy">0%</strong>
+          <small>correct / answered</small>
+        </div>
+      </div>
+
+      <div class="stats-grid stats-grid-small">
+        <div class="stats-card glass-panel">
+          <span>🖼️ Image Attempts</span>
+          <strong id="stat-image">0</strong>
+        </div>
+        <div class="stats-card glass-panel">
+          <span>📝 Text Attempts</span>
+          <strong id="stat-text">0</strong>
+        </div>
+        <div class="stats-card glass-panel">
+          <span>⏭️ Skipped</span>
+          <strong id="stat-skipped">0</strong>
+        </div>
+      </div>
+
+      <div class="stats-two-column">
+        <section class="glass-panel stats-section">
+          <div class="stats-section-header">
+            <div>
+              <span class="eyebrow">DIFFICULTY</span>
+              <h3>Most Difficult Categories</h3>
+            </div>
+          </div>
+          <div id="stats-categories" class="stats-list"></div>
+        </section>
+
+        <section class="glass-panel stats-section">
+          <div class="stats-section-header">
+            <div>
+              <span class="eyebrow">REVIEW</span>
+              <h3>Words You Miss Most</h3>
+            </div>
+          </div>
+          <div id="stats-difficult-words" class="stats-list"></div>
+        </section>
+      </div>
+
+      <section class="glass-panel stats-section">
+        <div class="stats-section-header">
+          <div>
+            <span class="eyebrow">PRACTICE</span>
+            <h3>Most Practiced Vocabulary</h3>
+          </div>
+        </div>
+        <div id="stats-practiced-words" class="stats-list"></div>
+      </section>
+    </div>
+
+    <div id="statistics-empty" class="glass-panel stats-notice" style="display:none">
+      <div class="review-empty-icon">📚</div>
+      <h3>No study activity yet</h3>
+      <p>Complete a study question and your statistics will appear here.</p>
+      <button class="btn btn-primary" type="button" onclick="switchTab('study')">Start Studying</button>
+    </div>
+  </div>
+</section>

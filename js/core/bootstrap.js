@@ -20,11 +20,15 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
       if (loginBtn) loginBtn.style.display = adminAuthenticated ? 'none' : '';
       if (logoutBtn) logoutBtn.style.display = adminAuthenticated ? '' : 'none';
+      if (typeof refreshStatisticsAfterAuth === 'function') refreshStatisticsAfterAuth();
     });
   }
   await loadInitialData();
+  openStudySettings('image');
+  openStudySettings('text');
   setupPhysicalKeyboardListener();
   setupAddKoreanKeyboard();
   setupTextKoreanKeyboards();
   setupEditKoreanKeyboard();
+  if (adminAuthenticated) loadStatistics();
 });
