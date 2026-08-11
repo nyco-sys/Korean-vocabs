@@ -3,18 +3,17 @@
     <div class="study-settings-header">
       <span class="eyebrow">IMAGE STUDY</span>
       <h2>How do you want to study?</h2>
-      <p>Choose your category, question type, and session length.</p>
+      <p>Choose your category and question type. All available vocabulary will be included.</p>
     </div>
     <div class="study-settings-grid">
       <div class="form-group"><label for="category-filter">Category</label><select id="category-filter"><option value="ALL">All Categories</option></select></div>
       <div class="form-group"><label for="image-quiz-mode">Question Type</label><select id="image-quiz-mode"><option value="typing">⌨️ Type the Korean answer</option><option value="multiple">🔘 Multiple Choice</option></select></div>
-      <div class="form-group"><label for="image-question-count">Questions</label><select id="image-question-count"><option value="5">5 Questions</option><option value="10" selected>10 Questions</option><option value="20">20 Questions</option></select></div>
     </div>
     <button class="btn btn-submit study-start-btn" type="button" onclick="startImageStudy()">Start Study →</button>
   </div>
 
   <div class="glass-panel quiz-card" id="quiz-wrapper" style="display:none;">
-    <div class="study-progress-row"><span class="study-progress" id="image-study-progress">Question 1 / 10</span><button class="study-exit-btn" type="button" onclick="openStudySettings('image')">⚙️ Settings</button></div>
+    <div class="study-progress-row"><span class="study-progress" id="image-study-progress">Question 1</span><button class="study-exit-btn" type="button" onclick="openStudySettings('image')">⚙️ Settings</button></div>
     <div class="quiz-image-container">
       <span class="category-tag" id="card-cat">Category</span>
       <img alt="Vocabulary Image" class="quiz-image" id="card-img" src=""/>
@@ -38,7 +37,7 @@
   </div>
 
   <div class="glass-panel study-result" id="study-result" style="display:none;">
-    <div class="result-icon">🎉</div><span class="eyebrow">SESSION COMPLETE</span><h2>Great work!</h2><p class="result-score" id="result-score">0%</p><p><strong id="result-correct">0</strong> correct out of <strong id="result-total">10</strong></p>
+    <div class="result-icon">🎉</div><span class="eyebrow">SESSION COMPLETE</span><h2>Great work!</h2><p class="result-score" id="result-score">0%</p><p><strong id="result-correct">0</strong> correct out of <strong id="result-total">0</strong></p>
     <div class="result-stats"><div><span>Correct</span><strong id="result-correct-card">0</strong></div><div><span>Skipped</span><strong id="result-skipped">0</strong></div><div><span>Type</span><strong id="result-mode">Typing</strong></div></div>
     <p class="result-meta">Category: <strong id="result-category">All Categories</strong></p>
     <div class="result-actions"><button class="btn btn-submit" onclick="restartImageStudy()">Study Again</button><button class="btn btn-secondary" onclick="openStudySettings('image')">Change Settings</button></div>

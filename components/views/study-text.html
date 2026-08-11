@@ -1,16 +1,15 @@
 <section class="view" id="text-study-view">
   <div class="study-settings glass-panel" id="text-study-settings">
-    <div class="study-settings-header"><span class="eyebrow">TEXT STUDY</span><h2>How do you want to study?</h2><p>Practice Korean words from their English meaning.</p></div>
+    <div class="study-settings-header"><span class="eyebrow">TEXT STUDY</span><h2>How do you want to study?</h2><p>Practice Korean words from their English meaning. All available vocabulary will be included.</p></div>
     <div class="study-settings-grid">
       <div class="form-group"><label for="text-category-filter">Category</label><select id="text-category-filter"><option value="ALL">All Categories</option></select></div>
       <div class="form-group"><label for="text-quiz-mode">Question Type</label><select id="text-quiz-mode"><option value="typing">⌨️ Type the Korean answer</option><option value="multiple">🔘 Multiple Choice</option></select></div>
-      <div class="form-group"><label for="text-question-count">Questions</label><select id="text-question-count"><option value="5">5 Questions</option><option value="10" selected>10 Questions</option><option value="20">20 Questions</option></select></div>
     </div>
     <button class="btn btn-submit study-start-btn" type="button" onclick="startTextStudy()">Start Study →</button>
   </div>
 
   <div class="glass-panel quiz-card text-quiz-card" id="text-quiz-wrapper" style="display:none;">
-    <div class="study-progress-row"><span class="study-progress" id="text-study-progress">Question 1 / 10</span><button class="study-exit-btn" type="button" onclick="openStudySettings('text')">⚙️ Settings</button></div>
+    <div class="study-progress-row"><span class="study-progress" id="text-study-progress">Question 1</span><button class="study-exit-btn" type="button" onclick="openStudySettings('text')">⚙️ Settings</button></div>
     <div class="text-prompt-container"><span class="category-tag" id="text-card-cat">Category</span><div class="text-prompt-label">English / Meaning</div><div class="text-prompt" id="text-card-prompt">To go</div></div>
     <div class="answer-box"><div id="text-typing-answer-area"><div class="input-wrapper"><input autocomplete="off" class="answer-input" id="text-user-input" placeholder="Type Korean..." type="text"/></div></div><div class="multiple-choice-options" id="text-multiple-choice" style="display:none;"></div><div class="feedback-message" id="text-feedback"></div></div>
     <div class="action-row" id="text-typing-actions"><button class="btn btn-submit" onclick="checkTextAnswer()">Check Answer</button><button class="btn btn-secondary" onclick="showTextAnswer()">Answer</button><button class="btn btn-secondary" onclick="skipTextQuestion()">Skip</button></div>

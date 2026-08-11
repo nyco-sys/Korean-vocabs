@@ -30,3 +30,7 @@ Run `supabase_study_statistics.sql` once in Supabase. Statistics are private per
 ## Responsive hamburger navigation
 
 The navbar collapses into a hamburger menu at 800px and below. Navigation remains horizontal on larger screens.
+
+## Study question count
+
+Study sessions automatically use all vocabulary available in the selected category. The question-count selector was removed; items are shuffled before the session starts.

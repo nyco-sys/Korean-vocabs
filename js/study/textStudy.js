@@ -29,15 +29,14 @@
     async function startTextStudy() {
       const category = document.getElementById('text-category-filter')?.value || 'ALL';
       const mode = document.getElementById('text-quiz-mode')?.value || 'typing';
-      const total = getStudyQuestionCount('text-question-count');
       const review = textStudySession.review === true;
-      resetStudySession('text', { total, category, mode });
+      resetStudySession('text', { total: 0, category, mode });
       textStudySession.review = review;
       textQuizMode = mode;
       showStudyScreen('text', 'quiz');
       await loadStudyTextBatch(category);
       if (!filteredTextVocab.length) { textStudySession.active = false; showStudyScreen('text', 'settings'); document.getElementById('text-empty-notice').style.display='block'; return; }
-      textStudySession.total = Math.min(total, filteredTextVocab.length);
+      textStudySession.total = filteredTextVocab.length;
       updateStudyProgress('text');
     }
 
@@ -224,19 +223,75 @@
       ];
       container.innerHTML = '';
       let shift = false;
+      let shiftBtn = null;
+      const keyboardButtons = [];
+
+      const updateKeyboardShiftState = () => {
+        keyboardButtons.forEach(({ main, normal, shifted }) => {
+          main.textContent = shift ? shifted : normal;
+        });
+
+        if (shiftBtn) {
+          shiftBtn.classList.toggle('active-shift', shift);
+          shiftBtn.setAttribute('aria-pressed', String(shift));
+        }
+      };
+
       rows.forEach((row, ri) => {
-        const rowEl = document.createElement('div'); rowEl.className = 'kb-row';
+        const rowEl = document.createElement('div');
+        rowEl.className = 'kb-row';
+
         if (ri === 2) {
-          const shiftBtn = document.createElement('button');
-          shiftBtn.type='button'; shiftBtn.className='kb-key wide'; shiftBtn.textContent='Shift ⇧';
-          shiftBtn.onclick=()=>{ shift=!shift; shiftBtn.classList.toggle('active-shift',shift); };
+          shiftBtn = document.createElement('button');
+          shiftBtn.type = 'button';
+          shiftBtn.className = 'kb-key wide';
+          shiftBtn.textContent = 'Shift ⇧';
+          shiftBtn.setAttribute('aria-pressed', 'false');
+
+          shiftBtn.onclick = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            shift = !shift;
+            updateKeyboardShiftState();
+          };
+
           rowEl.appendChild(shiftBtn);
         }
+
         row.forEach(([normal, shifted]) => {
-          const btn=document.createElement('button'); btn.type='button'; btn.className='kb-key';
-          if (shifted !== normal) { const sub=document.createElement('span'); sub.className='sub-char'; sub.textContent=shifted; btn.appendChild(sub); }
-          const main=document.createElement('span'); main.className='main-char'; main.textContent=normal; btn.appendChild(main);
-          btn.onclick=()=>{ handleGenericKey(mode, shift ? shifted : normal); if(shift){shift=false; shiftBtn?.classList.remove('active-shift');} };
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'kb-key';
+
+          if (shifted !== normal) {
+            const sub = document.createElement('span');
+            sub.className = 'sub-char';
+            sub.textContent = shifted;
+            btn.appendChild(sub);
+          }
+
+          const main = document.createElement('span');
+          main.className = 'main-char';
+          main.textContent = normal;
+          btn.appendChild(main);
+
+          keyboardButtons.push({ main, normal, shifted });
+
+          btn.onclick = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const char = shift ? shifted : normal;
+            handleGenericKey(mode, char);
+
+            // Shift behaves like a real Korean keyboard: it applies to
+            // one character, then returns to normal.
+            if (shift) {
+              shift = false;
+              updateKeyboardShiftState();
+            }
+          };
+
           rowEl.appendChild(btn);
         });
         if (ri === 2) {
@@ -258,6 +313,11 @@
       studyInput.addEventListener('focus',()=>document.getElementById('text-study-keyboard').classList.add('visible'));
       addInput.addEventListener('focus',()=>document.getElementById('text-add-korean-keyboard').classList.add('visible'));
       const setup=(input,mode)=>input.addEventListener('keydown',e=>{
+        if(e.key==='Shift'){
+          // Physical Shift is handled naturally through e.key (Q/W/E...)
+          // for QWERTY input, so don't insert anything here.
+          return;
+        }
         if(e.key==='Backspace'){e.preventDefault();handleGenericBackspace(mode);}
         else if(e.key==='Enter' && mode==='text-study'){e.preventDefault();checkTextAnswer();}
         else if(e.key===' '){e.preventDefault();handleGenericKey(mode,' ');}

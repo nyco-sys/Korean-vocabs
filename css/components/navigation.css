@@ -1,3 +1,4 @@
+
 /* =========================================================
    NAVIGATION
    ========================================================= */
@@ -7,6 +8,9 @@ header {
 }
 
 .main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
   gap: 5px;
   flex-wrap: wrap;
   max-width: 100%;
@@ -45,9 +49,7 @@ header {
   height: 2px;
   border-radius: 2px;
   background: currentColor;
-  transition:
-    transform 0.25s ease,
-    opacity 0.2s ease;
+  transition: transform 0.25s ease, opacity 0.2s ease;
 }
 
 .mobile-menu-toggle.is-open span:nth-child(1) {

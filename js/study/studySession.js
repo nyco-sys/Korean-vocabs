@@ -1,9 +1,12 @@
 /* Shared study settings, session tracking, and results. */
-const STUDY_QUESTION_OPTIONS = [5, 10, 20];
+// The study session uses every vocabulary item returned for the selected
+// category. There is no manual question-count limit.
+function getStudyQuestionCount() {
+  return Number.MAX_SAFE_INTEGER;
+}
 
-function getStudyQuestionCount(id, fallback = 10) {
-  const value = Number(document.getElementById(id)?.value || fallback);
-  return STUDY_QUESTION_OPTIONS.includes(value) ? value : fallback;
+function getAvailableStudyQuestionCount(items) {
+  return Array.isArray(items) ? items.length : 0;
 }
 
 function showStudyScreen(type, screen) {

@@ -8,7 +8,7 @@
           }));
         }
         filteredVocab=shuffleArray(vocabularies); currentIndex=0; if (imageStudySession.active) updateQuizUI();
-        console.log(`Loaded ${vocabularies.length} image study items (server-side batch).`);
+        console.log(`Loaded ${vocabularies.length} image study items (full session).`);
       } catch(e) { console.error('Image study batch failed:',e); updateQuizUI(); }
     }
 
@@ -18,7 +18,7 @@
           ? await fetchReviewMistakeBatch('text', 20)
           : await fetchRandomStudyBatch('text_vocabs', category);
         filteredTextVocab=shuffleArray(textVocabularies); currentTextIndex=0; updateTextQuizUI();
-        console.log(`Loaded ${textVocabularies.length} text study items (server-side batch).`);
+        console.log(`Loaded ${textVocabularies.length} text study items (full session).`);
       } catch(e) { console.error('Text study batch failed:',e); updateTextQuizUI(); }
     }
 
@@ -39,15 +39,14 @@
     async function startImageStudy() {
       const category = document.getElementById('category-filter')?.value || 'ALL';
       const mode = document.getElementById('image-quiz-mode')?.value || 'typing';
-      const total = getStudyQuestionCount('image-question-count');
       const review = imageStudySession.review === true;
-      resetStudySession('image', { total, category, mode });
+      resetStudySession('image', { total: 0, category, mode });
       imageStudySession.review = review;
       imageQuizMode = mode;
       showStudyScreen('image', 'quiz');
       await loadStudyImageBatch(category);
       if (!filteredVocab.length) { imageStudySession.active = false; showStudyScreen('image', 'settings'); document.getElementById('empty-notice').style.display='block'; return; }
-      imageStudySession.total = Math.min(total, filteredVocab.length);
+      imageStudySession.total = filteredVocab.length;
       updateStudyProgress('image');
     }
 
