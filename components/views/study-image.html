@@ -1,0 +1,95 @@
+<section class="view active" id="study-view">
+  <div class="dashboard-bar glass-panel" style="padding: 0.8rem 1.2rem">
+    <select id="category-filter" onchange="filterVocab()">
+      <option value="ALL">All Categories</option>
+    </select>
+    <select id="image-quiz-mode" onchange="setImageQuizMode(this.value)">
+      <option value="typing">⌨️ Typing</option>
+      <option value="multiple">🔘 Multiple Choice</option>
+    </select>
+    <button class="btn btn-secondary" onclick="triggerRandomMode()" style="flex: 0 0 auto">🔀 Randomize All</button>
+  </div>
+  <div class="glass-panel quiz-card" id="quiz-wrapper">
+    <div class="quiz-image-container">
+      <span class="category-tag" id="card-cat">Category</span>
+      <img alt="Vocabulary Image" class="quiz-image" id="card-img" src="" />
+    </div>
+    <div class="answer-box">
+      <div id="typing-answer-area">
+        <div class="input-wrapper">
+          <input autofocus="" class="answer-input" id="user-input" placeholder="Type or click keys..." type="text" />
+        </div>
+      </div>
+      <div class="multiple-choice-options" id="image-multiple-choice" style="display: none"></div>
+      <div class="feedback-message" id="feedback"></div>
+    </div>
+    <div class="action-row" id="image-typing-actions">
+      <button class="btn btn-submit" onclick="checkAnswer()">Check Answer</button>
+      <button class="btn btn-secondary" onclick="showAnswer()">Answer</button>
+      <button class="btn btn-secondary" onclick="skipQuestion()">Skip</button>
+    </div>
+    <!-- ON-SCREEN 2-SET KOREAN KEYBOARD (BRANAH LAYOUT) -->
+    <div class="keyboard-container">
+      <!-- Row 1 -->
+      <div class="kb-row">
+        <button class="kb-key" data-normal="ㅂ" data-shift="ㅃ" onclick="pressKeyFromBtn(this)">
+          <span class="sub-char">ㅃ</span><span class="main-char">ㅂ</span>
+        </button>
+        <button class="kb-key" data-normal="ㅈ" data-shift="ㅉ" onclick="pressKeyFromBtn(this)">
+          <span class="sub-char">ㅉ</span><span class="main-char">ㅈ</span>
+        </button>
+        <button class="kb-key" data-normal="ㄷ" data-shift="ㄸ" onclick="pressKeyFromBtn(this)">
+          <span class="sub-char">ㄸ</span><span class="main-char">ㄷ</span>
+        </button>
+        <button class="kb-key" data-normal="ㄱ" data-shift="ㄲ" onclick="pressKeyFromBtn(this)">
+          <span class="sub-char">ㄲ</span><span class="main-char">ㄱ</span>
+        </button>
+        <button class="kb-key" data-normal="ㅅ" data-shift="ㅆ" onclick="pressKeyFromBtn(this)">
+          <span class="sub-char">ㅆ</span><span class="main-char">ㅅ</span>
+        </button>
+        <button class="kb-key" data-normal="ㅛ" data-shift="ㅛ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅛ</span></button>
+        <button class="kb-key" data-normal="ㅕ" data-shift="ㅕ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅕ</span></button>
+        <button class="kb-key" data-normal="ㅑ" data-shift="ㅑ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅑ</span></button>
+        <button class="kb-key" data-normal="ㅐ" data-shift="ㅒ" onclick="pressKeyFromBtn(this)">
+          <span class="sub-char">ㅒ</span><span class="main-char">ㅐ</span>
+        </button>
+        <button class="kb-key" data-normal="ㅔ" data-shift="ㅖ" onclick="pressKeyFromBtn(this)">
+          <span class="sub-char">ㅖ</span><span class="main-char">ㅔ</span>
+        </button>
+      </div>
+      <!-- Row 2 -->
+      <div class="kb-row">
+        <button class="kb-key" data-normal="ㅁ" data-shift="ㅁ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅁ</span></button>
+        <button class="kb-key" data-normal="ㄴ" data-shift="ㄴ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㄴ</span></button>
+        <button class="kb-key" data-normal="ㅇ" data-shift="ㅇ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅇ</span></button>
+        <button class="kb-key" data-normal="ㄹ" data-shift="ㄹ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㄹ</span></button>
+        <button class="kb-key" data-normal="ㅎ" data-shift="ㅎ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅎ</span></button>
+        <button class="kb-key" data-normal="ㅗ" data-shift="ㅗ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅗ</span></button>
+        <button class="kb-key" data-normal="ㅓ" data-shift="ㅓ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅓ</span></button>
+        <button class="kb-key" data-normal="ㅏ" data-shift="ㅏ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅏ</span></button>
+        <button class="kb-key" data-normal="ㅣ" data-shift="ㅣ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅣ</span></button>
+      </div>
+      <!-- Row 3 -->
+      <div class="kb-row">
+        <button class="kb-key wide" id="shift-btn" onclick="toggleShift()">Shift ⇧</button>
+        <button class="kb-key" data-normal="ㅋ" data-shift="ㅋ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅋ</span></button>
+        <button class="kb-key" data-normal="ㅌ" data-shift="ㅌ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅌ</span></button>
+        <button class="kb-key" data-normal="ㅍ" data-shift="ㅍ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅍ</span></button>
+        <button class="kb-key" data-normal="ㅊ" data-shift="ㅊ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅊ</span></button>
+        <button class="kb-key" data-normal="ㅠ" data-shift="ㅠ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅠ</span></button>
+        <button class="kb-key" data-normal="ㅜ" data-shift="ㅜ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅜ</span></button>
+        <button class="kb-key" data-normal="ㅡ" data-shift="ㅡ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅡ</span></button>
+        <button class="kb-key wide" onclick="pressBackspace()">⌫</button>
+      </div>
+      <!-- Row 4 -->
+      <div class="kb-row">
+        <button class="kb-key space-key" onclick="pressKey(' ')">Space</button>
+        <button class="kb-key wide" onclick="clearInput()">Clear</button>
+      </div>
+    </div>
+  </div>
+  <div class="glass-panel" id="empty-notice" style="display: none; text-align: center; padding: 3rem">
+    <h3>No vocabulary items found!</h3>
+    <p style="color: var(--text-muted); margin-top: 8px">Add some vocabulary or choose another category.</p>
+  </div>
+</section>

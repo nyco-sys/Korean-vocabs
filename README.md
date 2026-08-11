@@ -1,25 +1,16 @@
 # Korean Speller
 
-This project is the uploaded Korean Speller code split into separate files.
+Modular frontend structure for the GitHub Pages + Supabase Korean vocabulary app.
 
-## Structure
+## JavaScript structure
 
-- `index.html` — page markup
-- `css/style.css` — original CSS
-- `js/app.js` — original application JavaScript
-- `data/vocabularies.json` — initial vocabulary data
-- `assets/images/` — reserved for local images
+- `config/` — Supabase connection
+- `core/` — shared state and app bootstrap
+- `api/` — Supabase data access
+- `study/` — image/text study and quiz logic
+- `components/` — reusable keyboards
+- `audio/` — correct/wrong feedback sounds
+- `admin/` — authentication, add, and manage features
+- `utils/` — import/export helpers
 
-## Run
-
-For GitHub Pages, keep the folder structure unchanged.
-
-The app uses:
-- HTML
-- CSS
-- JavaScript
-- Hangul.js CDN
-- localStorage
-- JSON vocabulary data
-
-No PHP is required.
+The app intentionally keeps classic script loading (rather than bundling) so it remains simple to deploy directly to GitHub Pages.

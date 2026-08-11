@@ -1,0 +1,8 @@
+@import url("base/base.css");
+@import url("components/forms.css");
+@import url("components/modal.css");
+@import url("components/keyboard.css");
+@import url("pages/study.css");
+@import url("pages/text-study.css");
+@import url("pages/quiz.css");
+@import url("responsive.css");

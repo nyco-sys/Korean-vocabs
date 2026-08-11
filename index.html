@@ -1,329 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>한글 Practice - Picture Quiz</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script src="https://unpkg.com/hangul-js@0.2.6/hangul.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0f0c20" />
+    <meta name="description" content="Interactive Korean vocabulary practice with Hangul typing and multiple choice." />
+    <title>한글 Practice - Korean Speller</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <script src="https://unpkg.com/hangul-js@0.2.6/hangul.min.js"></script>
+  </head>
+  <body>
+    <div id="app-header"></div>
+    <main id="main-content" class="container">
+      <div id="app-views"></div>
+      <div id="app-modals"></div>
+    </main>
 
-  <style>
-    .manage-header{display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1.25rem}
-    .manage-tabs{display:flex;gap:.75rem;margin-bottom:1rem;flex-wrap:wrap}
-    .manage-controls{display:grid;grid-template-columns:minmax(0,2fr) minmax(180px,1fr);gap:.75rem;margin-bottom:1rem}
-    .manage-count{font-size:.9rem;color:var(--text-muted);margin-bottom:.75rem}
-    .manage-list{display:flex;flex-direction:column;gap:.65rem}
-    .manage-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:center;padding:1rem;border:1px solid var(--border-color,rgba(255,255,255,.1));border-radius:12px;background:rgba(255,255,255,.03)}
-    .manage-main{min-width:0}
-    .manage-korean{font-size:1.15rem;font-weight:700}
-    .manage-meaning{margin-top:3px}
-    .manage-meta{font-size:.82rem;color:var(--text-muted);margin-top:5px}
-    .manage-actions{display:flex;gap:.5rem;flex-wrap:wrap}
-    .manage-actions button{padding:8px 12px;border-radius:8px;border:0;cursor:pointer}
-    .manage-edit{background:var(--primary,#4f46e5);color:white}
-    .manage-delete{background:#b42318;color:white}
-    .manage-empty{text-align:center;padding:2.5rem;color:var(--text-muted)}
-    .manage-pagination{display:flex;justify-content:center;align-items:center;gap:.4rem;flex-wrap:wrap;margin-top:1rem}
-    .manage-page-btn{padding:7px 11px;border-radius:7px;border:1px solid var(--border-color,rgba(255,255,255,.12));background:transparent;color:inherit;cursor:pointer}
-    .manage-page-btn.active{font-weight:700;outline:2px solid currentColor}
-    @media(max-width:600px){
-      .manage-header{align-items:flex-start;flex-direction:column}
-      .manage-controls{grid-template-columns:1fr}
-      .manage-row{grid-template-columns:1fr}
-      .manage-actions button{flex:1}
-    }
-  </style>
-
-</head>
-<body>
-
-  <header>
-    <div class="brand">
-      <div class="brand-logo">한</div>
-      <h1>Korean Speller</h1>
-    </div>
-    <nav class="main-nav">
-      <button class="nav-btn active" data-tab="study" onclick="switchTab('study')">🖼️ Study Image</button>
-      <button class="nav-btn" data-tab="add" onclick="switchTab('add')">➕ Add Image Vocab</button>
-      <button class="nav-btn" data-tab="text-study" onclick="switchTab('text-study')">📝 Text Vocabs</button>
-      <button class="nav-btn" data-tab="text-add" onclick="switchTab('text-add')">➕ Add Text Vocab</button>
-    
-            <button class="nav-btn" data-tab="manage" onclick="switchTab('manage')">⚙️ Manage</button>
-</nav>
-  </header>
-
-  <main class="container">
-    
-    <!-- STUDY VIEW -->
-    <section id="study-view" class="view active">
-      
-      <div class="dashboard-bar glass-panel" style="padding: 0.8rem 1.2rem;">
-        <select id="category-filter" onchange="filterVocab()">
-          <option value="ALL">All Categories</option>
-        </select>
-        <select id="image-quiz-mode" onchange="setImageQuizMode(this.value)">
-          <option value="typing">⌨️ Typing</option>
-          <option value="multiple">🔘 Multiple Choice</option>
-        </select>
-        <button class="btn btn-secondary" onclick="triggerRandomMode()" style="flex: 0 0 auto;">
-          🔀 Randomize All
-        </button>
-      </div>
-
-      <div id="quiz-wrapper" class="glass-panel quiz-card">
-        <div class="quiz-image-container">
-          <span class="category-tag" id="card-cat">Category</span>
-          <img id="card-img" class="quiz-image" src="" alt="Vocabulary Image">
-        </div>
-
-        <div class="answer-box">
-          <div id="typing-answer-area">
-            <div class="input-wrapper">
-              <input type="text" id="user-input" class="answer-input" placeholder="Type or click keys..." autofocus>
-            </div>
-          </div>
-          <div id="image-multiple-choice" class="multiple-choice-options" style="display:none;"></div>
-          <div id="feedback" class="feedback-message"></div>
-        </div>
-
-        <div id="image-typing-actions" class="action-row">
-          <button class="btn btn-submit" onclick="checkAnswer()">Check Answer</button>
-          <button class="btn btn-secondary" onclick="showAnswer()">Answer</button>
-          <button class="btn btn-secondary" onclick="skipQuestion()">Skip</button>
-        </div>
-
-        <!-- ON-SCREEN 2-SET KOREAN KEYBOARD (BRANAH LAYOUT) -->
-        <div class="keyboard-container">
-          <!-- Row 1 -->
-          <div class="kb-row">
-            <button class="kb-key" data-normal="ㅂ" data-shift="ㅃ" onclick="pressKeyFromBtn(this)"><span class="sub-char">ㅃ</span><span class="main-char">ㅂ</span></button>
-            <button class="kb-key" data-normal="ㅈ" data-shift="ㅉ" onclick="pressKeyFromBtn(this)"><span class="sub-char">ㅉ</span><span class="main-char">ㅈ</span></button>
-            <button class="kb-key" data-normal="ㄷ" data-shift="ㄸ" onclick="pressKeyFromBtn(this)"><span class="sub-char">ㄸ</span><span class="main-char">ㄷ</span></button>
-            <button class="kb-key" data-normal="ㄱ" data-shift="ㄲ" onclick="pressKeyFromBtn(this)"><span class="sub-char">ㄲ</span><span class="main-char">ㄱ</span></button>
-            <button class="kb-key" data-normal="ㅅ" data-shift="ㅆ" onclick="pressKeyFromBtn(this)"><span class="sub-char">ㅆ</span><span class="main-char">ㅅ</span></button>
-            <button class="kb-key" data-normal="ㅛ" data-shift="ㅛ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅛ</span></button>
-            <button class="kb-key" data-normal="ㅕ" data-shift="ㅕ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅕ</span></button>
-            <button class="kb-key" data-normal="ㅑ" data-shift="ㅑ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅑ</span></button>
-            <button class="kb-key" data-normal="ㅐ" data-shift="ㅒ" onclick="pressKeyFromBtn(this)"><span class="sub-char">ㅒ</span><span class="main-char">ㅐ</span></button>
-            <button class="kb-key" data-normal="ㅔ" data-shift="ㅖ" onclick="pressKeyFromBtn(this)"><span class="sub-char">ㅖ</span><span class="main-char">ㅔ</span></button>
-          </div>
-          <!-- Row 2 -->
-          <div class="kb-row">
-            <button class="kb-key" data-normal="ㅁ" data-shift="ㅁ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅁ</span></button>
-            <button class="kb-key" data-normal="ㄴ" data-shift="ㄴ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㄴ</span></button>
-            <button class="kb-key" data-normal="ㅇ" data-shift="ㅇ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅇ</span></button>
-            <button class="kb-key" data-normal="ㄹ" data-shift="ㄹ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㄹ</span></button>
-            <button class="kb-key" data-normal="ㅎ" data-shift="ㅎ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅎ</span></button>
-            <button class="kb-key" data-normal="ㅗ" data-shift="ㅗ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅗ</span></button>
-            <button class="kb-key" data-normal="ㅓ" data-shift="ㅓ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅓ</span></button>
-            <button class="kb-key" data-normal="ㅏ" data-shift="ㅏ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅏ</span></button>
-            <button class="kb-key" data-normal="ㅣ" data-shift="ㅣ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅣ</span></button>
-          </div>
-          <!-- Row 3 -->
-          <div class="kb-row">
-            <button class="kb-key wide" id="shift-btn" onclick="toggleShift()">Shift ⇧</button>
-            <button class="kb-key" data-normal="ㅋ" data-shift="ㅋ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅋ</span></button>
-            <button class="kb-key" data-normal="ㅌ" data-shift="ㅌ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅌ</span></button>
-            <button class="kb-key" data-normal="ㅍ" data-shift="ㅍ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅍ</span></button>
-            <button class="kb-key" data-normal="ㅊ" data-shift="ㅊ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅊ</span></button>
-            <button class="kb-key" data-normal="ㅠ" data-shift="ㅠ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅠ</span></button>
-            <button class="kb-key" data-normal="ㅜ" data-shift="ㅜ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅜ</span></button>
-            <button class="kb-key" data-normal="ㅡ" data-shift="ㅡ" onclick="pressKeyFromBtn(this)"><span class="main-char">ㅡ</span></button>
-            <button class="kb-key wide" onclick="pressBackspace()">⌫</button>
-          </div>
-          <!-- Row 4 -->
-          <div class="kb-row">
-            <button class="kb-key space-key" onclick="pressKey(' ')">Space</button>
-            <button class="kb-key wide" onclick="clearInput()">Clear</button>
-          </div>
-        </div>
-
-      </div>
-
-      <div id="empty-notice" style="display: none; text-align: center; padding: 3rem;" class="glass-panel">
-        <h3>No vocabulary items found!</h3>
-        <p style="color: var(--text-muted); margin-top: 8px;">Add some vocabulary or choose another category.</p>
-      </div>
-
-    </section>
-
-    <!-- ADD VOCAB VIEW -->
-    <section id="add-view" class="view">
-      <div class="glass-panel">
-        <h2 style="margin-bottom: 1.5rem;">Add New Vocabulary</h2>
-        <form id="vocab-form" onsubmit="addVocabulary(event)">
-          <div class="form-group">
-            <label>Category</label>
-            <input type="text" id="input-category" class="form-control" placeholder="e.g. Food, Animals" required>
-          </div>
-          <div class="form-group">
-            <label>Korean Word (Correct Answer)</label>
-            <input type="text" id="input-korean" class="form-control" placeholder="e.g. 사과" required>
-          <div id="add-korean-keyboard" class="keyboard-container add-korean-keyboard">
-            <div class="kb-row">
-              <button type="button" class="kb-key" data-normal="ㅂ" data-shift="ㅃ" onclick="pressAddKeyFromBtn(this)"><span class="sub-char">ㅃ</span><span class="main-char">ㅂ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅈ" data-shift="ㅉ" onclick="pressAddKeyFromBtn(this)"><span class="sub-char">ㅉ</span><span class="main-char">ㅈ</span></button>
-              <button type="button" class="kb-key" data-normal="ㄷ" data-shift="ㄸ" onclick="pressAddKeyFromBtn(this)"><span class="sub-char">ㄸ</span><span class="main-char">ㄷ</span></button>
-              <button type="button" class="kb-key" data-normal="ㄱ" data-shift="ㄲ" onclick="pressAddKeyFromBtn(this)"><span class="sub-char">ㄲ</span><span class="main-char">ㄱ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅅ" data-shift="ㅆ" onclick="pressAddKeyFromBtn(this)"><span class="sub-char">ㅆ</span><span class="main-char">ㅅ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅛ" data-shift="ㅛ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅛ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅕ" data-shift="ㅕ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅕ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅑ" data-shift="ㅑ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅑ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅐ" data-shift="ㅒ" onclick="pressAddKeyFromBtn(this)"><span class="sub-char">ㅒ</span><span class="main-char">ㅐ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅔ" data-shift="ㅖ" onclick="pressAddKeyFromBtn(this)"><span class="sub-char">ㅖ</span><span class="main-char">ㅔ</span></button>
-            </div>
-            <div class="kb-row">
-              <button type="button" class="kb-key" data-normal="ㅁ" data-shift="ㅁ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅁ</span></button>
-              <button type="button" class="kb-key" data-normal="ㄴ" data-shift="ㄴ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㄴ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅇ" data-shift="ㅇ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅇ</span></button>
-              <button type="button" class="kb-key" data-normal="ㄹ" data-shift="ㄹ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㄹ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅎ" data-shift="ㅎ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅎ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅗ" data-shift="ㅗ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅗ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅓ" data-shift="ㅓ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅓ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅏ" data-shift="ㅏ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅏ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅣ" data-shift="ㅣ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅣ</span></button>
-            </div>
-            <div class="kb-row">
-              <button type="button" class="kb-key wide" id="add-shift-btn" onclick="toggleAddShift()">Shift ⇧</button>
-              <button type="button" class="kb-key" data-normal="ㅋ" data-shift="ㅋ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅋ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅌ" data-shift="ㅌ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅌ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅍ" data-shift="ㅍ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅍ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅊ" data-shift="ㅊ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅊ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅠ" data-shift="ㅠ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅠ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅜ" data-shift="ㅜ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅜ</span></button>
-              <button type="button" class="kb-key" data-normal="ㅡ" data-shift="ㅡ" onclick="pressAddKeyFromBtn(this)"><span class="main-char">ㅡ</span></button>
-              <button type="button" class="kb-key wide" onclick="pressAddBackspace()">⌫</button>
-            </div>
-            <div class="kb-row">
-              <button type="button" class="kb-key space-key" onclick="pressAddKey(' ')">Space</button>
-              <button type="button" class="kb-key wide" onclick="clearAddKoreanInput()">Clear</button>
-            </div>
-          </div>
-
-          </div>
-          <div class="form-group">
-            <label>English Name (Optional Reference)</label>
-            <input type="text" id="input-english" class="form-control" placeholder="e.g. Apple">
-          </div>
-          <div class="form-group">
-            <label>Image URL</label>
-            <input type="url" id="input-image" class="form-control" placeholder="https://images.unsplash.com/..." required>
-          </div>
-          
-          <button type="submit" class="btn btn-submit" style="width: 100%; padding: 12px;">Save Item</button>
-        </form>
-
-        <div class="json-actions">
-          <button class="btn btn-secondary" onclick="exportJSON()">📥 Export JSON</button>
-          <label class="btn btn-secondary" style="cursor: pointer; text-align: center;">
-            📤 Import JSON
-            <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importJSON(event)">
-          </label>
-        </div>
-      </div>
-    </section>
-
-    <!-- TEXT VOCABULARY STUDY VIEW -->
-    <section id="text-study-view" class="view">
-      <div class="dashboard-bar glass-panel" style="padding: 0.8rem 1.2rem;">
-        <select id="text-category-filter" onchange="filterTextVocab()">
-          <option value="ALL">All Categories</option>
-        </select>
-        <select id="text-quiz-mode" onchange="setTextQuizMode(this.value)">
-          <option value="typing">⌨️ Typing</option>
-          <option value="multiple">🔘 Multiple Choice</option>
-        </select>
-        <button class="btn btn-secondary" onclick="triggerRandomTextMode()" style="flex: 0 0 auto;">🔀 Randomize All</button>
-      </div>
-
-      <div id="text-quiz-wrapper" class="glass-panel quiz-card text-quiz-card">
-        <div class="text-prompt-container">
-          <span class="category-tag" id="text-card-cat">Category</span>
-          <div class="text-prompt-label">English / Meaning</div>
-          <div id="text-card-prompt" class="text-prompt">To go</div>
-        </div>
-
-        <div class="answer-box">
-          <div id="text-typing-answer-area">
-            <div class="input-wrapper">
-              <input type="text" id="text-user-input" class="answer-input" placeholder="Type Korean..." autocomplete="off">
-            </div>
-          </div>
-          <div id="text-multiple-choice" class="multiple-choice-options" style="display:none;"></div>
-          <div id="text-feedback" class="feedback-message"></div>
-        </div>
-
-        <div id="text-typing-actions" class="action-row">
-          <button class="btn btn-submit" onclick="checkTextAnswer()">Check Answer</button>
-          <button class="btn btn-secondary" onclick="showTextAnswer()">Answer</button>
-          <button class="btn btn-secondary" onclick="skipTextQuestion()">Skip</button>
-        </div>
-
-        <div id="text-study-keyboard" class="keyboard-container"></div>
-      </div>
-
-      <div id="text-empty-notice" style="display:none; text-align:center; padding:3rem;" class="glass-panel">
-        <h3>No text vocabulary items found!</h3>
-        <p style="color:var(--text-muted); margin-top:8px;">Add some text vocabulary or choose another category.</p>
-      </div>
-    </section>
-
-    <!-- ADD TEXT VOCABULARY VIEW -->
-    <section id="text-add-view" class="view">
-      <div class="glass-panel">
-        <h2 style="margin-bottom:1.5rem;">Add New Text Vocabulary</h2>
-        <form id="text-vocab-form" onsubmit="addTextVocabulary(event)">
-          <div class="form-group">
-            <label>Category</label>
-            <input type="text" id="text-input-category" class="form-control" placeholder="e.g. Verbs, Adjectives" required>
-          </div>
-          <div class="form-group">
-            <label>English / Meaning</label>
-            <input type="text" id="text-input-english" class="form-control" placeholder="e.g. To go" required>
-          </div>
-          <div class="form-group">
-            <label>Korean Word (Correct Answer)</label>
-            <input type="text" id="text-input-korean" class="form-control" placeholder="e.g. 가다" required autocomplete="off">
-            <div id="text-add-korean-keyboard" class="keyboard-container add-korean-keyboard"></div>
-          </div>
-          <button type="submit" class="btn btn-submit" style="width:100%; padding:12px;">Save Text Vocabulary</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- MANAGE VIEW -->
-    <section id="manage-view" class="view">
-      <div class="glass-panel manage-panel">
-        <div class="manage-header">
-          <div>
-            <h2>Manage Vocabulary</h2>
-            <p style="color:var(--text-muted); margin-top:6px;">Edit or delete vocabulary stored in Supabase.</p>
-          </div>
-          <button class="btn btn-secondary" onclick="loadManageData()">↻ Refresh</button>
-        </div>
-
-        <div class="manage-tabs">
-          <button id="manage-image-tab" class="btn btn-submit" onclick="setManageType('image')">🖼️ Image Vocabs</button>
-          <button id="manage-text-tab" class="btn btn-secondary" onclick="setManageType('text')">📝 Text Vocabs</button>
-        </div>
-
-        <div class="manage-controls">
-          <input id="manage-search" class="form-control" type="search"
-                 placeholder="Search Korean, English, or category..." oninput="renderManageList()">
-          <select id="manage-category" class="form-control" onchange="renderManageList()">
-            <option value="ALL">All Categories</option>
-          </select>
-        </div>
-
-        <div id="manage-count" class="manage-count"></div>
-        <div id="manage-list" class="manage-list"></div>
-        <div id="manage-pagination" class="manage-pagination"></div>
-      </div>
-    </section>
-
-  </main>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="js/app.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config/supabase.js"></script>
+    <script src="js/core/state.js"></script>
+    <script src="js/api/data.js"></script>
+    <script src="js/audio/feedbackSound.js"></script>
+    <script src="js/study/imageStudy.js"></script>
+    <script src="js/components/imageKeyboard.js"></script>
+    <script src="js/study/imageQuiz.js"></script>
+    <script src="js/components/addImageKeyboard.js"></script>
+    <script src="js/study/textStudy.js"></script>
+    <script src="js/admin/addTextVocab.js"></script>
+    <script src="js/admin/auth.js"></script>
+    <script src="js/admin/addImageVocab.js"></script>
+    <script src="js/admin/manage.js"></script>
+    <script src="js/utils/json.js"></script>
+    <script src="js/core/componentLoader.js"></script>
+    <script src="js/core/bootstrap.js"></script>
+  </body>
 </html>

@@ -1,0 +1,30 @@
+<section class="view" id="manage-view">
+  <div class="glass-panel manage-panel">
+    <div class="manage-header">
+      <div>
+        <h2>Manage Vocabulary</h2>
+        <p style="color: var(--text-muted); margin-top: 6px">Edit or delete vocabulary stored in Supabase.</p>
+      </div>
+      <button class="btn btn-secondary" onclick="loadManageData()">↻ Refresh</button>
+    </div>
+    <div class="manage-tabs">
+      <button class="btn btn-submit" id="manage-image-tab" onclick="setManageType('image')">🖼️ Image Vocabs</button>
+      <button class="btn btn-secondary" id="manage-text-tab" onclick="setManageType('text')">📝 Text Vocabs</button>
+    </div>
+    <div class="manage-controls">
+      <input
+        class="form-control"
+        id="manage-search"
+        oninput="renderManageList()"
+        placeholder="Search Korean, English, or category..."
+        type="search"
+      />
+      <select class="form-control" id="manage-category" onchange="renderManageList()">
+        <option value="ALL">All Categories</option>
+      </select>
+    </div>
+    <div class="manage-count" id="manage-count"></div>
+    <div class="manage-list" id="manage-list"></div>
+    <div class="manage-pagination" id="manage-pagination"></div>
+  </div>
+</section>

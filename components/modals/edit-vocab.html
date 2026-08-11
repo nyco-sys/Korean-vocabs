@@ -1,0 +1,32 @@
+<div aria-hidden="true" class="edit-modal" id="edit-modal">
+  <div class="edit-modal-backdrop" onclick="closeEditModal()"></div>
+  <div aria-labelledby="edit-modal-title" aria-modal="true" class="edit-modal-card" role="dialog">
+    <div class="edit-modal-header">
+      <h2 id="edit-modal-title">Edit Vocabulary</h2>
+      <button class="edit-close" onclick="closeEditModal()" type="button">✕</button>
+    </div>
+    <form id="edit-vocab-form" onsubmit="saveEditedVocab(event)">
+      <div class="form-group">
+        <label>Category</label>
+        <input class="form-control" id="edit-category" required="" />
+      </div>
+      <div class="form-group">
+        <label>English / Meaning</label>
+        <input class="form-control" id="edit-english" required="" />
+      </div>
+      <div class="form-group">
+        <label>Korean Word</label>
+        <input autocomplete="off" class="form-control" id="edit-korean" required="" />
+        <div class="keyboard-container add-korean-keyboard" id="edit-korean-keyboard"></div>
+      </div>
+      <div class="form-group" id="edit-image-group">
+        <label>Image URL</label>
+        <input class="form-control" id="edit-image" />
+      </div>
+      <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1rem; flex-wrap: wrap">
+        <button class="btn btn-secondary" onclick="closeEditModal()" type="button">Cancel</button>
+        <button class="btn btn-submit" type="submit">Save Changes</button>
+      </div>
+    </form>
+  </div>
+</div>

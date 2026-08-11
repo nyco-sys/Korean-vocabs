@@ -1,0 +1,15 @@
+<header>
+  <div class="brand">
+    <div class="brand-logo">한</div>
+    <h1>Korean Speller</h1>
+  </div>
+  <nav class="main-nav">
+    <button class="nav-btn active" data-tab="study" onclick="switchTab('study')">🖼️ Study Image</button>
+    <button class="nav-btn admin-only-nav" data-tab="add" onclick="switchTab('add')">➕ Add Image Vocab</button>
+    <button class="nav-btn" data-tab="text-study" onclick="switchTab('text-study')">📝 Text Vocabs</button>
+    <button class="nav-btn admin-only-nav" data-tab="text-add" onclick="switchTab('text-add')">➕ Add Text Vocab</button>
+    <button class="nav-btn admin-only-nav" data-tab="manage" onclick="switchTab('manage')">⚙️ Manage</button>
+    <button class="nav-btn" id="login-nav-btn" onclick="openLoginModal()" type="button">🔐 Admin Login</button>
+    <button class="nav-btn" id="logout-nav-btn" onclick="logoutAdmin()" style="display: none" type="button">↪ Logout</button>
+  </nav>
+</header>

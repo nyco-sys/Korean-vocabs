@@ -1,0 +1,12 @@
+/* ADD VOCABULARY KOREAN KEYBOARD */
+.add-korean-keyboard {
+  display: none;
+  margin-top: 10px;
+  max-width: 100%;
+}
+
+.add-korean-keyboard.visible {
+  display: flex;
+}
+
+
