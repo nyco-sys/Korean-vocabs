@@ -12,16 +12,27 @@
 <body>
   <div id="app-header"></div>
   <main id="main-content" class="container">
+    <section id="auth-gate" class="auth-gate">
+      <div class="auth-gate-card glass-panel">
+        <div class="auth-gate-logo">한</div>
+        <span class="eyebrow">KOREAN SPELLER</span>
+        <h1>Welcome back</h1>
+        <p>Sign in to study your vocabulary, track your progress, and access your account.</p>
+        <button class="btn btn-primary" type="button" onclick="openLoginModal()">Sign In</button>
+      </div>
+    </section>
     <div id="app-views"></div>
     <div id="app-modals"></div>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/utils/notifications.js"></script>
   <script src="js/config/supabase.js"></script>
   <script src="js/core/state.js"></script>
   <script src="js/api/data.js"></script>
   <script src="js/api/mistakes.js"></script>
   <script src="js/api/statistics.js"></script>
+  <script src="js/api/ai.js"></script>
   <script src="js/audio/feedbackSound.js"></script>
   <script src="js/study/studySession.js"></script>
   <script src="js/study/imageStudy.js"></script>
@@ -35,6 +46,7 @@
   <script src="js/admin/manage.js"></script>
   <script src="js/admin/reviewMistakes.js"></script>
   <script src="js/admin/statistics.js"></script>
+  <script src="js/admin/users.js"></script>
   <script src="js/utils/json.js"></script>
   <script src="js/core/componentLoader.js"></script>
   <script src="js/core/statisticsNav.js"></script>

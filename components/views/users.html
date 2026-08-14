@@ -1,0 +1,18 @@
+<section id="users-view" class="view admin-only-view">
+  <div class="page-header">
+    <div>
+      <span class="eyebrow">ADMINISTRATION</span>
+      <h2>👥 User Management</h2>
+      <p>Create accounts, control access, and manage AI Tutor permissions.</p>
+    </div>
+    <button class="btn btn-primary" type="button" onclick="openCreateUserModal()">+ Create User</button>
+  </div>
+
+  <div class="glass-panel users-panel">
+    <div class="users-toolbar">
+      <input id="user-search" class="form-control" type="search" placeholder="Search name or email..." oninput="renderUsers()">
+      <button class="btn btn-secondary" type="button" onclick="loadUsers()">↻ Refresh</button>
+    </div>
+    <div id="users-list" class="users-list"></div>
+  </div>
+</section>

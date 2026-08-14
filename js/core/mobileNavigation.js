@@ -1,66 +1,107 @@
+/* =========================================================
+   SIDEBAR NAVIGATION
+   One logo trigger on desktop + mobile.
+   Closed: only the logo is visible.
+   Open: full sidebar appears and its own X closes it.
+   ========================================================= */
+(function () {
+  function setOpen(open) {
+    const sidebar = document.getElementById('app-sidebar');
+    const trigger = document.getElementById('sidebar-logo-trigger');
+    const backdrop = document.getElementById('sidebar-backdrop');
+    if (!sidebar) return;
+
+    sidebar.classList.toggle('is-open', open);
+    document.body.classList.toggle('sidebar-open', open);
+
+    if (trigger) {
+      trigger.setAttribute('aria-expanded', String(open));
+      trigger.setAttribute('aria-label', open ? 'Sidebar open' : 'Open sidebar');
+    }
+
+    if (backdrop) {
+      backdrop.classList.toggle('is-visible', open && window.innerWidth <= 900);
+    }
+  }
+
+  function toggleNavigation() {
+    const sidebar = document.getElementById('app-sidebar');
+    if (!sidebar) return;
+    setOpen(!sidebar.classList.contains('is-open'));
+  }
+
+  function closeNavigation() {
+    setOpen(false);
+  }
+
+  document.addEventListener('click', (event) => {
+    if (event.target.closest('#sidebar-logo-trigger')) {
+      event.preventDefault();
+      event.stopPropagation();
+      toggleNavigation();
+      return;
+    }
+
+    if (event.target.closest('#sidebar-close')) {
+      event.preventDefault();
+      closeNavigation();
+      return;
+    }
+
+    if (event.target.closest('#main-navigation .nav-btn, .admin-nav .nav-btn')) {
+      if (window.innerWidth <= 900) closeNavigation();
+      return;
+    }
+
+    if (event.target.closest('#sidebar-backdrop')) {
+      closeNavigation();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      const modal = document.getElementById('logout-modal');
+      if (modal?.classList.contains('is-visible')) closeLogoutModal();
+      else closeNavigation();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    const backdrop = document.getElementById('sidebar-backdrop');
+    if (window.innerWidth > 900 && backdrop) backdrop.classList.remove('is-visible');
+    if (window.innerWidth <= 900 && !document.getElementById('app-sidebar')?.classList.contains('is-open')) {
+      document.body.classList.remove('sidebar-open');
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => setOpen(false));
+
+  window.closeMobileNavigation = closeNavigation;
+  window.openSidebar = () => setOpen(true);
+  window.closeSidebar = closeNavigation;
+})();
 
 /* =========================================================
-   MOBILE NAVIGATION
+   LOGOUT UI
    ========================================================= */
+function openLogoutModal() {
+  const modal = document.getElementById('logout-modal');
+  if (!modal) return;
+  modal.classList.add('is-visible');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  setTimeout(() => modal.querySelector('.logout-cancel')?.focus(), 50);
+}
 
-(function () {
-  function closeMobileNavigation() {
-    const menu = document.getElementById('main-navigation');
-    const toggle = document.getElementById('mobile-menu-toggle');
+function closeLogoutModal() {
+  const modal = document.getElementById('logout-modal');
+  if (!modal) return;
+  modal.classList.remove('is-visible');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('modal-open');
+}
 
-    if (!menu || !toggle) return;
-
-    menu.classList.remove('is-open');
-    toggle.classList.remove('is-open');
-    toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Open navigation menu');
-  }
-
-  function toggleMobileNavigation() {
-    const menu = document.getElementById('main-navigation');
-    const toggle = document.getElementById('mobile-menu-toggle');
-
-    if (!menu || !toggle) return;
-
-    const open = menu.classList.toggle('is-open');
-    toggle.classList.toggle('is-open', open);
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute(
-      'aria-label',
-      open ? 'Close navigation menu' : 'Open navigation menu'
-    );
-  }
-
-  // Delegation is intentional because navbar.html is loaded as a component.
-  document.addEventListener('click', (event) => {
-    const toggle = event.target.closest('#mobile-menu-toggle');
-
-    if (toggle) {
-      event.stopPropagation();
-      toggleMobileNavigation();
-      return;
-    }
-
-    // Close after selecting a navigation item.
-    if (event.target.closest('#main-navigation .nav-btn')) {
-      closeMobileNavigation();
-      return;
-    }
-
-    // Close when clicking outside the header/menu.
-    const header = event.target.closest('header');
-    if (!header) {
-      closeMobileNavigation();
-    }
-  });
-
-  // Close the menu when switching back to desktop width.
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 800) {
-      closeMobileNavigation();
-    }
-  });
-
-  // Expose a small helper for the app if needed later.
-  window.closeMobileNavigation = closeMobileNavigation;
-})();
+async function confirmLogout() {
+  closeLogoutModal();
+  await logoutAdmin();
+}

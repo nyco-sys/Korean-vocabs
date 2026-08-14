@@ -18,10 +18,10 @@
             saveToLocalStorage();
             populateCategories();
             filterVocab();
-            alert('Vocabulary list updated successfully!');
+            notify('Vocabulary list updated successfully!');
           }
         } catch (err) {
-          alert('Invalid JSON file.');
+          notify('Invalid JSON file.');
         }
       };
       reader.readAsText(event.target.files[0]);

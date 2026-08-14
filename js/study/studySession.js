@@ -107,3 +107,80 @@ function setStudyReviewMode(type, enabled) {
   const session = type === 'image' ? imageStudySession : textStudySession;
   session.review = !!enabled;
 }
+
+/**
+ * Reset temporary study state when an authenticated session ends.
+ * This intentionally does NOT touch saved vocabulary, mistakes, statistics,
+ * or AI history. It only clears the in-memory/browser UI state of the study.
+ */
+function resetStudyStateOnLogout() {
+  // Reset in-memory session objects.
+  imageStudySession = {
+    active: false,
+    total: 10,
+    completed: 0,
+    correct: 0,
+    skipped: 0,
+    category: 'ALL',
+    mode: 'typing',
+    review: false
+  };
+
+  textStudySession = {
+    active: false,
+    total: 10,
+    completed: 0,
+    correct: 0,
+    skipped: 0,
+    category: 'ALL',
+    mode: 'typing',
+    review: false
+  };
+
+  // Reset study controls to their clean defaults.
+  const defaults = [
+    ['category-filter', 'ALL'],
+    ['image-quiz-mode', 'typing'],
+    ['text-category-filter', 'ALL'],
+    ['text-quiz-mode', 'typing']
+  ];
+
+  defaults.forEach(([id, value]) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.value = value;
+  });
+
+  // Clear temporary answer/input state.
+  ['user-input', 'text-user-input'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+
+  if (typeof inputJamoSequence !== 'undefined') inputJamoSequence = [];
+  if (typeof textInputJamoSequence !== 'undefined') textInputJamoSequence = [];
+  if (typeof isShiftActive !== 'undefined') isShiftActive = false;
+  if (typeof isTextShiftActive !== 'undefined') isTextShiftActive = false;
+
+  // Return both study pages to their settings screen.
+  showStudyScreen('image', 'settings');
+  showStudyScreen('text', 'settings');
+
+  // Clear stale quiz/result UI.
+  ['feedback', 'text-feedback'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = '';
+  });
+
+  ['empty-notice', 'text-empty-notice'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+
+  // Reset keyboard modifier visuals if present.
+  document.querySelectorAll('.kb-key.shift-active, .kb-key.active-shift').forEach(el => {
+    el.classList.remove('shift-active', 'active-shift');
+  });
+}
+
+window.resetStudyStateOnLogout = resetStudyStateOnLogout;

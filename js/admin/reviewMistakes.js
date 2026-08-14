@@ -64,7 +64,7 @@ async function removeMistake(type, vocabId) {
 async function startImageMistakeReview() {
   const mistakes = await fetchMistakes('image', 20);
   if (!mistakes.length) {
-    alert('You have no image mistakes to review.');
+    notify('You have no image mistakes to review.');
     return;
   }
   setStudyReviewMode('image', true);
@@ -75,7 +75,7 @@ async function startImageMistakeReview() {
 async function startTextMistakeReview() {
   const mistakes = await fetchMistakes('text', 20);
   if (!mistakes.length) {
-    alert('You have no text mistakes to review.');
+    notify('You have no text mistakes to review.');
     return;
   }
   setStudyReviewMode('text', true);

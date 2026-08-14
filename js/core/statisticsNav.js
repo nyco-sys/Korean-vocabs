@@ -1,24 +1,17 @@
-
-/* Adds the Statistics view to the existing tab system without replacing it. */
+/* Dashboard / Statistics navigation. The dashboard uses the existing statistics view. */
 (function () {
   const originalSwitchTab = window.switchTab;
-
-  function activateStatisticsTab() {
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    const view = document.getElementById('statistics-view');
-    if (view) {
-      view.classList.add('active');
-      view.style.display = '';
-    }
-    document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-    const btn = document.querySelector('[data-tab="statistics"]');
-    if (btn) btn.classList.add('active');
-    loadStatistics();
-  }
-
   window.switchTab = function (tab) {
     if (tab === 'statistics') {
-      activateStatisticsTab();
+      if (typeof requireAdmin === 'function' && !requireAdmin('statistics')) return;
+      document.querySelectorAll('#app-views .view').forEach(v => {
+        const active = v.id === 'statistics-view';
+        v.classList.toggle('active', active);
+        v.hidden = !active;
+        v.setAttribute('aria-hidden', active ? 'false' : 'true');
+      });
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === 'statistics'));
+      if (typeof loadStatistics === 'function') loadStatistics();
       return;
     }
     if (typeof originalSwitchTab === 'function') return originalSwitchTab(tab);

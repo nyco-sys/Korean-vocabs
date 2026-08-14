@@ -10,19 +10,32 @@ document.addEventListener('DOMContentLoaded', async () => {
   initializeSupabase();
   if (supabaseClient) {
     await refreshAuthUI();
-    supabaseClient.auth.onAuthStateChange((_event, session) => {
+    supabaseClient.auth.onAuthStateChange(async (_event, session) => {
       adminAuthenticated = !!session;
-      document.body.classList.toggle('admin-authenticated', adminAuthenticated);
-      const loginBtn = document.getElementById('login-nav-btn');
-      const logoutBtn = document.getElementById('logout-nav-btn');
-      document.querySelectorAll('.admin-only-nav').forEach(btn => {
-        btn.style.display = adminAuthenticated ? '' : 'none';
-      });
-      if (loginBtn) loginBtn.style.display = adminAuthenticated ? 'none' : '';
-      if (logoutBtn) logoutBtn.style.display = adminAuthenticated ? '' : 'none';
+      await refreshAuthUI();
+
+      // If the current page requires authentication and the session ended,
+      // immediately return the user to the public Study Image page.
+      const activeView = document.querySelector('.view.active');
+      if (!adminAuthenticated && activeView?.classList.contains('auth-required-view')) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        const gate = document.getElementById('auth-gate');
+        if (gate) gate.hidden = false;
+      }
+
       if (typeof refreshStatisticsAfterAuth === 'function') refreshStatisticsAfterAuth();
+      if (typeof loadAISettings === 'function') loadAISettings();
     });
   }
+  // Always start with exactly one authenticated view (Study Image).
+  // Component HTML may contain an initial .active class, so normalize it here.
+  document.querySelectorAll('#app-views .view').forEach(v => {
+    v.classList.remove('active');
+    v.hidden = true;
+    v.setAttribute('aria-hidden', 'true');
+  });
+  if (adminAuthenticated) setActiveView('statistics');
+
   await loadInitialData();
   openStudySettings('image');
   openStudySettings('text');
@@ -30,5 +43,5 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupAddKoreanKeyboard();
   setupTextKoreanKeyboards();
   setupEditKoreanKeyboard();
-  if (adminAuthenticated) loadStatistics();
+  if (adminAuthenticated) { loadStatistics(); loadAISettings(); }
 });

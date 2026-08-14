@@ -139,14 +139,14 @@
       e.preventDefault(); if(!editingVocabId||!editingVocabType||!supabaseClient)return;
       const updateData={category:document.getElementById('edit-category').value.trim(),english:document.getElementById('edit-english').value.trim(),korean:document.getElementById('edit-korean').value.trim()};
       if(editingVocabType==='image')updateData.image=document.getElementById('edit-image').value.trim();
-      if(!updateData.category||!updateData.english||!updateData.korean||(editingVocabType==='image'&&!updateData.image)){alert('All fields are required.');return;}
+      if(!updateData.category||!updateData.english||!updateData.korean||(editingVocabType==='image'&&!updateData.image)){notify('All fields are required.');return;}
       const table=editingVocabType==='image'?'vocabularies':'text_vocabs'; const btn=document.querySelector('#edit-vocab-form button[type="submit"]'); const old=btn.textContent; btn.disabled=true;btn.textContent='Saving...';
       try{
         const {data,error}=await supabaseClient.from(table).update(updateData).eq('id',editingVocabId).select().single(); if(error)throw error;
         if(editingVocabType==='image'){const i=vocabularies.findIndex(v=>String(v.id)===String(editingVocabId));if(i>=0)vocabularies[i]=data;saveToLocalStorage();populateCategories();filterVocab();}
         else{const i=textVocabularies.findIndex(v=>String(v.id)===String(editingVocabId));if(i>=0)textVocabularies[i]=data;localStorage.setItem('korean_text_vocab_quiz',JSON.stringify(textVocabularies));populateTextCategories();filterTextVocab();}
-        populateManageCategories();renderManageList();closeEditModal();alert('Vocabulary updated successfully.');
-      }catch(error){console.error('Update failed:',error);alert('Could not update this item. Make sure the UPDATE policy is enabled.')}finally{btn.disabled=false;btn.textContent=old}
+        populateManageCategories();renderManageList();closeEditModal();notify('Vocabulary updated successfully.');
+      }catch(error){console.error('Update failed:',error);notify('Could not update this item. Make sure the UPDATE policy is enabled.')}finally{btn.disabled=false;btn.textContent=old}
     }
 
     async function deleteManagedVocab(id) {
@@ -156,7 +156,7 @@
       if(fe||!item)return;
       if(!confirm(`Delete "${item.korean}${item.english?' - '+item.english:''}" permanently?`))return;
       const {error}=await supabaseClient.from(table).delete().eq('id',id);
-      if(error){console.error(error);alert('Could not delete this item. Make sure the DELETE policy is enabled.');return;}
+      if(error){console.error(error);notify('Could not delete this item. Make sure the DELETE policy is enabled.');return;}
       await renderManageList();
     }
 

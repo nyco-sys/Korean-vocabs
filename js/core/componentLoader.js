@@ -8,11 +8,14 @@ const APP_COMPONENTS = {
     'components/views/add-text.html',
     'components/views/manage.html',
     'components/views/review-mistakes.html',
-    'components/views/statistics.html'
+    'components/views/statistics.html',
+    'components/views/ai-tutor.html',
+    'components/views/users.html'
   ],
   modals: [
     'components/modals/edit-vocab.html',
-    'components/modals/login.html'
+    'components/modals/login.html',
+    'components/modals/user.html'
   ]
 };
 

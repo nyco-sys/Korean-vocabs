@@ -1,0 +1,36 @@
+<section id="ai-tutor-view" class="view auth-required-view ai-auth-view">
+  <div class="page-header ai-page-header">
+    <div class="ai-title-wrap">
+      <div class="ai-title-icon">🤖</div>
+      <div><span class="eyebrow">PERSONAL TUTOR</span><h2>AI Korean Tutor</h2><p>Your private Korean learning conversations.</p></div>
+    </div>
+    <div class="ai-header-actions">
+      <div class="ai-status-pill" id="ai-config-status">Checking...</div>
+      <button class="btn btn-primary" type="button" onclick="newAIConversation()">＋ New Chat</button>
+    </div>
+  </div>
+
+  <div id="ai-access-notice" class="glass-panel ai-notice" style="display:none">
+    <div class="ai-orb">🔒</div><h3>AI Tutor is not enabled</h3>
+    <p>Your administrator has not enabled AI Tutor for this account.</p>
+  </div>
+
+  <section id="ai-chat-shell" class="glass-panel ai-chat-shell" style="display:none">
+    <aside class="ai-history">
+      <div class="ai-history-head"><strong>Conversations</strong><button type="button" onclick="newAIConversation()" aria-label="New conversation">＋</button></div>
+      <div id="ai-conversation-list" class="ai-conversation-list"></div>
+    </aside>
+
+    <div class="ai-chat-panel">
+      <div class="ai-chat-top">
+        <div class="ai-chat-heading"><div class="ai-mini-icon">✦</div><div><span class="eyebrow">KOREAN LEARNING</span><h3 id="ai-current-title">New conversation</h3><p>Ask about vocabulary, grammar, particles, pronunciation, and examples.</p></div></div>
+        <span class="ai-live-dot"><i></i> AI online</span>
+      </div>
+      <div id="ai-messages" class="ai-messages"></div>
+      <div class="ai-composer-wrap">
+        <div class="ai-composer"><textarea id="ai-message" rows="2" maxlength="4000" placeholder="Ask your Korean question..." aria-label="Ask your Korean tutor a question" onkeydown="handleAIKeydown(event)"></textarea><button id="ai-send-btn" class="btn btn-primary ai-send-btn" type="button" onclick="askAITutor()">Send <span class="send-arrow">↗</span></button></div>
+        <div class="ai-composer-footer"><small class="ai-hint">Enter to send · Shift + Enter for a new line</small><small class="ai-character-count" id="ai-character-count">0 / 4000</small></div>
+      </div>
+    </div>
+  </section>
+</section>

@@ -10,7 +10,7 @@
       };
       if (!newVocab.category || !newVocab.korean || !newVocab.image) return;
       if (!supabaseClient) {
-        alert('Supabase is not available. Please refresh the page and try again.');
+        notify('Supabase is not available. Please refresh the page and try again.');
         return;
       }
       const saveButton = document.querySelector('#vocab-form button[type="submit"]');
@@ -38,12 +38,12 @@
         isAddShiftActive = false;
         document.getElementById('add-shift-btn').classList.remove('active-shift');
         document.getElementById('add-korean-keyboard').classList.remove('visible');
-        alert('Vocabulary item added to the online database!');
+        notify('Vocabulary item added to the online database!');
         switchTab('study');
         filterVocab();
       } catch (error) {
         console.error('Supabase insert failed:', error);
-        alert('Could not save the vocabulary. Please check your Supabase connection and policies.');
+        notify('Could not save the vocabulary. Please check your Supabase connection and policies.');
       } finally {
         saveButton.disabled = false;
         saveButton.textContent = originalButtonText;

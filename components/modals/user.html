@@ -1,0 +1,50 @@
+<div class="edit-modal" id="user-modal" aria-hidden="true">
+  <div class="edit-modal-backdrop" onclick="closeUserModal()"></div>
+  <div class="edit-modal-card" role="dialog" aria-modal="true" aria-labelledby="user-modal-title">
+    <div class="edit-modal-header">
+      <div>
+        <h2 id="user-modal-title">Create User</h2>
+        <p id="user-modal-subtitle" style="color:var(--text-muted);margin:6px 0 0;">Create an account for a learner.</p>
+      </div>
+      <button class="edit-close" type="button" onclick="closeUserModal()">✕</button>
+    </div>
+    <form id="user-form" onsubmit="saveUser(event)">
+      <input type="hidden" id="user-id">
+      <div class="form-group">
+        <label for="user-name">Name</label>
+        <input id="user-name" class="form-control" type="text" placeholder="e.g. Maria">
+      </div>
+      <div class="form-group">
+        <label for="user-email">Email</label>
+        <input id="user-email" class="form-control" type="email" required>
+      </div>
+      <div class="form-group">
+        <label for="user-password">Password <small id="user-password-hint">(minimum 8 characters)</small></label>
+        <input id="user-password" class="form-control" type="password" minlength="8" autocomplete="new-password">
+      </div>
+      <div class="form-group">
+        <label for="user-role">Role</label>
+        <select id="user-role" class="form-control">
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <label class="user-toggle-row">
+        <input id="user-ai-enabled" type="checkbox">
+        <span><strong>Allow AI Tutor</strong><small>This user can see and use AI Tutor.</small></span>
+      </label>
+      <div id="user-status-wrap" class="form-group" style="display:none">
+        <label for="user-status">Account Status</label>
+        <select id="user-status" class="form-control">
+          <option value="active">Active</option>
+          <option value="disabled">Disabled</option>
+        </select>
+      </div>
+      <div id="user-form-error" role="alert" style="color:#fb7185;min-height:1.4rem;margin-bottom:.75rem;"></div>
+      <div style="display:flex;gap:.75rem;justify-content:flex-end;flex-wrap:wrap;">
+        <button class="btn btn-secondary" type="button" onclick="closeUserModal()">Cancel</button>
+        <button class="btn btn-submit" id="user-submit-btn" type="submit">Create User</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -686,3 +686,82 @@ main.container,
     justify-content: flex-start !important;
   }
 }
+
+
+/* Sidebar component takes ownership of navigation on small screens. */
+@media (max-width: 900px) {
+  #app-header .main-nav,
+  #app-sidebar .main-nav,
+  #app-sidebar .admin-nav {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+  }
+
+  #app-sidebar .nav-btn {
+    flex: 0 0 auto !important;
+    width: 100% !important;
+  }
+}
+
+
+/* =========================================================
+   SIDEBAR FINAL OVERRIDES
+   Legacy responsive rules above must never control the app sidebar.
+   ========================================================= */
+@media (min-width: 901px) {
+  body { padding-left: 84px !important; }
+  body.sidebar-open { padding-left: 302px !important; }
+  .desktop-sidebar-trigger { display:grid !important; }
+  body.sidebar-open .desktop-sidebar-trigger { display:none !important; }
+  .app-sidebar { display:flex !important; }
+  .app-sidebar .main-nav,
+  .app-sidebar .admin-nav {
+    display:flex !important;
+    grid-template-columns:none !important;
+    flex-direction:column !important;
+  }
+}
+
+@media (max-width: 900px) {
+  body { padding:68px 12px 14px !important; }
+  .desktop-sidebar-trigger { display:none !important; }
+  .mobile-menu-trigger { display:flex !important; }
+  .app-sidebar { display:flex !important; }
+  .app-sidebar .main-nav,
+  .app-sidebar .admin-nav {
+    display:flex !important;
+    grid-template-columns:none !important;
+    flex-direction:column !important;
+    flex-wrap:nowrap !important;
+  }
+  .app-sidebar .nav-btn {
+    width:100% !important;
+    flex:0 0 auto !important;
+  }
+}
+
+
+/* =========================================================
+   SIDEBAR SAFETY OVERRIDES
+   These prevent legacy header/nav responsive rules from
+   affecting the new sidebar.
+   ========================================================= */
+.app-sidebar .main-nav,
+.app-sidebar .admin-nav {
+  display: flex !important;
+  flex-direction: column !important;
+  flex-wrap: nowrap !important;
+  width: 100% !important;
+}
+.app-sidebar .main-nav .nav-btn,
+.app-sidebar .admin-nav .nav-btn,
+.app-sidebar .sidebar-account .nav-btn {
+  display: flex !important;
+  flex: 0 0 auto !important;
+  width: 100% !important;
+}
+
+@media (max-width: 900px) {
+  body { padding-top: 68px !important; }
+}
