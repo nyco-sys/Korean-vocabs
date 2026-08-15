@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
   if (adminAuthenticated) setActiveView('statistics');
 
+  if (typeof initializeLessons === 'function') initializeLessons();
   await loadInitialData();
   openStudySettings('image');
   openStudySettings('text');
@@ -45,3 +46,14 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupEditKoreanKeyboard();
   if (adminAuthenticated) { loadStatistics(); loadAISettings(); }
 });
+
+// Initialize AI Tutor Korean keyboard whenever the AI view is injected.
+if (!window.__aiKeyboardObserver) {
+  window.__aiKeyboardObserver = new MutationObserver(() => {
+    if (typeof window.setupAIKoreanKeyboard === 'function' && document.getElementById('ai-message')) {
+      window.setupAIKoreanKeyboard();
+      window.__aiKeyboardObserver.disconnect();
+    }
+  });
+  window.__aiKeyboardObserver.observe(document.body, { childList: true, subtree: true });
+}

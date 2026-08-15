@@ -1,0 +1,111 @@
+<section class="view auth-required-view" id="listening-view">
+  <div class="listening-settings glass-panel" id="listening-settings">
+    <div class="listening-hero">
+      <div class="listening-icon">🎧</div>
+      <div>
+        <span class="eyebrow">KOREAN LISTENING</span>
+        <h2>Listening Practice</h2>
+        <p>Train your Korean listening skills with original EPS-TOPIK-style questions and everyday Korean situations.</p>
+      </div>
+    </div>
+
+    <div class="listening-settings-grid">
+      <div class="form-group">
+        <label for="listening-category">Category</label>
+        <select id="listening-category">
+          <option value="ALL">All Categories</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="listening-difficulty">Difficulty</label>
+        <select id="listening-difficulty">
+          <option value="ALL">All Levels</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="listening-count">Questions</label>
+        <select id="listening-count">
+          <option value="5">5 Questions</option>
+          <option value="10" selected>10 Questions</option>
+          <option value="20">20 Questions</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="btn btn-submit study-start-btn" type="button" onclick="startListeningPractice()">
+      Start Listening →
+    </button>
+
+    <div class="listening-note">
+      <span>💡</span>
+      <span>Audio currently uses your browser's Korean <strong>ko-KR</strong> voice. We can add real MP3 exam-style audio later.</span>
+    </div>
+  </div>
+
+  <div class="glass-panel listening-quiz-card" id="listening-quiz-wrapper" style="display:none;">
+    <div class="listening-top-row">
+      <span class="study-progress" id="listening-progress">Question 1 of 10</span>
+      <button class="study-exit-btn" type="button" onclick="exitListeningPractice()">⚙️ Settings</button>
+    </div>
+
+    <div class="listening-question-meta">
+      <span class="category-tag-static" id="listening-card-category">EPS-TOPIK</span>
+      <span class="difficulty-badge" id="listening-card-difficulty">Beginner</span>
+    </div>
+
+    <div class="listening-player">
+      <div class="listening-player-icon" id="listening-player-icon">🔊</div>
+      <div class="listening-player-copy">
+        <strong id="listening-player-title">Listen carefully</strong>
+        <span id="listening-player-status">Press play to hear the Korean audio.</span>
+      </div>
+      <button class="listening-play-btn" id="listening-play-btn" type="button" onclick="playCurrentListeningAudio()" aria-label="Play Korean audio">
+        <span id="listening-play-icon">▶</span>
+      </button>
+    </div>
+
+    <div class="listening-slow-row">
+      <button class="listening-speed-btn active" type="button" data-rate="1" onclick="setListeningRate(1, this)">1× Normal</button>
+      <button class="listening-speed-btn" type="button" data-rate="0.7" onclick="setListeningRate(0.7, this)">🐢 0.7× Slow</button>
+    </div>
+
+    <div class="listening-question">
+      <span class="eyebrow">QUESTION</span>
+      <h2 id="listening-question-text">무엇을 하고 있습니까?</h2>
+    </div>
+
+    <div class="listening-choices" id="listening-choices"></div>
+    <div class="listening-feedback" id="listening-feedback" aria-live="polite"></div>
+
+    <button class="btn btn-submit listening-check-btn" id="listening-check-btn" type="button" onclick="checkListeningAnswer()" disabled>
+      Check Answer
+    </button>
+  </div>
+
+  <div class="glass-panel listening-result" id="listening-result" style="display:none;">
+    <div class="result-icon">🎧</div>
+    <span class="eyebrow">LISTENING COMPLETE</span>
+    <h2>Great listening!</h2>
+    <p class="result-score" id="listening-result-score">0%</p>
+    <p><strong id="listening-result-correct">0</strong> correct out of <strong id="listening-result-total">0</strong></p>
+
+    <div class="result-stats">
+      <div><span>Correct</span><strong id="listening-result-correct-card">0</strong></div>
+      <div><span>Incorrect</span><strong id="listening-result-incorrect">0</strong></div>
+      <div><span>Accuracy</span><strong id="listening-result-accuracy">0%</strong></div>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn btn-submit" type="button" onclick="restartListeningPractice()">Practice Again</button>
+      <button class="btn btn-secondary" type="button" onclick="exitListeningPractice()">Change Settings</button>
+    </div>
+  </div>
+
+  <div class="glass-panel" id="listening-empty-notice" style="display:none; text-align:center; padding:3rem;">
+    <h3>No listening questions found.</h3>
+    <p style="color:var(--text-muted); margin-top:8px;">Try another category or difficulty.</p>
+  </div>
+</section>

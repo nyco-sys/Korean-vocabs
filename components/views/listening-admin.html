@@ -1,0 +1,34 @@
+<section id="listening-admin-view" class="view admin-only-view">
+  <div class="page-header">
+    <div>
+      <span class="eyebrow">ADMINISTRATION</span>
+      <h2>🎧 Listening Manager</h2>
+      <p>Create, review, edit, and publish Korean listening questions.</p>
+    </div>
+  </div>
+
+  <div class="listening-admin-grid">
+    <div class="glass-panel listening-admin-generator">
+      <div class="listening-admin-title"><span class="admin-feature-icon">✨</span><div><h3>AI Question Generator</h3><p>Generate original EPS-TOPIK-style practice questions for review.</p></div></div>
+      <div class="listening-admin-form-grid">
+        <div class="form-group"><label>Category</label><input id="ai-listening-category" class="form-control" value="EPS-TOPIK" placeholder="EPS-TOPIK, Workplace..." /></div>
+        <div class="form-group"><label>Difficulty</label><select id="ai-listening-difficulty" class="form-control"><option>Beginner</option><option>Intermediate</option><option>Advanced</option></select></div>
+        <div class="form-group"><label>Topic</label><input id="ai-listening-topic" class="form-control" placeholder="e.g. workplace safety" /></div>
+        <div class="form-group"><label>Questions</label><select id="ai-listening-count" class="form-control"><option value="1">1</option><option value="3" selected>3</option><option value="5">5</option><option value="10">10</option></select></div>
+      </div>
+      <button class="btn btn-primary" id="ai-listening-generate-btn" type="button" onclick="generateListeningQuestionsWithAI()">✨ Generate Questions</button>
+      <div id="ai-listening-generator-status" class="admin-inline-status"></div>
+    </div>
+
+    <div class="glass-panel listening-admin-drafts">
+      <div class="listening-admin-title"><span class="admin-feature-icon">📝</span><div><h3>Review & Publish</h3><p>Nothing is saved until you approve it.</p></div></div>
+      <div id="ai-listening-drafts" class="listening-drafts-empty">Generate questions to review them here.</div>
+      <div id="ai-listening-draft-actions" class="listening-draft-actions" hidden><button class="btn btn-primary" onclick="saveApprovedListeningQuestions()">✓ Save Approved Questions</button><button class="btn btn-secondary" onclick="clearListeningDrafts()">Clear</button></div>
+    </div>
+  </div>
+
+  <div class="glass-panel listening-admin-existing">
+    <div class="listening-admin-title"><span class="admin-feature-icon">📚</span><div><h3>Published Questions</h3><p>Edit or deactivate questions already available to learners.</p></div><button class="btn btn-secondary" onclick="loadListeningAdminQuestions()">↻ Refresh</button></div>
+    <div id="listening-admin-question-list" class="listening-admin-question-list"></div>
+  </div>
+</section>

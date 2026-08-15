@@ -2,15 +2,19 @@
 const APP_COMPONENTS = {
   header: 'components/navbar.html',
   views: [
+    'components/views/lessons.html',
     'components/views/study-image.html',
     'components/views/add-image.html',
     'components/views/study-text.html',
+    'components/views/listening.html',
     'components/views/add-text.html',
     'components/views/manage.html',
     'components/views/review-mistakes.html',
     'components/views/statistics.html',
     'components/views/ai-tutor.html',
-    'components/views/users.html'
+    'components/views/speaking.html',
+    'components/views/users.html',
+    'components/views/listening-admin.html'
   ],
   modals: [
     'components/modals/edit-vocab.html',
@@ -35,3 +39,7 @@ async function loadAppComponents() {
   views.innerHTML = (await Promise.all(APP_COMPONENTS.views.map(loadHtmlFragment))).join('\n');
   modals.innerHTML = (await Promise.all(APP_COMPONENTS.modals.map(loadHtmlFragment))).join('\n');
 }
+
+
+// AI Tutor keyboard initializer hook
+if (typeof initAIKoreanKeyboardIfReady === 'function') { setTimeout(initAIKoreanKeyboardIfReady, 0); }

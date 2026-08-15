@@ -372,3 +372,403 @@
 .ai-header-actions{display:flex;align-items:center;gap:10px}.ai-chat-panel{display:flex;flex-direction:column;min-width:0}.ai-chat-panel .ai-chat-top{padding:20px 22px;border-bottom:1px solid rgba(255,255,255,.08)}
 .ai-messages{flex:1;min-height:390px;max-height:520px;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:14px}.ai-message{max-width:min(78%,720px);padding:13px 15px;border-radius:16px;line-height:1.65;font-size:.9rem}.ai-message.user{align-self:flex-end;background:linear-gradient(135deg,rgba(124,58,237,.35),rgba(236,72,153,.18));border:1px solid rgba(167,139,250,.2);color:#fff}.ai-message.assistant{align-self:flex-start;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);color:#eee}.ai-message.error{align-self:center;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.18);color:#fda4af}.ai-rich-text p{margin:0 0 9px}.ai-rich-text p:last-child{margin-bottom:0}.ai-rich-text h3,.ai-rich-text h4,.ai-rich-text h5{margin:0 0 8px;color:#fff}.ai-rich-text ul{margin:6px 0 10px 20px;padding:0}.ai-rich-text code{padding:2px 6px;border-radius:6px;background:rgba(0,0,0,.28);color:#ddd6fe}.ai-provider-badge{margin-top:10px;font-size:.7rem;color:#aaa1bc}.provider-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#a78bfa;margin-right:6px}.ai-suggestion-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.ai-suggestion-row button{border:1px solid rgba(167,139,250,.18);border-radius:999px;background:rgba(139,92,246,.09);color:#c4b5fd;padding:7px 10px;font-size:.75rem;cursor:pointer}.ai-suggestion-row button:hover{background:rgba(139,92,246,.18);color:#fff}
 @media(max-width:760px){.ai-chat-shell{grid-template-columns:1fr}.ai-history{border-right:0;border-bottom:1px solid rgba(255,255,255,.08);max-height:180px}.ai-conversation-list{display:flex;overflow-x:auto;max-height:none}.ai-conversation-item{min-width:180px}.ai-header-actions{flex-direction:column;align-items:flex-end}.ai-message{max-width:92%}}
+
+
+
+/* AI Tutor Korean keyboard uses the same visual keyboard as Add Vocabulary. */
+.ai-korean-keyboard { display: none; }
+.ai-korean-keyboard.is-open { display: block; }
+.ai-korean-keyboard .kb-key { touch-action: manipulation; }
+
+
+/* =========================================================
+   AI Tutor — Premium Korean Keyboard Toggle
+   ========================================================= */
+.ai-input-area {
+  position: relative;
+  min-width: 0;
+}
+
+.ai-input-area textarea {
+  padding-right: 88px;
+}
+
+.ai-keyboard-toggle {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 3;
+  width: 62px;
+  height: 42px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  overflow: hidden;
+  border: 1px solid rgba(196,181,253,.24);
+  border-radius: 12px;
+  background:
+    linear-gradient(145deg, rgba(139,92,246,.18), rgba(236,72,153,.09)),
+    rgba(12,9,28,.84);
+  color: #ddd6fe;
+  box-shadow:
+    0 8px 22px rgba(0,0,0,.24),
+    inset 0 1px 0 rgba(255,255,255,.07);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    background .18s ease,
+    box-shadow .18s ease;
+}
+
+.ai-keyboard-toggle::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: 11px;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.05),
+    transparent 48%,
+    rgba(167,139,250,.05)
+  );
+  pointer-events: none;
+}
+
+.ai-keyboard-toggle:hover {
+  transform: translateY(-1px);
+  border-color: rgba(196,181,253,.5);
+  background:
+    linear-gradient(145deg, rgba(139,92,246,.27), rgba(236,72,153,.14)),
+    rgba(12,9,28,.9);
+  box-shadow:
+    0 10px 26px rgba(139,92,246,.18),
+    0 0 0 3px rgba(139,92,246,.06),
+    inset 0 1px 0 rgba(255,255,255,.09);
+}
+
+.ai-keyboard-toggle:active {
+  transform: translateY(0) scale(.98);
+}
+
+.ai-keyboard-toggle:focus-visible {
+  outline: none;
+  border-color: rgba(196,181,253,.7);
+  box-shadow:
+    0 0 0 3px rgba(139,92,246,.16),
+    0 8px 22px rgba(0,0,0,.24);
+}
+
+.ai-keyboard-toggle.active {
+  border-color: rgba(196,181,253,.56);
+  background:
+    linear-gradient(145deg, rgba(139,92,246,.34), rgba(236,72,153,.2)),
+    rgba(12,9,28,.92);
+  color: #fff;
+  box-shadow:
+    0 8px 24px rgba(139,92,246,.2),
+    0 0 18px rgba(139,92,246,.1),
+    inset 0 1px 0 rgba(255,255,255,.1);
+}
+
+.ai-keyboard-toggle-icon {
+  position: relative;
+  z-index: 2;
+  width: 25px;
+  height: 25px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 7px;
+  background: rgba(255,255,255,.07);
+  color: #fff;
+  font-size: .84rem;
+  font-weight: 850;
+  line-height: 1;
+}
+
+.ai-keyboard-toggle-label {
+  position: relative;
+  z-index: 2;
+  font-size: .57rem;
+  font-weight: 750;
+  letter-spacing: .01em;
+  color: #c4b5fd;
+}
+
+.ai-keyboard-toggle.active .ai-keyboard-toggle-label {
+  color: #ede9fe;
+}
+
+.ai-keyboard-toggle-glow {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  right: -10px;
+  bottom: -14px;
+  border-radius: 50%;
+  background: rgba(168,85,247,.2);
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+/* Keep the keyboard visually attached to the composer, rather than floating
+   as an unrelated element. */
+.ai-composer .ai-input-area {
+  min-height: 54px;
+}
+
+.ai-korean-keyboard {
+  margin-top: 9px;
+  padding: 10px;
+  border: 1px solid rgba(167,139,250,.14);
+  border-radius: 15px;
+  background:
+    linear-gradient(180deg, rgba(139,92,246,.055), rgba(255,255,255,.018)),
+    rgba(7,5,18,.38);
+  box-shadow:
+    0 14px 35px rgba(0,0,0,.18),
+    inset 0 1px 0 rgba(255,255,255,.035);
+}
+
+/* The shared keyboard stylesheet supplies the key layout/appearance.
+   These small refinements make it feel native to the AI Tutor composer. */
+.ai-korean-keyboard .kb-key {
+  transition:
+    transform .12s ease,
+    background .15s ease,
+    border-color .15s ease,
+    box-shadow .15s ease;
+}
+
+.ai-korean-keyboard .kb-key:hover {
+  transform: translateY(-1px);
+}
+
+@media (max-width: 700px) {
+  .ai-input-area textarea {
+    padding-right: 82px;
+  }
+
+  .ai-keyboard-toggle {
+    right: 8px;
+    bottom: 8px;
+    width: 58px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 420px) {
+  .ai-keyboard-toggle {
+    width: 48px;
+    height: 38px;
+    border-radius: 10px;
+  }
+
+  .ai-keyboard-toggle-label {
+    display: none;
+  }
+
+  .ai-keyboard-toggle-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .ai-input-area textarea {
+    padding-right: 68px;
+  }
+}
+
+
+/* =========================================================
+   AI Tutor — Korean Listening Audio Controls
+   Browser-native Speech Synthesis / ko-KR
+   ========================================================= */
+.ai-audio-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.ai-audio-controls button {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border: 1px solid rgba(196,181,253,.14);
+  border-radius: 10px;
+  background: rgba(139,92,246,.07);
+  color: #c4b5fd;
+  font: inherit;
+  font-size: .72rem;
+  font-weight: 750;
+  cursor: pointer;
+  transition: .18s ease;
+}
+
+.ai-audio-controls button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(196,181,253,.35);
+  background: rgba(139,92,246,.14);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(139,92,246,.1);
+}
+
+.ai-audio-controls button:active {
+  transform: translateY(0) scale(.98);
+}
+
+.ai-audio-controls button:focus-visible {
+  outline: none;
+  border-color: rgba(196,181,253,.55);
+  box-shadow: 0 0 0 3px rgba(139,92,246,.12);
+}
+
+.ai-audio-controls .ai-audio-play {
+  background: linear-gradient(135deg, rgba(139,92,246,.18), rgba(236,72,153,.1));
+  border-color: rgba(196,181,253,.24);
+  color: #ede9fe;
+}
+
+.ai-audio-controls .ai-audio-play.is-playing {
+  background: linear-gradient(135deg, rgba(139,92,246,.28), rgba(236,72,153,.16));
+  border-color: rgba(196,181,253,.45);
+  color: #fff;
+}
+
+.ai-audio-icon {
+  font-size: .65rem;
+}
+
+.ai-audio-error {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 9999;
+  max-width: 340px;
+  padding: 11px 14px;
+  border: 1px solid rgba(248,113,113,.2);
+  border-radius: 11px;
+  background: rgba(20,10,20,.94);
+  color: #fecaca;
+  box-shadow: 0 12px 35px rgba(0,0,0,.3);
+  backdrop-filter: blur(12px);
+  font-size: .78rem;
+}
+
+@media (max-width: 520px) {
+  .ai-audio-controls {
+    gap: 6px;
+  }
+
+  .ai-audio-controls button {
+    padding: 7px 9px;
+    font-size: .68rem;
+  }
+}
+
+.ai-audio-controls .ai-audio-play.is-playing {
+  background: linear-gradient(135deg, rgba(239,68,68,.18), rgba(236,72,153,.1));
+  border-color: rgba(248,113,113,.34);
+  color: #fecaca;
+}
+
+.ai-audio-controls .ai-audio-play.is-playing:hover {
+  background: linear-gradient(135deg, rgba(239,68,68,.25), rgba(236,72,153,.14));
+  border-color: rgba(248,113,113,.5);
+}
+
+.ai-audio-icon {
+  min-width: 10px;
+  text-align: center;
+}
+
+
+/* =========================================================
+   AI Tutor — Markdown Table Rendering
+   ========================================================= */
+.ai-table-wrap {
+  width: 100%;
+  margin: 12px 0 14px;
+  overflow-x: auto;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  background: rgba(4,3,12,.24);
+  -webkit-overflow-scrolling: touch;
+}
+
+.ai-markdown-table {
+  width: 100%;
+  min-width: 460px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: .82rem;
+  line-height: 1.5;
+}
+
+.ai-markdown-table th,
+.ai-markdown-table td {
+  padding: 9px 11px;
+  text-align: left;
+  vertical-align: top;
+  border-right: 1px solid rgba(255,255,255,.055);
+  border-bottom: 1px solid rgba(255,255,255,.055);
+}
+
+.ai-markdown-table th:last-child,
+.ai-markdown-table td:last-child {
+  border-right: 0;
+}
+
+.ai-markdown-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.ai-markdown-table th {
+  background: linear-gradient(135deg, rgba(139,92,246,.16), rgba(236,72,153,.07));
+  color: #f5f3ff;
+  font-weight: 750;
+  white-space: nowrap;
+}
+
+.ai-markdown-table td {
+  color: #ddd8e8;
+  background: rgba(255,255,255,.018);
+}
+
+.ai-markdown-table tbody tr:nth-child(even) td {
+  background: rgba(255,255,255,.032);
+}
+
+.ai-markdown-table tbody tr:hover td {
+  background: rgba(139,92,246,.055);
+}
+
+.ai-markdown-table code {
+  white-space: nowrap;
+}
+
+@media (max-width: 520px) {
+  .ai-table-wrap {
+    margin-left: -2px;
+    width: calc(100% + 4px);
+  }
+
+  .ai-markdown-table {
+    min-width: 420px;
+    font-size: .76rem;
+  }
+
+  .ai-markdown-table th,
+  .ai-markdown-table td {
+    padding: 8px 9px;
+  }
+}

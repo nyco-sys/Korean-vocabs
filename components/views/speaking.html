@@ -1,0 +1,67 @@
+<section class="view auth-required-view" id="speaking-view">
+  <div class="speaking-shell">
+    <div class="speaking-hero glass-panel">
+      <div class="speaking-avatar" aria-hidden="true">👩🏻‍💼</div>
+      <div class="speaking-hero-copy">
+        <span class="eyebrow">KOREAN SPEAKING PRACTICE</span>
+        <h1>Meet <span class="speaking-name">Minji</span></h1>
+        <p>Your Korean conversation partner. Speak naturally, get gentle corrections, and keep the conversation going.</p>
+        <div class="speaking-status"><span class="speaking-status-dot"></span><span id="speaking-status">Ready to talk</span></div>
+      </div>
+    </div>
+
+    <div class="speaking-controls glass-panel">
+      <div class="speaking-control-group">
+        <label for="speaking-scenario">Conversation</label>
+        <select id="speaking-scenario" onchange="resetSpeakingSession()">
+          <option value="free">Free Conversation</option>
+          <option value="self_intro">Self Introduction</option>
+          <option value="restaurant">At a Restaurant</option>
+          <option value="shopping">Shopping</option>
+          <option value="workplace">Workplace</option>
+          <option value="directions">Asking Directions</option>
+          <option value="eps_workplace">EPS-TOPIK Workplace</option>
+        </select>
+      </div>
+      <div class="speaking-control-group">
+        <label>Correction</label>
+        <div class="speaking-toggle-row">
+          <button type="button" class="speaking-mode active" data-mode="gentle" onclick="setSpeakingCorrectionMode('gentle',this)">Gentle</button>
+          <button type="button" class="speaking-mode" data-mode="detailed" onclick="setSpeakingCorrectionMode('detailed',this)">Detailed</button>
+        </div>
+      </div>
+      <button type="button" class="speaking-reset-btn" onclick="resetSpeakingSession()">↻ New Conversation</button>
+    </div>
+
+    <div class="speaking-chat glass-panel" id="speaking-chat">
+      <div class="speaking-welcome" id="speaking-welcome">
+        <div class="speaking-mini-avatar">👩🏻‍💼</div>
+        <div>
+          <strong>안녕하세요! 저는 민지예요. 👋</strong>
+          <p>Let's practice Korean together. Choose a topic, then press the microphone and speak.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="speaking-correction glass-panel" id="speaking-correction" hidden>
+      <div class="correction-header"><span>✨</span><strong>Quick Correction</strong></div>
+      <div class="correction-grid">
+        <div><span class="correction-label">You said</span><p id="speaking-correction-original"></p></div>
+        <div><span class="correction-label">Try this</span><p id="speaking-correction-better"></p></div>
+      </div>
+      <p class="correction-explanation" id="speaking-correction-explanation"></p>
+    </div>
+
+    <div class="speaking-input glass-panel">
+      <div class="speaking-transcript" id="speaking-transcript">Press the microphone and start speaking.</div>
+      <div class="speaking-input-actions">
+        <button class="speaking-mic-btn" id="speaking-mic-btn" type="button" onclick="toggleSpeakingMic()" aria-label="Start speaking">
+          <span id="speaking-mic-icon">🎙️</span>
+        </button>
+        <div class="speaking-input-hint"><strong id="speaking-mic-label">Tap to speak</strong><span id="speaking-mic-subtext">Korean speech recognition</span></div>
+        <button class="speaking-send-btn" id="speaking-send-btn" type="button" onclick="sendSpeakingMessage()" disabled>↗</button>
+      </div>
+    </div>
+    <p class="speaking-browser-note">Microphone practice uses your browser's speech recognition. Chrome/Edge provide the best support.</p>
+  </div>
+</section>

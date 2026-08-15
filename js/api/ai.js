@@ -94,7 +94,216 @@ async function askAITutor() {
 }
 
 function escapeAIHtml(value){return String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');}
-function renderAIMarkdown(text){let html=escapeAIHtml(text);html=html.replace(/`([^`\n]+)`/g,'<code>$1</code>').replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>').replace(/__([^_\n]+)__/g,'<strong>$1</strong>').replace(/\*([^*\n]+)\*/g,'<em>$1</em>').replace(/^###\s+(.+)$/gm,'<h5>$1</h5>').replace(/^##\s+(.+)$/gm,'<h4>$1</h4>').replace(/^#\s+(.+)$/gm,'<h3>$1</h3>').replace(/^\s*[-•]\s+(.+)$/gm,'<li>$1</li>');html=html.replace(/(?:<li>.*?<\/li>\s*)+/gs,m=>`<ul>${m}</ul>`);html=html.replace(/\n{2,}/g,'</p><p>').replace(/\n/g,'<br>');return `<div class="ai-rich-text"><p>${html}</p></div>`.replace(/<p><\/p>/g,'');}
+function renderAIMarkdown(text){
+  const source = String(text ?? '').replace(/\r\n/g, '\n');
+  const lines = source.split('\n');
+  const output = [];
+  let i = 0;
+
+  function inlineMarkdown(value){
+    let html = escapeAIHtml(value);
+    html = html
+      .replace(/`([^`\n]+)`/g,'<code>$1</code>')
+      .replace(/\*\*([^*\n]+)\*\*/g,'<strong>$1</strong>')
+      .replace(/__([^_\n]+)__/g,'<strong>$1</strong>')
+      .replace(/\*([^*\n]+)\*/g,'<em>$1</em>');
+    return html;
+  }
+
+  function splitTableRow(line){
+    let value = line.trim();
+    if (value.startsWith('|')) value = value.slice(1);
+    if (value.endsWith('|') && !value.endsWith('\\|')) value = value.slice(0, -1);
+
+    const cells = [];
+    let cell = '';
+    let escaped = false;
+
+    for (const char of value) {
+      if (char === '|' && !escaped) {
+        cells.push(cell.trim());
+        cell = '';
+      } else {
+        cell += char;
+      }
+      escaped = char === '\\' && !escaped;
+      if (char !== '\\') escaped = false;
+    }
+    cells.push(cell.trim());
+
+    return cells.map(cell => cell.replace(/\\\|/g, '|'));
+  }
+
+  function isTableSeparator(line){
+    const cells = splitTableRow(line);
+    return cells.length > 0 && cells.every(cell =>
+      /^:?-{3,}:?$/.test(cell.trim())
+    );
+  }
+
+  function alignmentFor(cell){
+    const value = cell.trim();
+    if (value.startsWith(':') && value.endsWith(':')) return 'center';
+    if (value.startsWith(':')) return 'left';
+    if (value.endsWith(':')) return 'right';
+    return '';
+  }
+
+  function renderTable(headerLine, separatorLine, bodyLines){
+    const headers = splitTableRow(headerLine);
+    const separators = splitTableRow(separatorLine);
+    const rows = bodyLines.map(splitTableRow);
+
+    const columnCount = Math.max(
+      headers.length,
+      separators.length,
+      ...rows.map(row => row.length)
+    );
+
+    const headerCells = Array.from({length: columnCount}, (_, index) =>
+      headers[index] ?? ''
+    );
+
+    const tableRows = rows.map(row =>
+      Array.from({length: columnCount}, (_, index) => row[index] ?? '')
+    );
+
+    let html = '<div class="ai-table-wrap"><table class="ai-markdown-table"><thead><tr>';
+
+    for (let index = 0; index < columnCount; index++) {
+      const align = alignmentFor(separators[index] || '');
+      html += `<th${align ? ` style="text-align:${align}"` : ''}>${inlineMarkdown(headerCells[index])}</th>`;
+    }
+
+    html += '</tr></thead>';
+
+    if (tableRows.length) {
+      html += '<tbody>';
+      tableRows.forEach(row => {
+        html += '<tr>';
+        for (let index = 0; index < columnCount; index++) {
+          const align = alignmentFor(separators[index] || '');
+          html += `<td${align ? ` style="text-align:${align}"` : ''}>${inlineMarkdown(row[index])}</td>`;
+        }
+        html += '</tr>';
+      });
+      html += '</tbody>';
+    }
+
+    html += '</table></div>';
+    return html;
+  }
+
+  while (i < lines.length) {
+    // Markdown table: header + separator + zero or more body rows.
+    if (
+      i + 1 < lines.length &&
+      lines[i].includes('|') &&
+      isTableSeparator(lines[i + 1])
+    ) {
+      const body = [];
+      let j = i + 2;
+
+      while (j < lines.length && lines[j].trim() && lines[j].includes('|')) {
+        body.push(lines[j]);
+        j++;
+      }
+
+      output.push(renderTable(lines[i], lines[i + 1], body));
+      i = j;
+      continue;
+    }
+
+    const line = lines[i];
+
+    if (/^\s*###\s+/.test(line)) {
+      output.push(`<h5>${inlineMarkdown(line.replace(/^\s*###\s+/, ''))}</h5>`);
+    } else if (/^\s*##\s+/.test(line)) {
+      output.push(`<h4>${inlineMarkdown(line.replace(/^\s*##\s+/, ''))}</h4>`);
+    } else if (/^\s*#\s+/.test(line)) {
+      output.push(`<h3>${inlineMarkdown(line.replace(/^\s*#\s+/, ''))}</h3>`);
+    } else if (/^\s*[-•]\s+/.test(line)) {
+      const items = [];
+      let j = i;
+      while (j < lines.length && /^\s*[-•]\s+/.test(lines[j])) {
+        items.push(`<li>${inlineMarkdown(lines[j].replace(/^\s*[-•]\s+/, ''))}</li>`);
+        j++;
+      }
+      output.push(`<ul>${items.join('')}</ul>`);
+      i = j;
+      continue;
+    } else if (!line.trim()) {
+      output.push('');
+    } else {
+      output.push(inlineMarkdown(line));
+    }
+
+    i++;
+  }
+
+  // Preserve ordinary paragraphs while keeping block-level tables/lists/headings intact.
+  let html = '';
+  let paragraph = [];
+
+  function flushParagraph(){
+    if (!paragraph.length) return;
+    const content = paragraph.join('<br>');
+    html += `<p>${content}</p>`;
+    paragraph = [];
+  }
+
+  for (const block of output) {
+    if (!block) {
+      flushParagraph();
+    } else if (/^<(div|ul|h[3-5])/.test(block)) {
+      flushParagraph();
+      html += block;
+    } else {
+      paragraph.push(block);
+    }
+  }
+  flushParagraph();
+
+  return `<div class="ai-rich-text">${html}</div>`;
+}
 function addAIMessage(text,role,meta={}){const messages=document.getElementById('ai-messages');if(!messages)return;const bubble=document.createElement('div');bubble.className=`ai-message ${role}`;if(role==='assistant'){bubble.innerHTML=renderAIMarkdown(text);if(meta.provider){const provider=document.createElement('div');provider.className='ai-provider-badge';provider.innerHTML=`<span class="provider-dot"></span>${escapeAIHtml(meta.provider)}${meta.fallback?' · fallback':''}`;bubble.appendChild(provider);}}else if(role==='user')bubble.textContent=text;else bubble.innerHTML=`<div class="ai-error-content"><span>⚠️</span><span>${escapeAIHtml(text)}</span></div>`;messages.appendChild(bubble);if(meta.scroll!==false)messages.scrollTo({top:messages.scrollHeight,behavior:'smooth'});}
 function handleAIKeydown(event){if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();askAITutor();}}
 document.addEventListener('input',e=>{if(e.target.id==='ai-message'){const c=document.getElementById('ai-character-count');if(c)c.textContent=`${e.target.value.length} / 4000`;}});
+
+
+// Initialize the AI Tutor Korean keyboard after the view is available.
+function initAIKoreanKeyboardIfReady() {
+  if (typeof setupAIKoreanKeyboard === 'function' && document.getElementById('ai-message')) {
+    setupAIKoreanKeyboard();
+  }
+}
+window.initAIKoreanKeyboardIfReady = initAIKoreanKeyboardIfReady;
+
+// Attach browser-native Korean audio controls to newly rendered AI messages.
+(() => {
+  function attachKoreanAudioToMessages() {
+    if (!window.createAIAudioControls || !window.extractKoreanForAudio) return;
+
+    const candidates = document.querySelectorAll(
+      '.ai-message.assistant:not([data-audio-ready]),' +
+      '.assistant-message:not([data-audio-ready]),' +
+      '.ai-chat-message.assistant:not([data-audio-ready])'
+    );
+
+    candidates.forEach(message => {
+      const text = window.extractKoreanForAudio(message.innerText || '');
+      if (!text) {
+        message.dataset.audioReady = 'true';
+        return;
+      }
+
+      const controls = window.createAIAudioControls(text);
+      message.appendChild(controls);
+      message.dataset.audioReady = 'true';
+    });
+  }
+
+  const observer = new MutationObserver(attachKoreanAudioToMessages);
+  observer.observe(document.body, { childList: true, subtree: true });
+  setTimeout(attachKoreanAudioToMessages, 500);
+})();

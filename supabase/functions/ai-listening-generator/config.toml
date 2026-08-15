@@ -1,0 +1,3 @@
+# Disable Supabase's gateway JWT verification for this function so browser CORS
+# preflight (OPTIONS) can reach the function. The function verifies the JWT itself.
+verify_jwt = false

@@ -4,8 +4,8 @@ let authenticatedUser = null;
 let currentUserProfile = null;
 let currentAuthUser = null;
 
-const PROTECTED_TABS = ['study','text-study','add','text-add','manage','review','statistics','ai-tutor'];
-const ADMIN_TABS = ['users'];
+const PROTECTED_TABS = ['study','text-study','listening','add','text-add','manage','review','statistics','ai-tutor','speaking','lessons'];
+const ADMIN_TABS = ['users','listening-admin'];
 
 function isUserAuthenticated() { return !!authenticatedUser; }
 function isAdminUser() { return !!authenticatedUser && currentUserProfile?.role === 'admin' && currentUserProfile?.status === 'active'; }
@@ -219,15 +219,18 @@ function setActiveView(tab) {
 
 function switchTab(tab) {
   if (!requireAdmin(tab)) return;
+  if (typeof window.stopKoreanAudio === 'function') window.stopKoreanAudio();
   document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tab));
   setActiveView(tab);
   if (tab === 'study') document.getElementById('user-input')?.focus();
   if (tab === 'text-study') document.getElementById('text-user-input')?.focus();
+  if (tab === 'listening' && typeof initListeningPage === 'function') initListeningPage();
   if (tab === 'manage') loadManageData();
   if (tab === 'review') loadMistakeReview();
   if (tab === 'statistics' && typeof loadStatistics === 'function') loadStatistics();
   if (tab === 'ai-tutor' && typeof loadAISettings === 'function') loadAISettings();
   if (tab === 'users' && typeof loadUsers === 'function') loadUsers();
+  if (tab === 'listening-admin' && typeof initListeningAdmin === 'function') initListeningAdmin();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -237,3 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (loginBtn) loginBtn.hidden = false;
   refreshAuthUI().catch(error => console.error('Initial auth UI refresh failed:', error));
 });
+
+
+// AI Tutor keyboard initializer hook
+if (typeof initAIKoreanKeyboardIfReady === 'function') { setTimeout(initAIKoreanKeyboardIfReady, 0); }

@@ -28,7 +28,64 @@
       </div>
       <div id="ai-messages" class="ai-messages"></div>
       <div class="ai-composer-wrap">
-        <div class="ai-composer"><textarea id="ai-message" rows="2" maxlength="4000" placeholder="Ask your Korean question..." aria-label="Ask your Korean tutor a question" onkeydown="handleAIKeydown(event)"></textarea><button id="ai-send-btn" class="btn btn-primary ai-send-btn" type="button" onclick="askAITutor()">Send <span class="send-arrow">↗</span></button></div>
+        <div class="ai-composer">
+  <div class="ai-input-area">
+    <textarea id="ai-message" rows="2" maxlength="4000" placeholder="Ask your Korean question..." aria-label="Ask your Korean tutor a question" onkeydown="handleAIKeydown(event)"></textarea>
+    <button id="ai-korean-keyboard-toggle"
+        class="ai-keyboard-toggle"
+        type="button"
+        onclick="toggleAIKoreanKeyboard()"
+        aria-expanded="false"
+        aria-controls="ai-korean-keyboard"
+        title="Korean keyboard"
+        aria-label="Open Korean keyboard">
+  <span class="ai-keyboard-toggle-icon">한</span>
+  <span class="ai-keyboard-toggle-label">한국어</span>
+  <span class="ai-keyboard-toggle-glow"></span>
+</button>
+  </div>
+  <button id="ai-send-btn" class="btn btn-primary ai-send-btn" type="button" onclick="askAITutor()">Send <span class="send-arrow">↗</span></button>
+</div>
+<div class="keyboard-container add-korean-keyboard ai-korean-keyboard" id="ai-korean-keyboard" aria-label="Korean keyboard">
+<div class="kb-row">
+<button class="kb-key" data-normal="ㅂ" data-shift="ㅃ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="sub-char">ㅃ</span><span class="main-char">ㅂ</span></button>
+<button class="kb-key" data-normal="ㅈ" data-shift="ㅉ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="sub-char">ㅉ</span><span class="main-char">ㅈ</span></button>
+<button class="kb-key" data-normal="ㄷ" data-shift="ㄸ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="sub-char">ㄸ</span><span class="main-char">ㄷ</span></button>
+<button class="kb-key" data-normal="ㄱ" data-shift="ㄲ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="sub-char">ㄲ</span><span class="main-char">ㄱ</span></button>
+<button class="kb-key" data-normal="ㅅ" data-shift="ㅆ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="sub-char">ㅆ</span><span class="main-char">ㅅ</span></button>
+<button class="kb-key" data-normal="ㅛ" data-shift="ㅛ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅛ</span></button>
+<button class="kb-key" data-normal="ㅕ" data-shift="ㅕ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅕ</span></button>
+<button class="kb-key" data-normal="ㅑ" data-shift="ㅑ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅑ</span></button>
+<button class="kb-key" data-normal="ㅐ" data-shift="ㅒ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="sub-char">ㅒ</span><span class="main-char">ㅐ</span></button>
+<button class="kb-key" data-normal="ㅔ" data-shift="ㅖ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="sub-char">ㅖ</span><span class="main-char">ㅔ</span></button>
+</div>
+<div class="kb-row">
+<button class="kb-key" data-normal="ㅁ" data-shift="ㅁ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅁ</span></button>
+<button class="kb-key" data-normal="ㄴ" data-shift="ㄴ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㄴ</span></button>
+<button class="kb-key" data-normal="ㅇ" data-shift="ㅇ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅇ</span></button>
+<button class="kb-key" data-normal="ㄹ" data-shift="ㄹ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㄹ</span></button>
+<button class="kb-key" data-normal="ㅎ" data-shift="ㅎ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅎ</span></button>
+<button class="kb-key" data-normal="ㅗ" data-shift="ㅗ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅗ</span></button>
+<button class="kb-key" data-normal="ㅓ" data-shift="ㅓ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅓ</span></button>
+<button class="kb-key" data-normal="ㅏ" data-shift="ㅏ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅏ</span></button>
+<button class="kb-key" data-normal="ㅣ" data-shift="ㅣ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅣ</span></button>
+</div>
+<div class="kb-row">
+<button class="kb-key wide" id="ai-shift-btn" onclick="toggleAIShift()" type="button">Shift ⇧</button>
+<button class="kb-key" data-normal="ㅋ" data-shift="ㅋ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅋ</span></button>
+<button class="kb-key" data-normal="ㅌ" data-shift="ㅌ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅌ</span></button>
+<button class="kb-key" data-normal="ㅍ" data-shift="ㅍ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅍ</span></button>
+<button class="kb-key" data-normal="ㅊ" data-shift="ㅊ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅊ</span></button>
+<button class="kb-key" data-normal="ㅠ" data-shift="ㅠ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅠ</span></button>
+<button class="kb-key" data-normal="ㅜ" data-shift="ㅜ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅜ</span></button>
+<button class="kb-key" data-normal="ㅡ" data-shift="ㅡ" onclick="pressAIKeyFromBtn(this)" type="button"><span class="main-char">ㅡ</span></button>
+<button class="kb-key wide" onclick="pressAIBackspace()" type="button">⌫</button>
+</div>
+<div class="kb-row">
+<button class="kb-key space-key" onclick="pressAIKey(' ')" type="button">Space</button>
+<button class="kb-key wide" onclick="clearAIKoreanInput()" type="button">Clear</button>
+</div>
+</div>
         <div class="ai-composer-footer"><small class="ai-hint">Enter to send · Shift + Enter for a new line</small><small class="ai-character-count" id="ai-character-count">0 / 4000</small></div>
       </div>
     </div>

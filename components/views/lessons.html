@@ -1,0 +1,46 @@
+<section class="view auth-required-view" id="lessons-view">
+  <div class="lessons-hero glass-panel">
+    <div class="lessons-hero-icon">📘</div>
+    <div>
+      <span class="eyebrow">KOREAN LEARNING PATH</span>
+      <h2>Learn Korean Step by Step</h2>
+      <p>Follow a structured path from Hangul foundations to grammar, pronunciation, numbers, sentence patterns, and verb tenses.</p>
+    </div>
+  </div>
+
+  <div class="lessons-progress glass-panel">
+    <div>
+      <span class="eyebrow">YOUR PROGRESS</span>
+      <strong id="lessons-progress-text">0 of 7 phases started</strong>
+    </div>
+    <div class="lessons-progress-track"><span id="lessons-progress-bar"></span></div>
+  </div>
+
+  <div class="lessons-toolbar">
+    <div>
+      <span class="eyebrow">CURRICULUM</span>
+      <h3>Learning Phases</h3>
+    </div>
+    <button class="btn btn-secondary" type="button" onclick="resetLessonProgress()">Reset Progress</button>
+  </div>
+
+  <div class="lesson-phase-grid" id="lesson-phase-grid"></div>
+
+  <div class="lesson-detail-backdrop" id="lesson-detail-backdrop" hidden></div>
+  <div class="lesson-detail glass-panel" id="lesson-detail" hidden role="dialog" aria-modal="true" aria-labelledby="lesson-detail-title">
+    <div class="lesson-detail-top">
+      <button class="btn btn-secondary lesson-close-btn" type="button" onclick="closeLessonDetail()" aria-label="Close phase">← All Phases</button>
+      <div class="lesson-detail-top-meta">
+        <span class="lesson-phase-badge" id="lesson-detail-phase">PHASE 1</span>
+        <span class="lesson-detail-progress-text" id="lesson-detail-progress">0/0 lessons complete</span>
+      </div>
+    </div>
+    <div class="lesson-detail-heading">
+      <span class="eyebrow" id="lesson-detail-eyebrow">한글 기초</span>
+      <h2 id="lesson-detail-title">Introduction to Hangul</h2>
+      <p id="lesson-detail-description"></p>
+      <div class="lesson-detail-progress-track" aria-label="Phase progress"><span id="lesson-detail-progress-bar"></span></div>
+    </div>
+    <div class="lesson-list" id="lesson-list"></div>
+  </div>
+</section>

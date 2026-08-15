@@ -3,7 +3,11 @@
 @import url("components/modal.css");
 @import url("components/keyboard.css");
 @import url("pages/study.css");
+@import url("pages/lessons.css");
 @import url("pages/text-study.css");
+@import url("pages/listening.css");
+@import url("pages/speaking.css");
+@import url("pages/listening-admin.css");
 @import url("pages/quiz.css");
 @import url("responsive.css");
 
