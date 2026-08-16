@@ -472,49 +472,265 @@ const KOREAN_LESSONS = [
     ]
   },
   {
-    id: 'phase-5', number: 5, title: '숫자 & 수량 표현', subtitle: 'Numbers & Counters', icon: '123', color: 'cyan',
-    description: 'Learn Sino-Korean numbers, native Korean numbers, and the most useful Korean counters.',
-    lessons: [
-      {title:'Sino-Korean Numbers',body:'Learn 일, 이, 삼 and the system used for dates, money, phone numbers, minutes, addresses, and many other measurements.',examples:[{ko:'일, 이, 삼, 사, 오',en:'1, 2, 3, 4, 5',audio:'일, 이, 삼, 사, 오'},{ko:'십, 백, 천, 만',en:'10, 100, 1,000, 10,000',audio:'십, 백, 천, 만'}]},
-      {title:'Native Korean Numbers',body:'Learn 하나, 둘, 셋, 넷 and the native counting system used especially with people, objects, age, hours, and common counters.',examples:[{ko:'하나, 둘, 셋, 넷',en:'one, two, three, four',audio:'하나, 둘, 셋, 넷'},{ko:'다섯, 여섯, 일곱, 여덟',en:'five, six, seven, eight',audio:'다섯, 여섯, 일곱, 여덟'}]},
-      {title:'Native Number Changes Before Counters',body:'Before many counters, 하나, 둘, 셋, 넷, and 스물 change to 한, 두, 세, 네, and 스무.',table:{headers:['Number','Before Counter','Example'],rows:[['하나','한','한 명'],['둘','두','두 개'],['셋','세','세 마리'],['넷','네','네 권'],['스물','스무','스무 살']]},examples:[{ko:'한 명',en:'one person',audio:'한 명'},{ko:'두 개',en:'two things',audio:'두 개'},{ko:'세 마리',en:'three animals',audio:'세 마리'},{ko:'네 권',en:'four books',audio:'네 권'}]},
-      {title:'People Counters — 명 / 분',body:'명 is a common counter for people. 분 is a respectful counter used for people.',examples:[{ko:'한 명',en:'one person',audio:'한 명'},{ko:'세 명',en:'three people',audio:'세 명'},{ko:'두 분',en:'two people (respectful)',audio:'두 분'}]},
-      {title:'General Object Counter — 개',body:'개 is a very common general counter for objects and things.',examples:[{ko:'한 개',en:'one thing',audio:'한 개'},{ko:'두 개',en:'two things',audio:'두 개'},{ko:'세 개',en:'three things',audio:'세 개'}]},
-      {title:'Animals — 마리',body:'마리 is used for animals.',examples:[{ko:'한 마리',en:'one animal',audio:'한 마리'},{ko:'두 마리',en:'two animals',audio:'두 마리'},{ko:'세 마리',en:'three animals',audio:'세 마리'}]},
-      {title:'Books — 권',body:'권 is used for books and book-like volumes.',examples:[{ko:'한 권',en:'one book',audio:'한 권'},{ko:'두 권',en:'two books',audio:'두 권'},{ko:'세 권',en:'three books',audio:'세 권'}]},
-      {title:'Drinks — 잔',body:'잔 is used for cups or glasses of drinks.',examples:[{ko:'한 잔',en:'one cup/glass',audio:'한 잔'},{ko:'두 잔',en:'two cups/glasses',audio:'두 잔'}]},
-      {title:'More Useful Counters',body:'Build familiarity with common counters such as 장 for flat items, 대 for machines/vehicles, 켤레 for pairs of shoes or socks, and 병 for bottles.',examples:[{ko:'사진 두 장',en:'two photos',audio:'사진 두 장'},{ko:'자동차 한 대',en:'one car',audio:'자동차 한 대'},{ko:'신발 한 켤레',en:'one pair of shoes',audio:'신발 한 켤레'},{ko:'물 두 병',en:'two bottles of water',audio:'물 두 병'}]},
-      {title:'Sino vs Native — When to Use Which',body:'Learn the practical distinction instead of memorizing isolated lists. Native Korean numbers are common with many everyday counters, while Sino-Korean numbers are used for dates, money, phone numbers, minutes, addresses, and many formal measurements.',examples:[{ko:'세 명',en:'three people',audio:'세 명'},{ko:'삼 분',en:'three minutes',audio:'삼 분'},{ko:'세 시',en:'three o’clock',audio:'세 시'},{ko:'삼 월',en:'March',audio:'삼 월'}]},
-      {title:'Number + Counter Sentence Building',body:'Combine numbers and counters with particles and verbs to form complete sentences.',examples:[{ko:'학생 세 명이 있어요.',en:'There are three students.',audio:'학생 세 명이 있어요.'},{ko:'책 두 권을 샀어요.',en:'I bought two books.',audio:'책 두 권을 샀어요.'},{ko:'사과 세 개를 먹어요.',en:'I eat three apples.',audio:'사과 세 개를 먹어요.'}]},
-      {title:'Phase 5 Listening & Practice',body:'Listen, identify the number system and counter, then repeat the complete expression.',examples:[{ko:'한 명',en:'one person',audio:'한 명'},{ko:'삼 분',en:'three minutes',audio:'삼 분'},{ko:'두 권',en:'two books',audio:'두 권'},{ko:'세 마리',en:'three animals',audio:'세 마리'}]},
-      {title:'Phase 5 Mastery Test',body:'Review number systems, counter changes, and common counters before moving to dates and time.',examples:[{ko:'두 명',en:'two people',audio:'두 명'},{ko:'삼 월',en:'March',audio:'삼 월'},{ko:'네 권',en:'four books',audio:'네 권'},{ko:'오 분',en:'five minutes',audio:'오 분'}]}
+    id:'phase-5', number:5, title:'숫자 & 수량 표현', subtitle:'Numbers & Counters',
+    icon:'수', color:'green',
+    description:'Learn Native Korean numbers first, then Native Korean counters. After that, learn Sino-Korean numbers and Sino-Korean counters separately so the two systems are never mixed up.',
+    lessons:[
+      {group:'NATIVE KOREAN NUMBERS',title:'Native Korean Numbers 1–10',body:'Native Korean numbers are commonly used for people, objects, animals, age, and hours. Learn this system completely before moving to Sino-Korean numbers.',examples:[
+        {ko:'하나',en:'1',audio:'하나'},{ko:'둘',en:'2',audio:'둘'},{ko:'셋',en:'3',audio:'셋'},{ko:'넷',en:'4',audio:'넷'},{ko:'다섯',en:'5',audio:'다섯'},{ko:'여섯',en:'6',audio:'여섯'},{ko:'일곱',en:'7',audio:'일곱'},{ko:'여덟',en:'8',audio:'여덟'},{ko:'아홉',en:'9',audio:'아홉'},{ko:'열',en:'10',audio:'열'}]},
+      {group:'NATIVE KOREAN NUMBERS',title:'Native Korean Numbers 11–20',body:'For 11–19, combine 열 with the ones number. 20 is 스물.',examples:[
+        {ko:'열하나',en:'11',audio:'열하나'},{ko:'열둘',en:'12',audio:'열둘'},{ko:'열셋',en:'13',audio:'열셋'},{ko:'열넷',en:'14',audio:'열넷'},{ko:'열다섯',en:'15',audio:'열다섯'},{ko:'열여섯',en:'16',audio:'열여섯'},{ko:'열일곱',en:'17',audio:'열일곱'},{ko:'열여덟',en:'18',audio:'열여덟'},{ko:'열아홉',en:'19',audio:'열아홉'},{ko:'스물',en:'20',audio:'스물'}]},
+      {group:'NATIVE KOREAN NUMBERS',title:'Native Korean Tens — 20, 30, 40 … 90',body:'Native Korean has special words for each ten. Memorize these as complete number words.',examples:[
+        {ko:'스물',en:'20',audio:'스물'},{ko:'서른',en:'30',audio:'서른'},{ko:'마흔',en:'40',audio:'마흔'},{ko:'쉰',en:'50',audio:'쉰'},{ko:'예순',en:'60',audio:'예순'},{ko:'일흔',en:'70',audio:'일흔'},{ko:'여든',en:'80',audio:'여든'},{ko:'아흔',en:'90',audio:'아흔'}]},
+      {group:'NATIVE KOREAN NUMBERS',title:'Native Korean Arithmetic Counting Principle',body:'Native Korean numbers follow an additive tens + ones principle. Put the tens word first, then add the ones number.',examples:[
+        {ko:'스물하나',en:'20 + 1 = 21',audio:'스물하나'},{ko:'스물셋',en:'20 + 3 = 23',audio:'스물셋'},{ko:'서른다섯',en:'30 + 5 = 35',audio:'서른다섯'},{ko:'마흔여덟',en:'40 + 8 = 48',audio:'마흔여덟'},{ko:'쉰둘',en:'50 + 2 = 52',audio:'쉰둘'},{ko:'예순아홉',en:'60 + 9 = 69',audio:'예순아홉'},{ko:'일흔넷',en:'70 + 4 = 74',audio:'일흔넷'},{ko:'여든여섯',en:'80 + 6 = 86',audio:'여든여섯'},{ko:'아흔일곱',en:'90 + 7 = 97',audio:'아흔일곱'}]},
+      {group:'NATIVE KOREAN COUNTERS',title:'Native Korean Numbers Before Counters',body:'Before many Native Korean counters, 하나, 둘, 셋, 넷, and 스물 change form: 하나→한, 둘→두, 셋→세, 넷→네, 스물→스무.',examples:[
+        {ko:'한 명',en:'1 person',audio:'한 명'},{ko:'두 개',en:'2 things',audio:'두 개'},{ko:'세 마리',en:'3 animals',audio:'세 마리'},{ko:'네 권',en:'4 books',audio:'네 권'},{ko:'스무 살',en:'20 years old',audio:'스무 살'}]},
+      {group:'NATIVE KOREAN COUNTERS',title:'Native Korean Counters — Complete Table',body:'Use this table as the Native Korean counter reference. These counters are kept together here so you can learn the Native Korean system without mixing it with Sino-Korean counters.',tableTitle:'Pure / Native Korean Counters',table:[{counter:'갑',use:'Pack of cigarettes',example:'갑 두 개',meaning:'2 packs of cigarettes'},{counter:'개',use:'Units / items / pieces',example:'사과 세 개',meaning:'3 apples'},{counter:'그릇',use:'Bowls',example:'국 두 그릇',meaning:'2 bowls of soup'},{counter:'마리',use:'Animals',example:'고양이 두 마리',meaning:'2 cats'},{counter:'벌',use:'Sets of clothes',example:'옷 세 벌',meaning:'3 sets of clothes'},{counter:'켤레',use:'Pairs of footwear',example:'신발 두 켤레',meaning:'2 pairs of shoes'},{counter:'사람',use:'Person (casual)',example:'사람 한 사람',meaning:'one person'},{counter:'명',use:'People / persons',example:'학생 세 명',meaning:'3 people / students'},{counter:'잔',use:'Glass / cup',example:'커피 두 잔',meaning:'2 cups of coffee'},{counter:'채',use:'Houses / buildings',example:'집 두 채',meaning:'2 houses'},{counter:'자루',use:'Sticks / pointed objects',example:'연필 세 자루',meaning:'3 pencils'},{counter:'조각',use:'Slices / pieces',example:'피자 두 조각',meaning:'2 slices of pizza'},{counter:'대',use:'Vehicles / machines',example:'차 두 대',meaning:'2 cars'},{counter:'병',use:'Bottles',example:'물 세 병',meaning:'3 bottles of water'},{counter:'상자',use:'Boxes',example:'상자 두 상자',meaning:'2 boxes'},{counter:'권',use:'Books / volumes',example:'책 세 권',meaning:'3 books'},{counter:'장',use:'Sheets / flat pieces',example:'종이 네 장',meaning:'4 sheets of paper'},{counter:'송이',use:'Flowers',example:'꽃 세 송이',meaning:'3 flowers'},{counter:'다발',use:'Bunches of flowers / bananas',example:'꽃 한 다발',meaning:'one bunch of flowers'},{counter:'달',use:'Months of duration',example:'두 달',meaning:'2 months'},{counter:'살',use:'Years of age',example:'스무 살',meaning:'20 years old'},{counter:'시',use:'O’clock / hours',example:'세 시',meaning:'3 o’clock'},{counter:'조각',use:'Slices / pieces',example:'케이크 한 조각',meaning:'one piece of cake'}]},
+      {group:'NATIVE KOREAN COUNTERS',title:'Native Counter Practice',body:'Practice the number + counter combination. Focus on the correct Native Korean number form before the counter.',examples:[
+        {ko:'갑 두 개',en:'2 packs of cigarettes',audio:'갑 두 개'},{ko:'고양이 세 마리',en:'3 cats',audio:'고양이 세 마리'},{ko:'책 네 권',en:'4 books',audio:'책 네 권'},{ko:'꽃 한 송이',en:'1 flower',audio:'꽃 한 송이'},{ko:'집 두 채',en:'2 houses',audio:'집 두 채'},{ko:'커피 세 잔',en:'3 cups of coffee',audio:'커피 세 잔'},{ko:'차 두 대',en:'2 cars',audio:'차 두 대'}]},
+
+      {group:'SINO-KOREAN NUMBERS',title:'Sino-Korean Numbers 1–10',body:'Now switch completely to the Sino-Korean system. Sino-Korean numbers are commonly used for dates, money, minutes, floors, phone numbers, and many other counting systems.',examples:[
+        {ko:'일',en:'1',audio:'일'},{ko:'이',en:'2',audio:'이'},{ko:'삼',en:'3',audio:'삼'},{ko:'사',en:'4',audio:'사'},{ko:'오',en:'5',audio:'오'},{ko:'육',en:'6',audio:'육'},{ko:'칠',en:'7',audio:'칠'},{ko:'팔',en:'8',audio:'팔'},{ko:'구',en:'9',audio:'구'},{ko:'십',en:'10',audio:'십'}]},
+      {group:'SINO-KOREAN NUMBERS',title:'Sino-Korean Numbers 11–20',body:'For 11–19, use 십 + ones. 20 is 이십.',examples:[
+        {ko:'십일',en:'11',audio:'십일'},{ko:'십이',en:'12',audio:'십이'},{ko:'십삼',en:'13',audio:'십삼'},{ko:'십사',en:'14',audio:'십사'},{ko:'십오',en:'15',audio:'십오'},{ko:'십육',en:'16',audio:'십육'},{ko:'십칠',en:'17',audio:'십칠'},{ko:'십팔',en:'18',audio:'십팔'},{ko:'십구',en:'19',audio:'십구'},{ko:'이십',en:'20',audio:'이십'}]},
+      {group:'SINO-KOREAN NUMBERS',title:'Sino-Korean Tens — 20, 30, 40 … 90',body:'Multiply the digit by 십: 2×10=20, 3×10=30, and so on.',examples:[
+        {ko:'이십',en:'20 = 2×10',audio:'이십'},{ko:'삼십',en:'30 = 3×10',audio:'삼십'},{ko:'사십',en:'40 = 4×10',audio:'사십'},{ko:'오십',en:'50 = 5×10',audio:'오십'},{ko:'육십',en:'60 = 6×10',audio:'육십'},{ko:'칠십',en:'70 = 7×10',audio:'칠십'},{ko:'팔십',en:'80 = 8×10',audio:'팔십'},{ko:'구십',en:'90 = 9×10',audio:'구십'}]},
+      {group:'SINO-KOREAN NUMBERS',title:'Sino-Korean Arithmetic Counting Principle',body:'Sino-Korean numbers use place-value multiplication and addition. For example, 45 = 4×10 + 5. This same principle continues with 백 (100), 천 (1,000), 만 (10,000), and larger units.',examples:[
+        {ko:'십일',en:'10 + 1 = 11',audio:'십일'},{ko:'이십',en:'2×10 = 20',audio:'이십'},{ko:'사십오',en:'4×10 + 5 = 45',audio:'사십오'},{ko:'삼백오',en:'3×100 + 5 = 305',audio:'삼백오'},{ko:'삼백사십오',en:'3×100 + 4×10 + 5 = 345',audio:'삼백사십오'},{ko:'이천삼백사십오',en:'2×1,000 + 3×100 + 4×10 + 5 = 2,345',audio:'이천삼백사십오'}]},
+      {group:'SINO-KOREAN NUMBERS',title:'Sino-Korean Large Units',body:'Learn the major place-value units requested for this phase: 백, 천, 만, 십만, 백만, 천만, and 일억.',examples:[
+        {ko:'백',en:'100',audio:'백'},{ko:'천',en:'1,000',audio:'천'},{ko:'만',en:'10,000',audio:'만'},{ko:'십만',en:'100,000',audio:'십만'},{ko:'백만',en:'1,000,000',audio:'백만'},{ko:'천만',en:'10,000,000',audio:'천만'},{ko:'일억',en:'100,000,000',audio:'일억'}]},
+      {group:'SINO-KOREAN NUMBERS',title:'Sino-Korean 만 Arithmetic Principle',body:'Korean groups large numbers around 만 (10,000). Build the 만 group first, then add the lower place values.',examples:[
+        {ko:'만',en:'1×10,000 = 10,000',audio:'만'},{ko:'이만',en:'2×10,000 = 20,000',audio:'이만'},{ko:'삼만오천',en:'3×10,000 + 5×1,000 = 35,000',audio:'삼만오천'},{ko:'십이만',en:'12×10,000 = 120,000',audio:'십이만'},{ko:'백만',en:'100×10,000 = 1,000,000',audio:'백만'},{ko:'천만',en:'1,000×10,000 = 10,000,000',audio:'천만'},{ko:'일억',en:'10,000×10,000 = 100,000,000',audio:'일억'}]},
+      {group:'SINO-KOREAN COUNTERS',title:'Sino-Korean Counters — Complete Table',body:'Use this table as the Sino-Korean counter reference. These counters are kept separate from the Native Korean counter table to avoid confusion.',tableTitle:'Sino Korean Counters',table:[{counter:'년',use:'Year',example:'2026년',meaning:'the year 2026'},{counter:'월',use:'Month',example:'8월',meaning:'August'},{counter:'일',use:'Day / date',example:'15일',meaning:'the 15th'},{counter:'개월',use:'Month duration',example:'3개월',meaning:'3 months in duration'},{counter:'분',use:'Minute',example:'30분',meaning:'30 minutes'},{counter:'초',use:'Second',example:'10초',meaning:'10 seconds'},{counter:'층',use:'Floor',example:'3층',meaning:'3rd floor'},{counter:'달러',use:'Dollar',example:'5달러',meaning:'5 dollars'},{counter:'킬로',use:'Kilo',example:'5킬로',meaning:'5 kilograms'},{counter:'마일',use:'Miles',example:'3마일',meaning:'3 miles'},{counter:'원',use:'Won (Korean currency)',example:'5,000원',meaning:'5,000 won'},{counter:'번',use:'Times / occurrences',example:'세 번',meaning:'three times'}]},
+      {group:'SINO-KOREAN COUNTERS',title:'Sino Counter Practice',body:'Practice the Sino-Korean number + counter combinations used for dates, time, floors, money, duration, and occurrences.',examples:[
+        {ko:'2026년',en:'the year 2026',audio:'이천이십육 년'},{ko:'8월',en:'August',audio:'팔월'},{ko:'15일',en:'the 15th',audio:'십오 일'},{ko:'30분',en:'30 minutes',audio:'삼십 분'},{ko:'3층',en:'3rd floor',audio:'삼 층'},{ko:'5,000원',en:'5,000 won',audio:'오천 원'},{ko:'세 번',en:'three times',audio:'세 번'}]},
+      {group:'SINO-KOREAN COUNTERS',title:'Phase 5 Mastery Review',body:'Complete the phase in order: Native Korean numbers → Native counters → Sino-Korean numbers → Sino-Korean counters. Do not mix the systems while learning them.',examples:[
+        {ko:'스물셋',en:'23 — Native Korean',audio:'스물셋'},{ko:'책 세 권',en:'3 books — Native counter',audio:'책 세 권'},{ko:'사십오',en:'45 — Sino-Korean',audio:'사십오'},{ko:'삼백사십오',en:'345 — Sino-Korean',audio:'삼백사십오'},{ko:'삼 층',en:'3rd floor — Sino counter',audio:'삼 층'},{ko:'오천 원',en:'5,000 won — Sino counter',audio:'오천 원'}]}
     ]
   },
   {
-    id:'phase-6',number:6,title:'날짜 & 시간',subtitle:'Dates, Time & Duration',icon:'날',color:'purple',description:'Learn years, months, dates, days, clock time, and duration expressions.',
+    id:'phase-6',number:6,title:'날짜 & 시간',subtitle:'Dates & Time',icon:'날',color:'purple',
+    description:'Learn the complete Korean date system first, then learn clock time separately, including AM/PM, Native Korean hours, Sino-Korean minutes and seconds, and finally how to say from one time to another.',
     lessons:[
-      {title:'Years — 년',body:'Use Sino-Korean numbers with 년 for years.',examples:[{ko:'2026년',en:'the year 2026',audio:'이천이십육 년'},{ko:'작년',en:'last year',audio:'작년'},{ko:'내년',en:'next year',audio:'내년'}]},
-      {title:'Months — 월',body:'Months use Sino-Korean numbers plus 월. June and October have special spoken forms: 유월 and 시월.',examples:[{ko:'1월',en:'January',audio:'일월'},{ko:'3월',en:'March',audio:'삼월'},{ko:'6월',en:'June',audio:'유월'},{ko:'10월',en:'October',audio:'시월'}]},
-      {title:'Dates — 일',body:'Dates use Sino-Korean numbers plus 일.',examples:[{ko:'15일',en:'the 15th',audio:'십오 일'},{ko:'8월 15일',en:'August 15',audio:'팔월 십오 일'}]},
-      {title:'Days of the Week',body:'Learn 월요일 through 일요일.',examples:[{ko:'월요일',en:'Monday',audio:'월요일'},{ko:'금요일',en:'Friday',audio:'금요일'},{ko:'일요일',en:'Sunday',audio:'일요일'}]},
-      {title:'Full Dates',body:'Combine year, month, and date in Korean order: 년 + 월 + 일.',examples:[{ko:'2026년 8월 15일',en:'August 15, 2026',audio:'이천이십육 년 팔월 십오 일'}]},
-      {title:'Hours — 시',body:'Clock hours normally use native Korean numbers with 시.',examples:[{ko:'한 시',en:'one o’clock',audio:'한 시'},{ko:'세 시',en:'three o’clock',audio:'세 시'},{ko:'열두 시',en:'twelve o’clock',audio:'열두 시'}]},
-      {title:'Minutes — 분',body:'Minutes normally use Sino-Korean numbers with 분.',examples:[{ko:'삼 분',en:'three minutes',audio:'삼 분'},{ko:'삼십 분',en:'thirty minutes',audio:'삼십 분'}]},
-      {title:'AM / PM — 오전 / 오후',body:'Use 오전 for AM and 오후 for PM.',examples:[{ko:'오전 세 시',en:'3 AM',audio:'오전 세 시'},{ko:'오후 세 시',en:'3 PM',audio:'오후 세 시'}]},
-      {title:'Duration — 시간 / 동안',body:'Learn how to express how long something lasts.',examples:[{ko:'두 시간',en:'two hours',audio:'두 시간'},{ko:'삼 일 동안',en:'for three days',audio:'삼 일 동안'},{ko:'한 달 동안',en:'for one month',audio:'한 달 동안'}]},
-      {title:'Months of Duration — 달 / 개월',body:'Learn the practical difference between native 달 expressions and Sino-Korean 개월 expressions for month duration.',examples:[{ko:'한 달',en:'one month',audio:'한 달'},{ko:'두 달',en:'two months',audio:'두 달'},{ko:'삼 개월',en:'three months',audio:'삼 개월'}]},
-      {title:'Date & Time Questions',body:'Ask what day, date, or time it is.',examples:[{ko:'오늘 몇 월 며칠이에요?',en:'What month and date is it today?',audio:'오늘 몇 월 며칠이에요?'},{ko:'몇 시예요?',en:'What time is it?',audio:'몇 시예요?'},{ko:'무슨 요일이에요?',en:'What day of the week is it?',audio:'무슨 요일이에요?'}]},
-      {title:'Phase 6 Mastery Practice',body:'Practice reading dates, telling time, and expressing duration.',examples:[{ko:'오후 세 시 삼십 분',en:'3:30 PM',audio:'오후 세 시 삼십 분'},{ko:'2026년 8월 15일',en:'August 15, 2026',audio:'이천이십육 년 팔월 십오 일'},{ko:'두 달 동안',en:'for two months',audio:'두 달 동안'}]}
+      {group:'DATES',title:'Date System Overview — 년 · 월 · 일',body:'Korean dates follow the order year → month → day. Use Sino-Korean numbers with 년, 월, and 일. The standard written format is YYYY년 M월 D일.',tableTitle:'Korean Date Format',table:[
+        {counter:'년',use:'Year',example:'2026년',meaning:'the year 2026'},
+        {counter:'월',use:'Month',example:'8월',meaning:'August'},
+        {counter:'일',use:'Day / date',example:'15일',meaning:'the 15th'},
+        {counter:'Format',use:'Year + month + day',example:'2026년 8월 15일',meaning:'August 15, 2026'}
+      ]},
+      {group:'DATES',title:'January–June — All Months',body:'Learn the first six months. Months use Sino-Korean numbers + 월. Remember the special spoken forms 유월 for June.',tableTitle:'January to June',table:[
+        {counter:'1월',use:'January',example:'일월',meaning:'January'},
+        {counter:'2월',use:'February',example:'이월',meaning:'February'},
+        {counter:'3월',use:'March',example:'삼월',meaning:'March'},
+        {counter:'4월',use:'April',example:'사월',meaning:'April'},
+        {counter:'5월',use:'May',example:'오월',meaning:'May'},
+        {counter:'6월',use:'June',example:'유월',meaning:'June — special spoken form'}
+      ]},
+      {group:'DATES',title:'July–December — All Months',body:'Learn the remaining six months. October has the special spoken form 시월.',tableTitle:'July to December',table:[
+        {counter:'7월',use:'July',example:'칠월',meaning:'July'},
+        {counter:'8월',use:'August',example:'팔월',meaning:'August'},
+        {counter:'9월',use:'September',example:'구월',meaning:'September'},
+        {counter:'10월',use:'October',example:'시월',meaning:'October — special spoken form'},
+        {counter:'11월',use:'November',example:'십일월',meaning:'November'},
+        {counter:'12월',use:'December',example:'십이월',meaning:'December'}
+      ]},
+      {group:'DATES',title:'Months — Complete Reference',body:'Keep all twelve months together for quick review. Every month uses the Sino-Korean number system.',tableTitle:'January → December',table:[
+        {counter:'1월',use:'January',example:'일월',meaning:'January'},
+        {counter:'2월',use:'February',example:'이월',meaning:'February'},
+        {counter:'3월',use:'March',example:'삼월',meaning:'March'},
+        {counter:'4월',use:'April',example:'사월',meaning:'April'},
+        {counter:'5월',use:'May',example:'오월',meaning:'May'},
+        {counter:'6월',use:'June',example:'유월',meaning:'June'},
+        {counter:'7월',use:'July',example:'칠월',meaning:'July'},
+        {counter:'8월',use:'August',example:'팔월',meaning:'August'},
+        {counter:'9월',use:'September',example:'구월',meaning:'September'},
+        {counter:'10월',use:'October',example:'시월',meaning:'October'},
+        {counter:'11월',use:'November',example:'십일월',meaning:'November'},
+        {counter:'12월',use:'December',example:'십이월',meaning:'December'}
+      ]},
+      {group:'DATES',title:'Days of the Week',body:'The days of the week end in 요일. Learn all seven because they are used constantly when talking about dates and schedules.',tableTitle:'Monday → Sunday',table:[
+        {counter:'월요일',use:'Monday',example:'월요일',meaning:'Monday'},
+        {counter:'화요일',use:'Tuesday',example:'화요일',meaning:'Tuesday'},
+        {counter:'수요일',use:'Wednesday',example:'수요일',meaning:'Wednesday'},
+        {counter:'목요일',use:'Thursday',example:'목요일',meaning:'Thursday'},
+        {counter:'금요일',use:'Friday',example:'금요일',meaning:'Friday'},
+        {counter:'토요일',use:'Saturday',example:'토요일',meaning:'Saturday'},
+        {counter:'일요일',use:'Sunday',example:'일요일',meaning:'Sunday'}
+      ]},
+      {group:'DATES',title:'Date Format — YYYY년 M월 D일',body:'The Korean date format puts the largest unit first: year, then month, then day. Do not reverse it into the English month-day-year order.',tableTitle:'Date Format Examples',table:[
+        {counter:'YYYY년',use:'Year',example:'2026년',meaning:'2026'},
+        {counter:'M월',use:'Month',example:'8월',meaning:'August'},
+        {counter:'D일',use:'Day',example:'15일',meaning:'the 15th'},
+        {counter:'Full',use:'Year + month + day',example:'2026년 8월 15일',meaning:'August 15, 2026'},
+        {counter:'Full',use:'Year + month + day',example:'2026년 12월 25일',meaning:'December 25, 2026'}
+      ]},
+      {group:'DATES',title:'Reading Complete Dates',body:'Read every part in order: year + 년, month + 월, day + 일. The number system is Sino-Korean throughout the date.',examples:[
+        {ko:'2026년 1월 1일',en:'January 1, 2026',audio:'이천이십육 년 일월 일일'},
+        {ko:'2026년 6월 15일',en:'June 15, 2026',audio:'이천이십육 년 유월 십오 일'},
+        {ko:'2026년 10월 9일',en:'October 9, 2026',audio:'이천이십육 년 시월 구일'},
+        {ko:'2026년 12월 25일',en:'December 25, 2026',audio:'이천이십육 년 십이월 이십오 일'}
+      ]},
+      {group:'DATES',title:'Date Questions',body:'Use 몇 월 며칠이에요? to ask the month and day. Use 무슨 요일이에요? to ask the day of the week.',examples:[
+        {ko:'오늘 몇 월 며칠이에요?',en:'What month and date is it today?',audio:'오늘 몇 월 며칠이에요?'},
+        {ko:'오늘은 8월 15일이에요.',en:'Today is August 15.',audio:'오늘은 팔월 십오 일이에요.'},
+        {ko:'무슨 요일이에요?',en:'What day of the week is it?',audio:'무슨 요일이에요?'},
+        {ko:'토요일이에요.',en:'It is Saturday.',audio:'토요일이에요.'}
+      ]},
+      {group:'TIME',title:'Time System Overview — 오전/오후 + 시 + 분 + 초',body:'Korean clock time combines four parts: AM/PM → Native Korean hour + 시 → Sino-Korean minute + 분 → Sino-Korean second + 초. The hour uses Native Korean numbers, while minutes and seconds use Sino-Korean numbers.',tableTitle:'Korean Time Format',table:[
+        {counter:'오전 / 오후',use:'AM / PM',example:'오전 / 오후',meaning:'before noon / after noon'},
+        {counter:'시',use:'Hour',example:'세 시',meaning:'3 o’clock — Native Korean number'},
+        {counter:'분',use:'Minute',example:'삼십 분',meaning:'30 minutes — Sino-Korean number'},
+        {counter:'초',use:'Second',example:'십 초',meaning:'10 seconds — Sino-Korean number'},
+        {counter:'Full',use:'AM/PM + hour + minute + second',example:'오후 세 시 삼십 분 십 초',meaning:'3:30:10 PM'}
+      ]},
+      {group:'TIME',title:'AM / PM — 오전 & 오후',body:'오전 means AM / before noon. 오후 means PM / after noon. Put 오전 or 오후 before the hour.',tableTitle:'AM / PM',table:[
+        {counter:'오전',use:'AM',example:'오전 세 시',meaning:'3:00 AM'},
+        {counter:'오전',use:'AM',example:'오전 열 시',meaning:'10:00 AM'},
+        {counter:'오후',use:'PM',example:'오후 세 시',meaning:'3:00 PM'},
+        {counter:'오후',use:'PM',example:'오후 여덟 시',meaning:'8:00 PM'}
+      ]},
+      {group:'TIME',title:'Pure / Native Korean Hours — 1–12',body:'Clock hours normally use Native Korean numbers before 시. Remember the counter forms 한, 두, 세, 네 and 스무 when applicable; for 1–12 o’clock, use 한 through 열두.',tableTitle:'1–12 O’clock',table:[
+        {counter:'1시',use:'1 o’clock',example:'한 시',meaning:'1:00'},
+        {counter:'2시',use:'2 o’clock',example:'두 시',meaning:'2:00'},
+        {counter:'3시',use:'3 o’clock',example:'세 시',meaning:'3:00'},
+        {counter:'4시',use:'4 o’clock',example:'네 시',meaning:'4:00'},
+        {counter:'5시',use:'5 o’clock',example:'다섯 시',meaning:'5:00'},
+        {counter:'6시',use:'6 o’clock',example:'여섯 시',meaning:'6:00'},
+        {counter:'7시',use:'7 o’clock',example:'일곱 시',meaning:'7:00'},
+        {counter:'8시',use:'8 o’clock',example:'여덟 시',meaning:'8:00'},
+        {counter:'9시',use:'9 o’clock',example:'아홉 시',meaning:'9:00'},
+        {counter:'10시',use:'10 o’clock',example:'열 시',meaning:'10:00'},
+        {counter:'11시',use:'11 o’clock',example:'열한 시',meaning:'11:00'},
+        {counter:'12시',use:'12 o’clock',example:'열두 시',meaning:'12:00'}
+      ]},
+      {group:'TIME',title:'Sino-Korean Minutes — 분',body:'Minutes use Sino-Korean numbers + 분. The hour and minute therefore use different number systems in the same clock expression.',tableTitle:'Minute Examples',table:[
+        {counter:'01분',use:'1 minute',example:'일 분',meaning:'1 minute'},
+        {counter:'05분',use:'5 minutes',example:'오 분',meaning:'5 minutes'},
+        {counter:'10분',use:'10 minutes',example:'십 분',meaning:'10 minutes'},
+        {counter:'15분',use:'15 minutes',example:'십오 분',meaning:'15 minutes'},
+        {counter:'20분',use:'20 minutes',example:'이십 분',meaning:'20 minutes'},
+        {counter:'30분',use:'30 minutes',example:'삼십 분',meaning:'30 minutes'},
+        {counter:'45분',use:'45 minutes',example:'사십오 분',meaning:'45 minutes'},
+        {counter:'59분',use:'59 minutes',example:'오십구 분',meaning:'59 minutes'}
+      ]},
+      {group:'TIME',title:'Sino-Korean Seconds — 초',body:'Seconds also use Sino-Korean numbers + 초. The same place-value principle from Phase 5 applies.',tableTitle:'Second Examples',table:[
+        {counter:'01초',use:'1 second',example:'일 초',meaning:'1 second'},
+        {counter:'05초',use:'5 seconds',example:'오 초',meaning:'5 seconds'},
+        {counter:'10초',use:'10 seconds',example:'십 초',meaning:'10 seconds'},
+        {counter:'15초',use:'15 seconds',example:'십오 초',meaning:'15 seconds'},
+        {counter:'20초',use:'20 seconds',example:'이십 초',meaning:'20 seconds'},
+        {counter:'30초',use:'30 seconds',example:'삼십 초',meaning:'30 seconds'},
+        {counter:'45초',use:'45 seconds',example:'사십오 초',meaning:'45 seconds'},
+        {counter:'59초',use:'59 seconds',example:'오십구 초',meaning:'59 seconds'}
+      ]},
+      {group:'TIME',title:'Build the Complete Time',body:'Build the time from left to right: 오전/오후 → Native hour + 시 → Sino minute + 분 → Sino second + 초.',tableTitle:'Time Building Practice',table:[
+        {counter:'3:00',use:'AM',example:'오전 세 시',meaning:'3:00 AM'},
+        {counter:'3:15',use:'PM',example:'오후 세 시 십오 분',meaning:'3:15 PM'},
+        {counter:'8:30:10',use:'PM',example:'오후 여덟 시 삼십 분 십 초',meaning:'8:30:10 PM'},
+        {counter:'11:45:59',use:'AM',example:'오전 열한 시 사십오 분 오십구 초',meaning:'11:45:59 AM'}
+      ]},
+      {group:'FROM → TO',title:'From — 부터',body:'부터 marks the starting point of a time, date, place, or activity. For time ranges, it usually follows the starting time.',examples:[
+        {ko:'아홉 시부터',en:'from 9 o’clock',audio:'아홉 시부터'},
+        {ko:'오전 아홉 시부터',en:'from 9 AM',audio:'오전 아홉 시부터'},
+        {ko:'월요일부터',en:'from Monday',audio:'월요일부터'}
+      ]},
+      {group:'FROM → TO',title:'To — 까지',body:'까지 marks the endpoint. When used with 부터, the basic range pattern is A부터 B까지 — from A to B.',examples:[
+        {ko:'다섯 시까지',en:'until 5 o’clock',audio:'다섯 시까지'},
+        {ko:'오후 다섯 시까지',en:'until 5 PM',audio:'오후 다섯 시까지'},
+        {ko:'금요일까지',en:'until Friday',audio:'금요일까지'}
+      ]},
+      {group:'FROM → TO',title:'From → To — A부터 B까지',body:'Combine 부터 and 까지 to express a complete range. The same pattern works for time, dates, days, places, and periods.',tableTitle:'From → To Pattern',table:[
+        {counter:'Time',use:'9:00 → 5:00',example:'아홉 시부터 다섯 시까지',meaning:'from 9 to 5'},
+        {counter:'AM/PM',use:'9 AM → 5 PM',example:'오전 아홉 시부터 오후 다섯 시까지',meaning:'from 9 AM to 5 PM'},
+        {counter:'Days',use:'Monday → Friday',example:'월요일부터 금요일까지',meaning:'from Monday to Friday'},
+        {counter:'Dates',use:'Aug 1 → Aug 15',example:'8월 1일부터 8월 15일까지',meaning:'from August 1 to August 15'},
+        {counter:'Duration',use:'2 → 3 hours',example:'두 시간부터 세 시간까지',meaning:'from two hours to three hours'}
+      ]},
+      {group:'FROM → TO',title:'From a Date to a Date',body:'For dates, attach 부터 to the starting date and 까지 to the ending date. This is useful for schedules, reservations, events, and study periods.',examples:[
+        {ko:'8월 1일부터 8월 15일까지',en:'from August 1 to August 15',audio:'팔월 일일부터 팔월 십오일까지'},
+        {ko:'2026년 8월 1일부터 2026년 8월 15일까지',en:'from August 1, 2026 to August 15, 2026',audio:'이천이십육 년 팔월 일일부터 이천이십육 년 팔월 십오일까지'}
+      ]},
+      {group:'REVIEW',title:'Date & Time Questions',body:'Practice the most useful questions for dates and time before moving to the final review.',examples:[
+        {ko:'오늘 몇 월 며칠이에요?',en:'What month and date is it today?',audio:'오늘 몇 월 며칠이에요?'},
+        {ko:'무슨 요일이에요?',en:'What day of the week is it?',audio:'무슨 요일이에요?'},
+        {ko:'몇 시예요?',en:'What time is it?',audio:'몇 시예요?'},
+        {ko:'몇 분이에요?',en:'How many minutes?',audio:'몇 분이에요?'}
+      ]},
+      {group:'REVIEW',title:'Phase 6 Mastery Review',body:'Review in this order: complete date system → all twelve months → days of the week → date format → AM/PM → Native Korean hours → Sino-Korean minutes → Sino-Korean seconds → from/to ranges.',examples:[
+        {ko:'2026년 8월 15일 토요일',en:'Saturday, August 15, 2026',audio:'이천이십육 년 팔월 십오 일 토요일'},
+        {ko:'오후 세 시 삼십 분',en:'3:30 PM',audio:'오후 세 시 삼십 분'},
+        {ko:'오후 세 시 삼십 분 십 초',en:'3:30:10 PM',audio:'오후 세 시 삼십 분 십 초'},
+        {ko:'오전 아홉 시부터 오후 다섯 시까지',en:'from 9 AM to 5 PM',audio:'오전 아홉 시부터 오후 다섯 시까지'}
+      ]}
     ]
   },
   {
-    id:'phase-7',number:7,title:'문장 구조',subtitle:'Sentence Patterns',icon:'문',color:'green',description:'Build complete Korean sentences using the grammar learned so far.',
+    id:'phase-7',number:7,title:'문장 구조',subtitle:'Sentence Patterns',icon:'문',color:'green',
+    description:'Learn the beginner Korean sentence-order framework S–T–P–O–V: Subject + Time + Place + Object + Verb. Korean is flexible in natural speech, but this pattern gives beginners a clear structure for building complete sentences.',
     lessons:[
-      {title:'Basic Korean Word Order',body:'Korean commonly places the verb at the end. A useful beginner pattern is Subject + Object + Verb.',examples:[{ko:'저는 밥을 먹어요.',en:'I eat rice.',audio:'저는 밥을 먹어요.'}]},
-      {title:'Subject + Description',body:'Use 은/는 or 이/가 to identify the topic or subject.',examples:[{ko:'저는 학생이에요.',en:'I am a student.',audio:'저는 학생이에요.'}]},
-      {title:'Object + Verb',body:'Use 을/를 to mark the object of an action.',examples:[{ko:'한국어를 공부해요.',en:'I study Korean.',audio:'한국어를 공부해요.'}]},
-      {title:'Location + Action',body:'Use 에 for destinations and 에서 for places where actions happen.',examples:[{ko:'학교에 가요.',en:'I go to school.',audio:'학교에 가요.'},{ko:'학교에서 공부해요.',en:'I study at school.',audio:'학교에서 공부해요.'}]},
-      {title:'Sentence Building Practice',body:'Combine subjects, objects, locations, demonstratives, and verbs into complete sentences.',examples:[{ko:'저는 이 책을 읽어요.',en:'I read this book.',audio:'저는 이 책을 읽어요.'}]}
+      {title:'What is STPOV?',body:'STPOV is a beginner-friendly Korean sentence-building framework: S = Subject, T = Time, P = Place, O = Object, V = Verb. The most important rule is that the verb normally comes at the end. Time and place can be added before the object, while some parts can be omitted when they are understood from context.',examples:[
+        {ko:'저는 오늘 학교에서 한국어를 공부해요.',en:'I study Korean at school today.',audio:'저는 오늘 학교에서 한국어를 공부해요.'},
+        {ko:'저는 오늘 학교에서 밥을 먹어요.',en:'I eat a meal at school today.',audio:'저는 오늘 학교에서 밥을 먹어요.'}
+      ]},
+      {title:'S — Subject',body:'The Subject tells who or what performs the action or is being described. Use 은/는 to mark the topic and 이/가 to mark the grammatical subject. At the beginner level, think of S as the person or thing the sentence is about.',examples:[
+        {ko:'저는 공부해요.',en:'I study.',audio:'저는 공부해요.'},
+        {ko:'친구가 와요.',en:'A friend comes.',audio:'친구가 와요.'},
+        {ko:'민수는 학생이에요.',en:'Minsu is a student.',audio:'민수는 학생이에요.'}
+      ]},
+      {title:'T — Time',body:'The Time tells when the action happens. Common time expressions include 오늘 (today), 어제 (yesterday), 내일 (tomorrow), 지금 (now), 아침 (morning), and 저녁 (evening). Time expressions normally come before the place, object, and verb in the STPOV framework.',examples:[
+        {ko:'저는 오늘 공부해요.',en:'I study today.',audio:'저는 오늘 공부해요.'},
+        {ko:'저는 내일 일해요.',en:'I work tomorrow.',audio:'저는 내일 일해요.'},
+        {ko:'저는 지금 밥을 먹어요.',en:'I am eating now.',audio:'저는 지금 밥을 먹어요.'}
+      ]},
+      {title:'P — Place',body:'The Place tells where an action happens or where someone goes. Use 에서 for the place where an action happens, and 에 for a destination or location of existence. In the STPOV pattern, place comes after time and before the object.',examples:[
+        {ko:'저는 학교에서 공부해요.',en:'I study at school.',audio:'저는 학교에서 공부해요.'},
+        {ko:'저는 집에서 쉬어요.',en:'I rest at home.',audio:'저는 집에서 쉬어요.'},
+        {ko:'저는 학교에 가요.',en:'I go to school.',audio:'저는 학교에 가요.'}
+      ]},
+      {title:'O — Object',body:'The Object receives the action. Mark the object with 을/를. If the noun ends in a consonant, use 을. If it ends in a vowel, use 를. The object normally comes immediately before the verb.',examples:[
+        {ko:'밥을 먹어요.',en:'I eat rice / a meal.',audio:'밥을 먹어요.'},
+        {ko:'물을 마셔요.',en:'I drink water.',audio:'물을 마셔요.'},
+        {ko:'한국어를 공부해요.',en:'I study Korean.',audio:'한국어를 공부해요.'}
+      ]},
+      {title:'V — Verb Always at the End',body:'For this beginner pattern, place the main verb at the end of the sentence. This is one of the biggest differences from English word order. Do not put the verb before the object.',examples:[
+        {ko:'저는 책을 읽어요.',en:'I read a book.',audio:'저는 책을 읽어요.'},
+        {ko:'저는 음악을 들어요.',en:'I listen to music.',audio:'저는 음악을 들어요.'},
+        {ko:'저는 한국어를 공부해요.',en:'I study Korean.',audio:'저는 한국어를 공부해요.'}
+      ]},
+      {title:'Building S → T → P → O → V',body:'Build the sentence one part at a time. Start with the subject, add when, add where, add what receives the action, then finish with the verb.',examples:[
+        {ko:'저는 공부해요.',en:'I study. → S + V',audio:'저는 공부해요.'},
+        {ko:'저는 오늘 공부해요.',en:'I study today. → S + T + V',audio:'저는 오늘 공부해요.'},
+        {ko:'저는 오늘 학교에서 공부해요.',en:'I study at school today. → S + T + P + V',audio:'저는 오늘 학교에서 공부해요.'},
+        {ko:'저는 오늘 학교에서 한국어를 공부해요.',en:'I study Korean at school today. → S + T + P + O + V',audio:'저는 오늘 학교에서 한국어를 공부해요.'}
+      ]},
+      {title:'Full STPOV Example — Eating',body:'Here is a complete STPOV sentence. 저는 is the subject, 오늘 is the time, 집에서 is the place, 밥을 is the object, and 먹어요 is the verb.',examples:[
+        {ko:'저는 오늘 집에서 밥을 먹어요.',en:'I eat a meal at home today.',audio:'저는 오늘 집에서 밥을 먹어요.'},
+        {ko:'친구는 저녁에 식당에서 김치를 먹어요.',en:'My friend eats kimchi at a restaurant in the evening.',audio:'친구는 저녁에 식당에서 김치를 먹어요.'}
+      ]},
+      {title:'Full STPOV Example — Studying',body:'Use the same structure with a different action. The object changes, but the verb stays at the end.',examples:[
+        {ko:'저는 매일 도서관에서 한국어를 공부해요.',en:'I study Korean at the library every day.',audio:'저는 매일 도서관에서 한국어를 공부해요.'},
+        {ko:'민수는 오늘 집에서 책을 읽어요.',en:'Minsu reads a book at home today.',audio:'민수는 오늘 집에서 책을 읽어요.'}
+      ]},
+      {title:'STPOV with a Destination',body:'When the action is movement toward a destination, use 에 rather than 에서 for the destination. The destination can still occupy the Place position in the beginner framework.',examples:[
+        {ko:'저는 오늘 학교에 가요.',en:'I go to school today.',audio:'저는 오늘 학교에 가요.'},
+        {ko:'친구는 내일 서울에 가요.',en:'My friend goes to Seoul tomorrow.',audio:'친구는 내일 서울에 가요.'}
+      ]},
+      {title:'Parts Can Be Omitted',body:'STPOV is a learning framework, not a requirement that every sentence contain five parts. Korean often omits a subject when it is already understood. Time, place, and object can also be omitted when they are unnecessary.',examples:[
+        {ko:'공부해요.',en:'I study / I am studying. → subject understood',audio:'공부해요.'},
+        {ko:'오늘 공부해요.',en:'I study today. → S omitted',audio:'오늘 공부해요.'},
+        {ko:'밥을 먹어요.',en:'I eat. → S and T/P omitted',audio:'밥을 먹어요.'}
+      ]},
+      {title:'Korean vs English Word Order',body:'English commonly places the verb before the object: I eat rice. Korean places the object before the verb: 저는 밥을 먹어요. This is why remembering V = Verb at the end is essential.',examples:[
+        {ko:'English: I eat rice.',en:'Subject + Verb + Object',audio:'저는 밥을 먹어요.'},
+        {ko:'Korean: 저는 밥을 먹어요.',en:'Subject + Object + Verb',audio:'저는 밥을 먹어요.'},
+        {ko:'저는 한국어를 공부해요.',en:'I study Korean.',audio:'저는 한국어를 공부해요.'}
+      ]},
+      {title:'STPOV Mastery Review',body:'When building a beginner Korean sentence, ask these questions in order: Who? When? Where? What? What action? Then place the verb at the end.',examples:[
+        {ko:'저는 오늘 학교에서 한국어를 공부해요.',en:'I study Korean at school today.',audio:'저는 오늘 학교에서 한국어를 공부해요.'},
+        {ko:'저는 어제 도서관에서 책을 읽었어요.',en:'I read a book at the library yesterday.',audio:'저는 어제 도서관에서 책을 읽었어요.'},
+        {ko:'저는 내일 집에서 영화를 볼 거예요.',en:'I will watch a movie at home tomorrow.',audio:'저는 내일 집에서 영화를 볼 거예요.'}
+      ]}
     ]
   },
   {
@@ -620,19 +836,21 @@ function openLessonPhase(id) {
       ? `<div class="lesson-group-header"><span>${group}</span><i></i></div>`
       : '';
     previousGroup = group;
-    const examples = lesson.examples.map(ex => `<div class="lesson-example">
+    const examples = (lesson.examples || []).map(ex => `<div class="lesson-example">
       <div class="lesson-example-ko"><span>${ex.ko}</span>${ex.roman ? `<small class="lesson-example-roman">${ex.roman}</small>` : ''}</div>
       <span>${ex.en}</span>
       ${ex.sound ? `<small class="lesson-example-sound">Pronunciation: ${ex.sound}</small>` : ''}
       <div class="lesson-example-audio" data-audio-text="${encodeURIComponent(ex.audio || ex.ko)}"></div>
     </div>`).join('');
+    const counterTable = lesson.table ? `<div class="lesson-counter-table-wrap"><div class="lesson-counter-table-title">${lesson.tableTitle || ''}</div><div class="lesson-counter-table-scroll"><table class="lesson-counter-table"><thead><tr><th>Counter</th><th>What it counts</th><th>Example</th><th>Meaning</th><th>Audio</th></tr></thead><tbody>${lesson.table.map(row => `<tr><td class="counter-ko">${row.counter}</td><td>${row.use}</td><td class="counter-example-ko">${row.example}</td><td>${row.meaning}</td><td><div class="lesson-example-audio lesson-counter-audio" data-audio-text="${encodeURIComponent(row.example)}"></div></td></tr>`).join('')}</tbody></table></div></div>` : '';
     return `${groupHeader}<article class="lesson-item ${done ? 'is-complete' : ''}">
       <div class="lesson-item-head">
         <span class="lesson-index">${i + 1}</span>
         <div><span class="lesson-item-kicker">LESSON ${String(i + 1).padStart(2, '0')}</span><h3>${lesson.title}</h3><p>${lesson.body}</p></div>
         <button class="lesson-complete-btn" type="button" data-complete-phase="${phase.id}" data-complete-index="${i}">${done ? '✓ Completed' : 'Mark Complete'}</button>
       </div>
-      <div class="lesson-examples">${examples}</div>
+      ${counterTable}
+      ${examples ? `<div class="lesson-examples">${examples}</div>` : ''}
     </article>`;
   }).join('');
 
